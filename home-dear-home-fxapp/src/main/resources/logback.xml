@@ -1,0 +1,23 @@
+<configuration xmlns="http://ch.qos.logback/xml/ns/logback"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://ch.qos.logback/xml/ns/logback
+              logback.xsd">
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/aboba.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/base-client.%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{20} : %msg%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="org.springframework.boot.SpringApplication">
+        <appender-ref ref="FILE" />
+    </logger>
+    <logger level="ALL" name="org.banew.hdhclient" additivity="false">
+        <appender-ref ref="FILE" />
+    </logger>
+
+    <root level="ALL" />
+</configuration>
