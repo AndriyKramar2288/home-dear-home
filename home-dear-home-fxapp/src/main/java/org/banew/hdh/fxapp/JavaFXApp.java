@@ -33,7 +33,7 @@ public class JavaFXApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Platform.setImplicitExit(false);
+
         stage.initStyle(StageStyle.TRANSPARENT);
 
         scene = new Scene(loadFXML("primary"), 640, 480);
