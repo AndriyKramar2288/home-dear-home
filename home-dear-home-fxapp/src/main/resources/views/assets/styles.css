@@ -1,0 +1,21 @@
+.top-bar-button:hover {
+    -fx-background-color:  #3F3F3F !important;
+}
+
+.top-bar-button {
+    -fx-background-radius: 5;
+}
+
+.top-bar {
+    -fx-background-radius: 10;
+}
+
+.main-container {
+    -fx-background-color: #2b2b2b; /* Твій колір фону (або з AtlantaFX) */
+    -fx-background-radius: 10;    /* Заокруглення фону */
+    /*
+    -fx-border-radius: 10;
+    -fx-border-color: #444444;
+    -fx-border-width: 3;
+    */
+}

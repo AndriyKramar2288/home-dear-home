@@ -3,11 +3,14 @@ package org.banew.hdh.fxapp;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import java.io.IOException;
@@ -15,7 +18,6 @@ import java.io.IOException;
 /**
  * JavaFX App
  */
-@SpringBootApplication
 public class JavaFXApp extends Application {
 
     private static ApplicationContext context;
@@ -31,9 +33,21 @@ public class JavaFXApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        Platform.setImplicitExit(false);
+        stage.initStyle(StageStyle.TRANSPARENT);
+
         scene = new Scene(loadFXML("primary"), 640, 480);
+        scene.setFill(Color.TRANSPARENT);
+
         stage.setScene(scene);
         stage.show();
+
+        stage.iconifiedProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (!newValue && stage.isMaximized()) {
+                resizeAsOpen(stage);
+            }
+        });
+        ResizeHelper.addResizeListener(stage);
     }
 
     public void changeScene(String fxml) {
@@ -56,8 +70,23 @@ public class JavaFXApp extends Application {
     }
 
     private Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml + ".fxml"));
+
+        var resource = getClass().getClassLoader().getResource("views/" + fxml + ".fxml");
+
+        FXMLLoader fxmlLoader = new FXMLLoader(resource);
         fxmlLoader.setControllerFactory(context::getBean);
         return fxmlLoader.load();
+    }
+
+    public static void resizeAsOpen(Stage stage) {
+        Platform.runLater(() -> {
+            Rectangle2D bounds = Screen.getScreensForRectangle(stage.getX(), stage.getY(), stage.getWidth(), stage.getHeight())
+                    .get(0).getVisualBounds();
+
+            stage.setX(bounds.getMinX());
+            stage.setY(bounds.getMinY());
+            stage.setWidth(bounds.getWidth());
+            stage.setHeight(bounds.getHeight());
+        });
     }
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="979.0" prefWidth="1677.0" style="-fx-background-color: #1F1F1F;" styleClass="main-container" stylesheets="@assets/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.views.PrimaryController">
+   <children>
+      <ImageView fitHeight="673.0" fitWidth="867.0" layoutX="-14.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+         <image>
+            <Image url="@assets/city.png" />
+         </image>
+      </ImageView>
+      <HBox fx:id="topBar" alignment="CENTER_RIGHT" layoutX="6.4" layoutY="6.4" onMouseDragged="#handleTitleBarDragged" onMousePressed="#handleTitleBarPressed" prefHeight="0.0" prefWidth="1671.0" style="-fx-background-color: #2F2F2F;" styleClass="top-bar" stylesheets="@assets/styles.css" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleMinimize" prefHeight="42.0" prefWidth="38.0" style="-fx-background-color: #2F2F2F;" styleClass="top-bar-button">
+               <graphic>
+                  <FontAwesomeIconView fill="#766464" glyphName="MINUS" onMouseClicked="#handleMinimize" size="15" />
+               </graphic>
+               <HBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </HBox.margin></Button>
+            <Button mnemonicParsing="false" onAction="#handleMaximize" prefHeight="42.0" prefWidth="38.0" style="-fx-background-color: #2F2F2F;" styleClass="top-bar-button">
+               <graphic>
+                  <FontAwesomeIconView fill="#766464" glyphName="FOLDER" size="15" />
+               </graphic>
+               <HBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#closeHandle" prefHeight="42.0" prefWidth="38.0" style="-fx-background-color: #2F2F2F;" styleClass="top-bar-button">
+               <graphic>
+                  <FontAwesomeIconView fill="#766464" glyphName="TIMES" size="15" />
+               </graphic>
+               <HBox.margin>
+                  <Insets bottom="5.0" right="15.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <CheckBox layoutX="361.0" layoutY="382.0" mnemonicParsing="false" text="CheckBox" />
+   </children>
+</AnchorPane>
