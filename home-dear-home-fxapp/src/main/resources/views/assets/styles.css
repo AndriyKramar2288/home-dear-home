@@ -18,6 +18,18 @@
     -fx-city-blue: #302F34;
 }
 
+.only-narrow {
+    -fx-opacity: 0;
+}
+
+.root:narrow .only-narrow {
+    -fx-opacity: 1;
+}
+
+.root:narrow .only-wide {
+    -fx-opacity: 0;
+}
+
 
 
 /*WINDOW & CENTRAL BOX*/
@@ -94,10 +106,6 @@
 
 /*CLOCK BOX*/
 
-.root:narrow #clock-area {
-    -fx-opacity: 0;
-}
-
 #clock-box {
     -fx-border-color: -fx-city-blue;
     -fx-border-radius: 6;
@@ -115,11 +123,7 @@
 
 #metainfo-box Label {
     -fx-text-fill: -fx-text-default;
-    -fx-font-size: 24px;
-}
-
-.root:narrow #metainfo-box {
-    -fx-opacity: 0;
+    -fx-font-size: 20px;
 }
 
 #metainfo-box FontIcon {
@@ -128,7 +132,6 @@
 
 #metainfo-box FontIcon:hover {
     -fx-icon-color: #8c8899;
-    -fx-background-radius: 12;
 }
 
 
