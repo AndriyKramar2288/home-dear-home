@@ -1,4 +1,5 @@
 package org.banew.hdh.fxapp;
+import javafx.css.PseudoClass;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
@@ -12,6 +13,9 @@ public class ResizeHelper {
         Scene scene = stage.getScene();
 
         scene.addEventFilter(MouseEvent.MOUSE_MOVED, e -> {
+
+            if (stage.isMaximized()) return;
+
             double mouseX = e.getX();
             double mouseY = e.getY();
             double width = stage.getWidth();
@@ -41,7 +45,8 @@ public class ResizeHelper {
         });
 
         scene.addEventFilter(MouseEvent.MOUSE_DRAGGED, e -> {
-            if (scene.getCursor() == Cursor.DEFAULT) return;
+
+            if (scene.getCursor() == Cursor.DEFAULT || stage.isMaximized()) return;
 
             double deltaX = e.getScreenX() - x;
             double deltaY = e.getScreenY() - y;

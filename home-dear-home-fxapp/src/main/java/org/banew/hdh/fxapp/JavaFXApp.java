@@ -1,12 +1,15 @@
 package org.banew.hdh.fxapp;
 
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.application.Platform;
+import javafx.css.PseudoClass;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -23,23 +26,40 @@ public class JavaFXApp extends Application {
     private static ApplicationContext context;
     private static JavaFXApp INSTANCE;
 
+    private static final int MIN_WIDTH = 900;
+    private static final int MIN_HEIGHT = 600;
+
     private Scene scene;
+    private Stage stage;
+    private HostServices hostServices;
 
     @Override
-    public void init() throws Exception {
+    public void init() {
         INSTANCE = this;
+        hostServices = getHostServices();
         context = SpringApplication.run(SpringBootApp.class);
     }
 
     @Override
     public void start(Stage stage) throws IOException {
+        this.stage = stage;
+
+        Font.loadFont(getClass().getResourceAsStream("/views/assets/Gugi-Regular.ttf"), 60);
 
         stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setMinWidth(MIN_WIDTH);
+        stage.setMinHeight(MIN_HEIGHT);
 
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("primary"), MIN_WIDTH, MIN_HEIGHT);
         scene.setFill(Color.TRANSPARENT);
 
+        PseudoClass narrowMode = PseudoClass.getPseudoClass("narrow");
+        stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            scene.getRoot().pseudoClassStateChanged(narrowMode, newVal.doubleValue() < 1400);
+        });
+
         stage.setScene(scene);
+        maximize();
         stage.show();
 
         stage.iconifiedProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -60,6 +80,22 @@ public class JavaFXApp extends Application {
         });
     }
 
+    public void minimize() {
+        stage.setIconified(true);
+        scene.setFill(stage.isMaximized() ? Color.BLACK : Color.TRANSPARENT);
+    }
+
+    public void maximize() {
+        if (stage.isMaximized()) {
+            stage.setMaximized(false);
+        } else {
+            JavaFXApp.resizeAsOpen(stage);
+            stage.setMaximized(true);
+        }
+
+        scene.setFill(stage.isMaximized() ? Color.BLACK : Color.TRANSPARENT);
+    }
+
     public static JavaFXApp getInstance() {
         if (INSTANCE == null) {
             throw new IllegalStateException("Application has not been initialized!");
@@ -78,7 +114,7 @@ public class JavaFXApp extends Application {
         return fxmlLoader.load();
     }
 
-    public static void resizeAsOpen(Stage stage) {
+    private static void resizeAsOpen(Stage stage) {
         Platform.runLater(() -> {
             Rectangle2D bounds = Screen.getScreensForRectangle(stage.getX(), stage.getY(), stage.getWidth(), stage.getHeight())
                     .get(0).getVisualBounds();
@@ -88,5 +124,16 @@ public class JavaFXApp extends Application {
             stage.setWidth(bounds.getWidth());
             stage.setHeight(bounds.getHeight());
         });
+    }
+
+    public String getAppVersion() {
+        String version = getClass().getPackage().getImplementationVersion();
+        return (version != null) ? version : "Dev Mode";
+    }
+
+    public void openWebpage(String url) {
+        if (hostServices != null) {
+            hostServices.showDocument(url);
+        }
     }
 }

@@ -1,3 +1,185 @@
+/*COMMON*/
+
+@font-face {
+    src: url("Gugi-Regular.ttf");
+}
+
+* {
+    -fx-font-family: "Gugi";
+}
+
+/*.button:hover {
+    -fx-cursor: hand;
+}*/
+
+.root {
+    -fx-text-default: #A39FB3;
+    -fx-brown-black: #2F2320;
+    -fx-city-blue: #302F34;
+}
+
+
+
+/*WINDOW & CENTRAL BOX*/
+
+.main-container {
+    -fx-background-color: #2b2b2b; /* Твій колір фону (або з AtlantaFX) */
+    -fx-background-radius: 10;    /* Заокруглення фону */
+}
+
+.central-box {
+    -fx-background-radius: 24;
+    -fx-background-image: url("central_box_back.png");
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 30, 0, 12, 36);
+}
+
+
+
+/*TOP LABEL*/
+
+#top-label-box Label {
+    -fx-text-fill: -fx-text-default;
+}
+
+.root:narrow #top-label-box {
+    -fx-font-size: 60px;
+}
+
+#top-label-box Rectangle {
+    -fx-fill: -fx-text-default;
+    -fx-fill-radius: 6;
+}
+
+
+
+/*FORM BUTTONS*/
+
+.form-button {
+    -fx-background-color: -fx-city-blue;
+    -fx-background-radius: 6;
+    -fx-text-fill: -fx-text-default;
+    -fx-padding: 5 40 5 40;
+    -fx-font-size: 24px;
+}
+
+.form-button:hover {
+    -fx-padding: 5 40 5 40;
+    -fx-background-color: #353438;
+    -fx-background-radius: 6;
+    -fx-font-size: 24px;
+}
+
+.form-alt-button {
+    -fx-background-color: rgba(255, 255, 255, 0);
+    -fx-background-radius: 6;
+    -fx-border-color: -fx-city-blue;
+    -fx-border-radius: 6;
+    -fx-border-width: 4;
+    -fx-text-fill: -fx-text-default;
+    -fx-padding: 5 20 5 20;
+    -fx-font-size: 20px;
+}
+
+.form-alt-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.05);
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+}
+
+
+
+/*CLOCK BOX*/
+
+.root:narrow #clock-area {
+    -fx-opacity: 0;
+}
+
+#clock-box {
+    -fx-border-color: -fx-city-blue;
+    -fx-border-radius: 6;
+    -fx-border-width: 4;
+}
+
+#clock-box Label {
+    -fx-text-fill: -fx-text-default;
+}
+
+
+
+
+/*METAINFO*/
+
+#metainfo-box Label {
+    -fx-text-fill: -fx-text-default;
+    -fx-font-size: 24px;
+}
+
+.root:narrow #metainfo-box {
+    -fx-opacity: 0;
+}
+
+#metainfo-box FontIcon {
+    -fx-icon-color: -fx-text-default;
+}
+
+#metainfo-box FontIcon:hover {
+    -fx-icon-color: #8c8899;
+    -fx-background-radius: 12;
+}
+
+
+
+
+/*FORM FIELDS*/
+
+#field-box {
+    -fx-background-color: -fx-text-default;
+    -fx-background-radius: 12;
+}
+
+.text-field {
+    -fx-background-color: rgba(255, 255, 255, 0);
+    -fx-border-color: -fx-brown-black;
+    -fx-border-radius: 12;
+    -fx-border-width: 2;
+    
+    /* Текст всередині */
+    -fx-text-fill: -fx-brown-black;
+    -fx-font-size: 16px;
+    -fx-padding: 10 15 10 15;
+    
+    /* Колір курсора */
+    -fx-highlight-fill: -fx-accent; /* Колір виділення тексту */
+    -fx-caret-fill: -fx-accent;    /* Колір палички, що мигає */
+}
+
+/* Коли ми натиснули на поле (Focus) */
+.text-field:focused {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-radius: 12;
+    -fx-border-color: #000000;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10, 0, 0, 0);
+}
+
+.text-field .text {
+    -fx-fill: -fx-brown-black;
+}
+
+.text-field .prompt-text {
+    -fx-text-fill: -fx-brown-black;
+    -fx-font-style: italic;
+}
+
+
+
+
+/*TOP BAR*/
+
 .top-bar-button:hover {
     -fx-background-color:  #3F3F3F !important;
 }
@@ -10,9 +192,4 @@
 .top-bar {
     -fx-background-color: #242424;
     -fx-background-radius: 10;
-}
-
-.main-container {
-    -fx-background-color: #2b2b2b; /* Твій колір фону (або з AtlantaFX) */
-    -fx-background-radius: 10;    /* Заокруглення фону */
 }

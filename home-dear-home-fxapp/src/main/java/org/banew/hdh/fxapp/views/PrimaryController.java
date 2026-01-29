@@ -1,77 +1,56 @@
 package org.banew.hdh.fxapp.views;
 
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import org.banew.hdh.fxapp.JavaFXApp;
-import org.springframework.beans.factory.annotation.Autowired;
+import javafx.util.Duration;
+import jdk.jfr.Event;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Component
-public class PrimaryController {
+public class PrimaryController extends AbstractController {
+    @FXML
+    private Label clockLabel;
+    @FXML
+    private Label regionLabel;
+    @FXML
+    private Label metaInfoLabel;
 
     @FXML
-    private HBox topBar;
-
-    @Autowired
-    private JavaFXApp javaFXApp;
-
-    private double xOffset = 0;
-    private double yOffset = 0;
-
-    @FXML
-    private void handleTitleBarPressed(MouseEvent event) {
-        if (event.getClickCount() == 2) {
-            handleMaximize(new ActionEvent(event.getSource(), null));
-            return;
-        }
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        if (!stage.isMaximized()) {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        }
+    public void sendToDiscord(MouseEvent event) {
+        javaFXApp.openWebpage("https://google.com");
     }
 
     @FXML
-    private void handleTitleBarDragged(MouseEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        if (!stage.isMaximized()) {
-            stage.setX(event.getScreenX() - xOffset);
-            stage.setY(event.getScreenY() - yOffset);
-        }
+    public void sendToGithub(MouseEvent event) {
+        javaFXApp.openWebpage("https://google.com");
     }
 
-    @FXML
-    public void closeHandle() {
-        Platform.exit();
+    public void initialize() {
+        setUpClock();
+        metaInfoLabel.setText(String.format("HomeDearHome\nJavaFX %s",
+                javaFXApp.getAppVersion()));
     }
 
-    @FXML
-    private void handleMinimize(Event event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setIconified(true);
-    }
+    private void setUpClock() {
+        regionLabel.setText(ZonedDateTime.now().getZone().toString());
 
-    @FXML
-    private void handleMaximize(Event event) {
-        Scene scene = ((Node) event.getSource()).getScene();
-        Stage stage = (Stage) scene.getWindow();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
 
-        if (stage.isMaximized()) {
-            stage.setMaximized(false);
-        } else {
-            JavaFXApp.resizeAsOpen(stage);
-            stage.setMaximized(true);
-        }
+        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            LocalTime currentTime = LocalTime.now();
+            String formattedTime = currentTime.format(dtf);
+            clockLabel.setText(formattedTime);
+        }), new KeyFrame(Duration.seconds(1)));
 
-        scene.setFill(stage.isMaximized() ? Color.BLACK : Color.TRANSPARENT);
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
     }
 }
