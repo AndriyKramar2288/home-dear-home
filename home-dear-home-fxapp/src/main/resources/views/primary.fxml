@@ -21,6 +21,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="979.0" prefWidth="1677.0" style="-fx-background-color: #1F1F1F;" styleClass="main-container" stylesheets="@assets/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.PrimaryController">
    <children>
+      <HBox fx:id="testPane" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
       <ImageView fitHeight="673.0" fitWidth="867.0" layoutX="-14.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
          <image>
             <Image url="@assets/city.png" />

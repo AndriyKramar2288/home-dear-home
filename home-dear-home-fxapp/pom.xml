@@ -24,7 +24,12 @@
         </dependency>
 
 
-
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.42</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.banew</groupId>
             <artifactId>home-dear-home-core</artifactId>
@@ -72,6 +77,13 @@
                 <version>3.8.0</version>
                 <configuration>
                     <release>${java.version}</release>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.42</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
             <plugin>

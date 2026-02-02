@@ -1,23 +1,17 @@
 package org.banew.hdh.fxapp.implementations.xml;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.*;
+import lombok.Data;
+import org.banew.hdh.core.api.users.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement(name = "storage")
 @XmlAccessorType(XmlAccessType.FIELD)
+@Data
 public class XmlStorage {
-
-    @XmlElement(name = "users")
-    public ListWrap users = new ListWrap();
-
-    @XmlAccessorType(XmlAccessType.FIELD)
-    public static class ListWrap {
-        @XmlElement(name = "user")
-        public List<XmlStorageUser> users = new ArrayList<>();
-    }
+    @XmlElementWrapper(name = "users")
+    @XmlElement(name = "user")
+    private List<XmlUser> users = new ArrayList<>();
 }

@@ -3,14 +3,17 @@ package org.banew.hdh.fxapp.ui.views;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.util.Duration;
-import org.banew.hdh.core.api.users.UserService;
+import org.banew.hdh.core.api.UserService;
+import org.banew.hdh.fxapp.implementations.StorageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 public class PrimaryController extends AbstractController {
 
     @Autowired
-    private UserService userService;
+    private StorageRepository storageRepository;
 
     @FXML
     private Label clockLabel;
@@ -35,6 +38,9 @@ public class PrimaryController extends AbstractController {
     private TextField loginField;
     @FXML
     private PasswordField passwordField;
+
+    @FXML
+    private HBox testPane;
 
     @FXML
     public void sendToDiscord(MouseEvent event) {
@@ -54,7 +60,7 @@ public class PrimaryController extends AbstractController {
 
     @FXML
     public void login(ActionEvent event) {
-        userService.login(loginField.getText(), passwordField.getText());
+        storageRepository.deleteMe(testPane);
     }
 
     private void setUpClock() {

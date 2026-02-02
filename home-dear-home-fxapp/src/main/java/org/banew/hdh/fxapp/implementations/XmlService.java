@@ -21,6 +21,7 @@ public class XmlService {
             context.generateSchema(new SchemaOutputResolver() {
                 @Override
                 public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
+                    suggestedFileName = "schema.xsd";
                     StreamResult result = new StreamResult(new File(suggestedFileName));
                     result.setSystemId(suggestedFileName);
                     return result;
@@ -38,7 +39,7 @@ public class XmlService {
 
         // Щоб XML був гарним, а не в один рядок
         mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        mar.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "com.banew/home-dear-home/storage schema1.xsd");
+        mar.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "com.banew/home-dear-home/storage schema.xsd");
 
         mar.marshal(xmlStorage, file);
     }
