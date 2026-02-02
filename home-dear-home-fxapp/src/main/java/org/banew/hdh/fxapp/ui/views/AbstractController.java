@@ -1,4 +1,4 @@
-package org.banew.hdh.fxapp.views;
+package org.banew.hdh.fxapp.ui.views;
 
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import org.banew.hdh.fxapp.JavaFXApp;
+import org.banew.hdh.fxapp.ui.JavaFXApp;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractController {

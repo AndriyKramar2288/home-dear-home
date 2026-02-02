@@ -1,4 +1,4 @@
-package org.banew.hdh.fxapp;
+package org.banew.hdh.fxapp.ui;
 
 import javafx.application.Application;
 import javafx.application.HostServices;
@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.banew.hdh.fxapp.SpringBootApp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 

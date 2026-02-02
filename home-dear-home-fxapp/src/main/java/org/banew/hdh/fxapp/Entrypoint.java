@@ -1,5 +1,6 @@
 package org.banew.hdh.fxapp;
 
+import org.banew.hdh.fxapp.ui.JavaFXApp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

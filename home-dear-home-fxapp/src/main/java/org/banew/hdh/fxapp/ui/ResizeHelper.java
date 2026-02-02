@@ -1,5 +1,4 @@
-package org.banew.hdh.fxapp;
-import javafx.css.PseudoClass;
+package org.banew.hdh.fxapp.ui;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
