@@ -1,6 +1,9 @@
 package org.banew.hdh.fxapp.implementations.xml;
 
-import jakarta.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -8,9 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import org.banew.hdh.core.api.components.Data;
 import org.banew.hdh.core.api.components.StringData;
-import org.banew.hdh.fxapp.implementations.widgets.AbstractWidgetLocationComponent;
 
-import java.util.UUID;
 import java.util.function.Consumer;
 
 @XmlRootElement(name = "button")
@@ -31,7 +32,7 @@ public class ButtonComponent extends AbstractWidgetLocationComponent<Button> {
 
     @Override
     protected int getGenerateArgsCount() {
-        return 1;
+        return 0;
     }
 
     @Override
@@ -50,7 +51,6 @@ public class ButtonComponent extends AbstractWidgetLocationComponent<Button> {
 
     @Override
     public void init(Pane pane) {
-        name = "Button-" + UUID.randomUUID();
         widget = new Button(text);
         widget.setTranslateX(x);
         widget.setTranslateY(y);
