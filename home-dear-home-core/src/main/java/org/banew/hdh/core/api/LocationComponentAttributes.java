@@ -1,17 +1,22 @@
 package org.banew.hdh.core.api;
 
-import java.util.List;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public record LocationComponentAttributes(
-    String name,
-    String fullClassName,
-    String description,
-    List<Argument> generationArguments,
-    List<Argument> processingArguments
-) {
-    public record Argument (
-        String name,
-        String desc,
-        String format
-    ) {}
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface LocationComponentAttributes {
+
+    String name();
+    String description();
+    Argument[] generationArguments();
+    Argument[] processingArguments();
+
+    @interface Argument {
+        String name();
+        String desc();
+        String format();
+    }
 }

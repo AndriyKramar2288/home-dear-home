@@ -1,15 +1,18 @@
 package org.banew.hdh.fxapp.implementations.xml;
 
 import jakarta.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import lombok.Data;
 import org.banew.hdh.core.api.Location;
 import org.banew.hdh.core.api.users.User;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @XmlAccessorType(XmlAccessType.FIELD)
+@Data
 public class XmlUser implements User {
     @XmlAttribute
     private String username;
@@ -21,6 +24,9 @@ public class XmlUser implements User {
     private String fullname;
     @XmlAttribute
     private String phoneNumber;
+    @XmlAttribute
+    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+    private LocalDateTime lastTimeLogin;
     @XmlElementWrapper(name = "locations")
     @XmlElement(name = "location")
     private List<XmlLocation> locations;
@@ -53,5 +59,15 @@ public class XmlUser implements User {
     @Override
     public Set<Location> getLocations() {
         return new HashSet<>(locations);
+    }
+
+    @Override
+    public LocalDateTime getLastTimeLogin() {
+        return lastTimeLogin;
+    }
+
+    @Override
+    public void setLastTimeLogin(LocalDateTime lastTimeLogin) {
+        this.lastTimeLogin = lastTimeLogin;
     }
 }

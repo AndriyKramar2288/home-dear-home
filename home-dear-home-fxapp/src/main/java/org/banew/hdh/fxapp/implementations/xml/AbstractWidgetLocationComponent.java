@@ -1,6 +1,5 @@
 package org.banew.hdh.fxapp.implementations.xml;
 
-import jakarta.xml.bind.annotation.XmlTransient;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
@@ -55,10 +54,6 @@ public abstract class AbstractWidgetLocationComponent<T extends Parent> extends 
     private void validateArgsCount(int expected, String... args) {
 
         int actual = args == null ? 0 : args.length;
-
-//        if (expected == -1 || actual != 0) {
-//            throw new IllegalArgumentException("You can't use this class with this purpose!");
-//        } TODO
 
         if (actual < expected) {
             throw new IllegalArgumentException(

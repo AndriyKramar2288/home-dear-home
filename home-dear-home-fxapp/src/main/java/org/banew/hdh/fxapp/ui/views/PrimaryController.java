@@ -12,8 +12,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
-import org.banew.hdh.core.api.UserService;
-import org.banew.hdh.fxapp.implementations.StorageRepository;
+import org.banew.hdh.core.api.services.UserService;
+import org.banew.hdh.core.api.users.User;
+import org.banew.hdh.core.api.users.forms.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +26,7 @@ import java.time.format.DateTimeFormatter;
 public class PrimaryController extends AbstractController {
 
     @Autowired
-    private StorageRepository storageRepository;
+    private UserService userService;
 
     @FXML
     private Label clockLabel;
@@ -60,7 +61,21 @@ public class PrimaryController extends AbstractController {
 
     @FXML
     public void login(ActionEvent event) {
-        storageRepository.deleteMe(testPane);
+        userService.login(new LoginForm() {
+            @Override
+            public String username() {
+                return loginField.getText();
+            }
+
+            @Override
+            public String password() {
+                return passwordField.getText();
+            }
+        }).thenAccept(user -> {
+            Platform.runLater(() -> {
+                passwordField.setText(user.getUsername());
+            });
+        });
     }
 
     private void setUpClock() {

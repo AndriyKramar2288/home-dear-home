@@ -27,8 +27,7 @@ public class XmlService {
                     return result;
                 }
             });
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -49,8 +48,7 @@ public class XmlService {
             Unmarshaller unmar = context.createUnmarshaller();
 
             return Optional.of((XmlStorage) unmar.unmarshal(file));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return Optional.empty();
         }
     }

@@ -2,11 +2,24 @@ package org.banew.hdh.core.api;
 
 import org.banew.hdh.core.api.components.Action;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.List;
+import java.util.Map;
 
 public interface Location {
-    void add(LocationComponent locationComponent);
-    void addAll(Iterable<? extends LocationComponent> locationComponents);
-    CompletableFuture<Action> addAction(Action action);
-    CompletableFuture<Boolean> removeAction(Action action);
+
+    String getId();
+
+    void setId(String id);
+
+    String getName();
+
+    void setName(String name);
+
+    String getDescription();
+
+    void setDescription(String description);
+
+    List<LocationComponent> getComponents();
+
+    List<Action> getActions();
 }
