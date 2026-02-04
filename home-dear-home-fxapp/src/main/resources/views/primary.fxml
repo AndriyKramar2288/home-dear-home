@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="979.0" prefWidth="1677.0" style="-fx-background-color: #1F1F1F;" styleClass="main-container" stylesheets="@assets/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.PrimaryController">
+<AnchorPane fx:id="mainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="979.0" prefWidth="1677.0" style="-fx-background-color: #1F1F1F;" styleClass="main-container" stylesheets="@assets/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.PrimaryController">
    <children>
       <ImageView fitHeight="673.0" fitWidth="867.0" layoutX="-14.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
          <image>
@@ -106,6 +106,11 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </VBox>
+                        <Label id="form-alert-label" fx:id="formAlertLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="44.0" prefWidth="357.0" text="Label" textAlignment="CENTER">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Label>
                         <Button mnemonicParsing="false" onAction="#login" styleClass="form-button" text="Login" textFill="#302f34">
                            <VBox.margin>
                               <Insets bottom="20.0" top="60.0" />
@@ -113,7 +118,7 @@
                         </Button>
                         <FlowPane alignment="TOP_RIGHT" columnHalignment="RIGHT" hgap="20.0" prefHeight="80.0" prefWidth="635.0">
                            <children>
-                              <Button mnemonicParsing="false" styleClass="form-alt-button" text="Create account" textFill="#302f34" />
+                              <Button mnemonicParsing="false" onAction="#register" styleClass="form-alt-button" text="Create account" textFill="#302f34" />
                               <Circle fill="#a39fb3" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
                               <Button mnemonicParsing="false" styleClass="form-alt-button" text="Forget password?" textFill="#302f34" />
                               <Circle fill="#a39fb3" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="only-narrow" />
@@ -178,6 +183,5 @@
             </GridPane>
          </children>
       </VBox>
-      <HBox fx:id="testPane" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
    </children>
 </AnchorPane>

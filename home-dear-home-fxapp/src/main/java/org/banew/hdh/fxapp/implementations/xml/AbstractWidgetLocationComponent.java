@@ -45,7 +45,6 @@ public abstract class AbstractWidgetLocationComponent<T extends Parent> extends 
         processEvent(stringData, args);
     }
 
-    public abstract void init(Pane pane);
     protected abstract int getProcessArgsCount();
     protected abstract int getGenerateArgsCount();
     protected abstract EventHandler<? extends Event> whenGenerateEvent(Consumer<Data> consumer, String... args);

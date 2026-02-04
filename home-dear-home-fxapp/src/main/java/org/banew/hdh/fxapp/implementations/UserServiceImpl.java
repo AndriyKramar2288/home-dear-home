@@ -40,11 +40,22 @@ public class UserServiceImpl implements UserService {
     @Override
     @Async
     public CompletableFuture<? extends User> login(LoginForm loginForm) {
-        var user = storageRepository
-                .findByUsernameAndPassword(loginForm.username(), passwordEncoder.encode(loginForm.password()))
-                .orElseThrow(() -> new IllegalArgumentException("Username or password is invalid"));
+        try {
+            // Логіка пошуку та перевірки
+            var user = storageRepository.findByUsername(loginForm.username())
+                    .orElseThrow(() -> new IllegalArgumentException("Username or password is invalid"));
 
-        return CompletableFuture.completedFuture(user);
+            if (!passwordEncoder.matches(loginForm.password(), user.getPassword())) {
+                throw new IllegalArgumentException("Username or password is invalid");
+            }
+
+            authorizationContext.setCurrentUser(user);
+            return CompletableFuture.completedFuture(user);
+
+        } catch (Exception e) {
+            // Явно кажемо: "Цей запуск завершився провалом"
+            return CompletableFuture.failedFuture(e);
+        }
     }
 
     @Override

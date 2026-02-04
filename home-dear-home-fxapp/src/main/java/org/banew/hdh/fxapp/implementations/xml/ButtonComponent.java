@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import org.banew.hdh.core.api.components.Data;
 import org.banew.hdh.core.api.components.StringData;
+import org.banew.hdh.fxapp.implementations.ComponentsContext;
+import org.banew.hdh.fxapp.implementations.StorageRepository;
 
 import java.util.function.Consumer;
 
@@ -50,10 +52,10 @@ public class ButtonComponent extends AbstractWidgetLocationComponent<Button> {
     }
 
     @Override
-    public void init(Pane pane) {
+    public void init(ComponentsContext componentsContext) {
         widget = new Button(text);
         widget.setTranslateX(x);
         widget.setTranslateY(y);
-        pane.getChildren().add(widget);
+        componentsContext.getMainPane().getChildren().add(widget);
     }
 }

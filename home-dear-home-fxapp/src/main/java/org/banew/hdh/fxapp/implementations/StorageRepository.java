@@ -46,9 +46,9 @@ public class StorageRepository {
         xmlService.saveToXml(xmlStorage, file);
     }
 
-    public Optional<? extends User> findByUsernameAndPassword(String username, String password) {
+    public Optional<? extends User> findByUsername(String username) {
         return xmlStorage.getUsers().stream()
-                .filter(u -> u.getUsername().equals(username) && u.getPassword().equals(password))
+                .filter(u -> u.getUsername().equals(username))
                 .findFirst();
     }
 

@@ -102,6 +102,9 @@
     -fx-border-radius: 6;
 }
 
+.root:register-mode .form-button, .root:register-mode .form-alt-button {
+    opacity: 0;
+}
 
 
 /*CLOCK BOX*/
@@ -176,6 +179,16 @@
 .text-field .prompt-text {
     -fx-text-fill: -fx-brown-black;
     -fx-font-style: italic;
+}
+
+#form-alert-label {
+    -fx-background-color: rgba(100, 0, 0, 0.1);
+    -fx-background-radius: 6;
+
+    /* Текст всередині */
+    -fx-text-fill: -fx-text-default;
+    -fx-font-size: 16px;
+    -fx-padding: 10 15 10 15;
 }
 
 

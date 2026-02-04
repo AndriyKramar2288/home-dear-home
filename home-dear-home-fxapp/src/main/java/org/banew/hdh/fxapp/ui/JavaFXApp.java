@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import lombok.Getter;
 import org.banew.hdh.fxapp.SpringBootApp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
@@ -30,6 +31,7 @@ public class JavaFXApp extends Application {
     private static final int MIN_WIDTH = 900;
     private static final int MIN_HEIGHT = 600;
 
+    @Getter
     private Scene scene;
     private Stage stage;
     private HostServices hostServices;
@@ -54,15 +56,16 @@ public class JavaFXApp extends Application {
         scene = new Scene(loadFXML("primary"), MIN_WIDTH, MIN_HEIGHT);
         scene.setFill(Color.TRANSPARENT);
 
-        PseudoClass narrowMode = PseudoClass.getPseudoClass("narrow");
+        // narrow-mode listener
         stage.widthProperty().addListener((obs, oldVal, newVal) -> {
-            scene.getRoot().pseudoClassStateChanged(narrowMode, newVal.doubleValue() < 1400);
+            scene.getRoot().pseudoClassStateChanged(MyStyles.NARROW_MODE, newVal.doubleValue() < 1400);
         });
 
         stage.setScene(scene);
         maximize();
         stage.show();
 
+        // resize settings
         stage.iconifiedProperty().addListener((observableValue, oldValue, newValue) -> {
             if (!newValue && stage.isMaximized()) {
                 resizeAsOpen(stage);

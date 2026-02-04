@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import org.banew.hdh.core.api.components.Data;
 import org.banew.hdh.core.api.components.StringData;
+import org.banew.hdh.fxapp.implementations.ComponentsContext;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
@@ -17,9 +18,9 @@ public class CounterComponent extends AbstractWidgetLocationComponent<Label> {
     private final AtomicInteger counter = new AtomicInteger(0);
 
     @Override
-    public void init(Pane pane) {
+    public void init(ComponentsContext componentsContext) {
         widget = new Label("hello");
-        pane.getChildren().add(widget);
+        componentsContext.getMainPane().getChildren().add(widget);
     }
 
     @Override

@@ -97,7 +97,6 @@ public class LocationServiceImpl implements LocationService {
         }
 
         if (actions != null) for (Action action : actions) {
-
             var source = components.stream()
                     .filter(c -> c.getName().equals(action.sourceComponentName()))
                     .findFirst().orElse(null);

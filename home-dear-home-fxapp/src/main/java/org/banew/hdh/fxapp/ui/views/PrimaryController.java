@@ -10,11 +10,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import org.banew.hdh.core.api.services.UserService;
-import org.banew.hdh.core.api.users.User;
 import org.banew.hdh.core.api.users.forms.LoginForm;
+import org.banew.hdh.fxapp.ui.MyStyles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -41,7 +41,7 @@ public class PrimaryController extends AbstractController {
     private PasswordField passwordField;
 
     @FXML
-    private HBox testPane;
+    private Label formAlertLabel;
 
     @FXML
     public void sendToDiscord(MouseEvent event) {
@@ -55,27 +55,43 @@ public class PrimaryController extends AbstractController {
 
     public void initialize() {
         setUpClock();
-        metaInfoLabel.setText(String.format("HomeDearHome\nJavaFX %s",
-                javaFXApp.getAppVersion()));
+        metaInfoLabel.setText(String.format("HomeDearHome\nJavaFX %s", javaFXApp.getAppVersion()));
+
+        Runnable runnable = () -> {
+            formAlertLabel.setVisible(false);
+            formAlertLabel.setManaged(false);
+        };
+        runnable.run();
+        loginField.setOnKeyPressed(event -> runnable.run());
+        passwordField.setOnKeyPressed(event -> runnable.run());
+    }
+
+    @FXML
+    public void register(ActionEvent event) {
+        formAlertLabel.setVisible(false);
+        formAlertLabel.setManaged(false);
+        formAlertLabel.getScene().getRoot().pseudoClassStateChanged(MyStyles.REGISTER_MODE, true);
     }
 
     @FXML
     public void login(ActionEvent event) {
-        userService.login(new LoginForm() {
-            @Override
-            public String username() {
-                return loginField.getText();
-            }
+        userService.login(new LoginForm(loginField.getText(), passwordField.getText())) // Краще передати дані відразу
+                .thenAccept(user -> {
+                    Platform.runLater(() -> {
+                        // Успіх! Можемо переходити на іншу локацію
+                        passwordField.setText("Welcome, " + user.getUsername());
+                    });
+                }).exceptionally(e -> {
+                    // Витягуємо реальну причину (cause) з обгортки
+                    Throwable cause = (e.getCause() != null) ? e.getCause() : e;
 
-            @Override
-            public String password() {
-                return passwordField.getText();
-            }
-        }).thenAccept(user -> {
-            Platform.runLater(() -> {
-                passwordField.setText(user.getUsername());
-            });
-        });
+                    Platform.runLater(() -> {
+                        formAlertLabel.setText(cause.getMessage());
+                        formAlertLabel.setVisible(true);
+                        formAlertLabel.setManaged(true);
+                    });
+                    return null; // exceptionally має щось повернути
+                });
     }
 
     private void setUpClock() {

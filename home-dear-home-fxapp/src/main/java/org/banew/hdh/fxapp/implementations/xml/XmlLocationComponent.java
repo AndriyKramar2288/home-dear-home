@@ -5,11 +5,12 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlID;
 import org.banew.hdh.core.api.LocationComponent;
+import org.banew.hdh.fxapp.implementations.ComponentsContext;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class XmlLocationComponent implements LocationComponent {
+public abstract class XmlLocationComponent implements LocationComponent<ComponentsContext> {
     @XmlID
     @XmlAttribute(required = true)
     private String name;
