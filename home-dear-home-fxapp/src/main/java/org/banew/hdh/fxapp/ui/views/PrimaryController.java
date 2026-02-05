@@ -10,6 +10,7 @@ import javafx.scene.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -90,6 +91,9 @@ public class PrimaryController extends AbstractController {
         subScene.setFill(Color.TRANSPARENT);
         subScene.widthProperty().bind(back.widthProperty());
         subScene.heightProperty().bind(back.heightProperty());
+
+        BoxBlur blur = new BoxBlur(10, 10, 3); // (width, height, iterations)
+        subScene.setEffect(blur);
 
         // ДОДАЄМО ПОРТАЛ НА ФОН (першим у списку дітей, щоб він був позаду кнопок)
         back.getChildren().add(0, subScene);
