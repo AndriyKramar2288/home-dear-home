@@ -28,7 +28,7 @@ public class StorageRepository {
     @Autowired
     private AuthorizationContext authorizationContext;
 
-    private final File file = new File("storage.xml");
+    private final File file = new File(XmlService.USER_FILES_PREFIX + "storage.xml");
     private XmlStorage xmlStorage;
 
     @Getter

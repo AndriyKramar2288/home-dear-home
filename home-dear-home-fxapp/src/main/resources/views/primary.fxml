@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
@@ -82,63 +83,137 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <VBox alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" styleClass="central-box" stylesheets="@assets/styles.css" GridPane.columnIndex="4" GridPane.columnSpan="6" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                  <AnchorPane prefHeight="158.0" prefWidth="814.0" GridPane.columnIndex="4" GridPane.columnSpan="6" GridPane.rowIndex="2" GridPane.rowSpan="2">
                      <children>
-                        <VBox id="field-box" alignment="CENTER" fillWidth="false" prefHeight="117.0" prefWidth="357.0" spacing="10.0" stylesheets="@assets/styles.css">
+                        <VBox fx:id="regularLoginForm" alignment="CENTER" fillWidth="false" layoutX="41.0" layoutY="61.0" prefHeight="555.0" prefWidth="814.0" styleClass="central-box" stylesheets="@assets/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <AnchorPane prefHeight="200.0">
+                              <VBox alignment="CENTER" fillWidth="false" prefHeight="117.0" prefWidth="357.0" spacing="10.0" styleClass="field-box" stylesheets="@assets/styles.css">
                                  <children>
-                                    <TextField fx:id="loginField" prefHeight="26.0" prefWidth="350.0" promptText="username or email" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <FontIcon iconColor="#b1b1b1" iconLiteral="mdoal-account_circle" iconSize="30" text="" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                    <AnchorPane prefHeight="200.0">
+                                       <children>
+                                          <TextField fx:id="loginField" prefHeight="26.0" prefWidth="350.0" promptText="username or email" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                          <FontIcon iconColor="#b1b1b1" iconLiteral="mdoal-account_circle" iconSize="30" text="" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="200.0">
+                                       <children>
+                                          <PasswordField fx:id="passwordField" prefHeight="26.0" prefWidth="350.0" promptText="password" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                          <FontIcon iconColor="#b1b1b1" iconLiteral="mdomz-vpn_key" iconSize="30" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                       </children>
+                                    </AnchorPane>
                                  </children>
-                              </AnchorPane>
-                              <AnchorPane prefHeight="200.0">
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                              <Label fx:id="formAlertLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="44.0" prefWidth="357.0" styleClass="form-alert-label" text="Label" textAlignment="CENTER" visible="false">
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Button mnemonicParsing="false" onAction="#login" styleClass="form-button" text="Login" textFill="#302f34">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" top="60.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <FlowPane alignment="TOP_RIGHT" columnHalignment="RIGHT" hgap="20.0" prefHeight="80.0" prefWidth="635.0">
                                  <children>
-                                    <PasswordField fx:id="passwordField" prefHeight="26.0" prefWidth="350.0" promptText="password" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <FontIcon iconColor="#b1b1b1" iconLiteral="mdomz-vpn_key" iconSize="30" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                    <Button mnemonicParsing="false" onAction="#switchToRegisterForm" styleClass="form-alt-button" text="Create account" textFill="#302f34" />
+                                    <Circle fill="#a39fb3" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                                    <Button mnemonicParsing="false" styleClass="form-alt-button" text="Forget password?" textFill="#302f34" />
+                                    <Circle fill="#a39fb3" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="only-narrow" />
                                  </children>
-                              </AnchorPane>
+                                 <padding>
+                                    <Insets right="20.0" />
+                                 </padding>
+                              </FlowPane>
                            </children>
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                         </VBox>
-                        <Label id="form-alert-label" fx:id="formAlertLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="44.0" prefWidth="357.0" text="Label" textAlignment="CENTER">
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Button mnemonicParsing="false" onAction="#login" styleClass="form-button" text="Login" textFill="#302f34">
-                           <VBox.margin>
-                              <Insets bottom="20.0" top="60.0" />
-                           </VBox.margin>
-                        </Button>
-                        <FlowPane alignment="TOP_RIGHT" columnHalignment="RIGHT" hgap="20.0" prefHeight="80.0" prefWidth="635.0">
+                        <AnchorPane fx:id="registrationForm" prefHeight="200.0" prefWidth="200.0" styleClass="central-box" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#register" styleClass="form-alt-button" text="Create account" textFill="#302f34" />
-                              <Circle fill="#a39fb3" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-                              <Button mnemonicParsing="false" styleClass="form-alt-button" text="Forget password?" textFill="#302f34" />
-                              <Circle fill="#a39fb3" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="only-narrow" />
+                              <Button layoutX="200.0" layoutY="184.0" mnemonicParsing="false" onAction="#switchToRegularLogin" prefHeight="64.0" prefWidth="64.0" styleClass="register-return-button" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="24.0">
+                                 <graphic>
+                                    <FontIcon iconLiteral="mdoal-arrow_back" iconSize="48" />
+                                 </graphic>
+                              </Button>
+                              <VBox alignment="CENTER" layoutX="372.0" layoutY="140.0" prefHeight="200.0" prefWidth="100.0" spacing="24.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                       <children>
+                                          <VBox prefHeight="100.0" prefWidth="330.0" styleClass="field-box">
+                                             <children>
+                                                <AnchorPane prefHeight="200.0" prefWidth="275.0">
+                                                   <children>
+                                                      <TextField fx:id="registrationEmailField" prefHeight="43.0" prefWidth="310.0" promptText="email" styleClass="text-field" />
+                                                      <FontIcon iconLiteral="mdoal-email" iconSize="24" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="200.0" prefWidth="275.0">
+                                                   <children>
+                                                      <TextField fx:id="registrationUsernameField" prefHeight="43.0" prefWidth="310.0" promptText="username" styleClass="text-field" />
+                                                      <FontIcon iconLiteral="mdal-account_box" iconSize="24" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="200.0" prefWidth="275.0">
+                                                   <children>
+                                                      <TextField fx:id="registrationPasswordField" prefHeight="43.0" prefWidth="310.0" promptText="password" styleClass="text-field" />
+                                                      <FontIcon iconLiteral="mdrmz-vpn_key" iconSize="24" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="200.0" prefWidth="275.0">
+                                                   <children>
+                                                      <TextField fx:id="registrationRepeatPasswordField" prefHeight="43.0" prefWidth="310.0" promptText="repeat password" styleClass="text-field" />
+                                                      <FontIcon iconLiteral="mdomz-vpn_key" iconSize="24" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </VBox>
+                                          <VBox fx:id="avatarImageBlock" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="field-box">
+                                             <children>
+                                                <StackPane prefHeight="150.0" prefWidth="200.0">
+                                                   <children>
+                                                      <FontIcon iconLiteral="mdmz-photo_library" iconSize="64" />
+                                                      <ImageView fx:id="avatarPreview" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                                   </children>
+                                                </StackPane>
+                                                <Button mnemonicParsing="false" onAction="#attachImage" prefHeight="40.0" prefWidth="200.0" text="avatar image">
+                                                   <graphic>
+                                                      <FontIcon iconLiteral="mdal-attachment" iconSize="24" />
+                                                   </graphic>
+                                                </Button>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                    <Circle fill="#a39fb3" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                                    <Label fx:id="registrationErrorLabel" styleClass="form-alert-label" text="Label" visible="false" />
+                                    <Button mnemonicParsing="false" onAction="#createAccountHandler" styleClass="form-button" text="Create account" />
+                                 </children>
+                              </VBox>
                            </children>
-                           <padding>
-                              <Insets right="20.0" />
-                           </padding>
-                        </FlowPane>
+                        </AnchorPane>
                      </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets></VBox>
-                  <VBox id="top-label-box" alignment="CENTER" fillWidth="false" prefHeight="236.0" prefWidth="560.0" GridPane.columnIndex="5" GridPane.columnSpan="4" GridPane.rowIndex="1">
+                  </AnchorPane>
+                  <VBox id="top-label-box" alignment="CENTER" fillWidth="false" prefHeight="236.0" prefWidth="560.0" GridPane.columnIndex="4" GridPane.columnSpan="6" GridPane.rowIndex="1">
                      <children>
-                        <Label text="Hello!" textAlignment="CENTER">
+                        <Label fx:id="topLabel" text="Hello!" textAlignment="CENTER">
                            <font>
                               <Font size="96.0" />
                            </font>
                         </Label>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="250.0" />
+                        <Rectangle fx:id="topLabelStick" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="250.0">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin></Rectangle>
                      </children>
                      <GridPane.margin>
                         <Insets bottom="100.0" />

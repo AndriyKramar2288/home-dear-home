@@ -15,13 +15,14 @@ import java.util.Optional;
 public class XmlService {
     @Autowired
     private JAXBContext context;
+    public static final String USER_FILES_PREFIX = "hdh/";
 
     public void generateSchema() {
         try {
             context.generateSchema(new SchemaOutputResolver() {
                 @Override
                 public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
-                    suggestedFileName = "schema.xsd";
+                    suggestedFileName = USER_FILES_PREFIX + "schema.xsd";
                     StreamResult result = new StreamResult(new File(suggestedFileName));
                     result.setSystemId(suggestedFileName);
                     return result;

@@ -10,8 +10,15 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -27,14 +34,20 @@ public class UserServiceImpl implements UserService {
     @Override
     @Async
     public CompletableFuture<? extends User> register(RegisterForm registerForm) {
+        try {
+            registerForm.validate();
 
-        XmlUser xmlUser = new XmlUser();
-        xmlUser.setEmail(registerForm.email());
-        xmlUser.setPassword(passwordEncoder.encode(registerForm.password()));
-        xmlUser.setUsername(registerForm.username());
-        storageRepository.saveUser(xmlUser);
+            XmlUser xmlUser = new XmlUser();
+            xmlUser.setEmail(registerForm.email());
+            xmlUser.setPassword(passwordEncoder.encode(registerForm.password()));
+            xmlUser.setUsername(registerForm.username());
+            storageRepository.saveUser(xmlUser);
 
-        return CompletableFuture.completedFuture(xmlUser);
+            return CompletableFuture.completedFuture(xmlUser);
+        }
+        catch (Exception e) {
+            return CompletableFuture.failedFuture(e);
+        }
     }
 
     @Override
@@ -54,6 +67,36 @@ public class UserServiceImpl implements UserService {
 
         } catch (Exception e) {
             // Явно кажемо: "Цей запуск завершився провалом"
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    @Override
+    @Async
+    public CompletableFuture<String> saveAvatarImage(byte[] image, String fileName) {
+        try {
+            // 1. Визначаємо шлях до папки (наприклад, "uploads/avatars")
+            Path uploadPath = Paths.get(XmlService.USER_FILES_PREFIX, "uploads", "avatars");
+
+            // 2. Створюємо папки, якщо їх ще немає
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            // 3. Генеруємо унікальне ім'я, зберігаючи розширення
+            String extension = fileName.substring(fileName.lastIndexOf("."));
+            String uniqueName = UUID.randomUUID().toString() + extension;
+
+            // 4. Повний шлях до файлу
+            Path filePath = uploadPath.resolve(uniqueName);
+
+            // 5. ЗАПИС БАЙТІВ (Магія NIO)
+            Files.write(filePath, image);
+
+            // Повертаємо рядок, який потім можна юзати як URI
+            return CompletableFuture.completedFuture(filePath.toUri().toString());
+        }
+        catch (IOException e) {
             return CompletableFuture.failedFuture(e);
         }
     }

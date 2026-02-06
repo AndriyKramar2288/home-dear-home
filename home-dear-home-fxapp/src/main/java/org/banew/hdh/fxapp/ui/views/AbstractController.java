@@ -1,18 +1,62 @@
 package org.banew.hdh.fxapp.ui.views;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.banew.hdh.core.api.users.forms.LoginForm;
 import org.banew.hdh.fxapp.ui.JavaFXApp;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 public abstract class AbstractController {
 
     @Autowired
     protected JavaFXApp javaFXApp;
+
+    protected final AudioClip clickSound = new AudioClip(
+            getClass().getResource("/views/assets/sounds/click_sound.mp3").toExternalForm()
+    );
+
+    protected <T> void future(CompletableFuture<T> future, Consumer<T> success, Consumer<Exception> failure) {
+        future.thenAccept(t -> {
+                    Platform.runLater(() -> {
+                        success.accept(t);
+                    });
+                }).exceptionally(e -> {
+                    // Витягуємо реальну причину (cause) з обгортки
+                    Throwable cause = (e.getCause() != null) ? e.getCause() : e;
+                    Platform.runLater(() -> {
+                        failure.accept((Exception) cause);
+                    });
+                    return null; // exceptionally має щось повернути
+                });
+    }
+
+    protected void showTimedAlert(Label alertLabel, String message, double seconds) {
+        alertLabel.setText(message);
+        alertLabel.setVisible(true);
+        alertLabel.setManaged(true);
+
+        // Створюємо паузу
+        PauseTransition pause = new PauseTransition(Duration.seconds(seconds));
+
+        // Що зробити, коли час вийде
+        pause.setOnFinished(event -> {
+            alertLabel.setVisible(false);
+            alertLabel.setManaged(false);
+        });
+
+        pause.play(); // Запускаємо таймер
+    }
 
     private double xOffset = 0;
     private double yOffset = 0;

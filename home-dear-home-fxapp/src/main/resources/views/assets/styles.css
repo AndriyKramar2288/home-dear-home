@@ -14,8 +14,10 @@
 
 .root {
     -fx-text-default: #A39FB3;
+    -fx-text-default-button: #938FA3;
     -fx-brown-black: #2F2320;
     -fx-city-blue: #302F34;
+    -fx-city-blue-button: #353438;
 }
 
 .only-narrow {
@@ -80,7 +82,7 @@
 
 .form-button:hover {
     -fx-padding: 5 40 5 40;
-    -fx-background-color: #353438;
+    -fx-background-color: -fx-city-blue-button;
     -fx-background-radius: 6;
     -fx-font-size: 24px;
 }
@@ -101,11 +103,6 @@
     -fx-background-radius: 6;
     -fx-border-radius: 6;
 }
-
-.root:register-mode .form-button, .root:register-mode .form-alt-button {
-    opacity: 0;
-}
-
 
 /*CLOCK BOX*/
 
@@ -142,9 +139,30 @@
 
 /*FORM FIELDS*/
 
-#field-box {
+.field-box {
     -fx-background-color: -fx-text-default;
     -fx-background-radius: 12;
+    -fx-padding: 10 10 10 10;
+    -fx-spacing: 10;
+}
+
+.field-box FontIcon {
+    -fx-icon-color: -fx-brown-black;
+}
+
+.field-box Button {
+    -fx-background-color: rgba(255, 255, 255, 0);
+    -fx-background-radius: 12;
+    -fx-border-color: -fx-brown-black;
+    -fx-border-radius: 12;
+    -fx-border-width: 2;
+    -fx-text-fill: -fx-brown-black;
+    -fx-font-size: 16px;
+    -fx-padding: 5 10 5 10;
+}
+
+.field-box Button:hover {
+    -fx-background-color: -fx-text-default-button;
 }
 
 .text-field {
@@ -181,7 +199,7 @@
     -fx-font-style: italic;
 }
 
-#form-alert-label {
+.form-alert-label {
     -fx-background-color: rgba(100, 0, 0, 0.1);
     -fx-background-radius: 6;
 
@@ -208,4 +226,21 @@
 .top-bar {
     -fx-background-color: #242424;
     -fx-background-radius: 10;
+}
+
+
+
+/*[---========================================---] REGISTRATION MODE [---========================================---]*/
+
+.register-return-button {
+    -fx-background-color: -fx-city-blue;
+    -fx-background-radius: 12;
+}
+
+.register-return-button:hover {
+    -fx-background-color: -fx-city-blue-button;
+}
+
+.register-return-button > FontIcon {
+    -fx-icon-color: -fx-text-default;
 }
