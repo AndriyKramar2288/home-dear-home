@@ -6,22 +6,30 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
 import javafx.scene.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Box;
+import javafx.scene.shape.MeshView;
+import javafx.scene.shape.TriangleMesh;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import org.banew.hdh.core.api.services.UserService;
 import org.banew.hdh.core.api.users.forms.LoginForm;
 import org.banew.hdh.fxapp.ui.MyStyles;
 import org.fxyz3d.importers.Model3D;
+import org.fxyz3d.shapes.primitives.SVG3DMesh;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.fxyz3d.importers.Importer3D;
@@ -54,6 +62,11 @@ public class PrimaryController extends AbstractController {
 
     @FXML
     private Label formAlertLabel;
+    @FXML
+    private Label dynamicLabel;
+
+    @FXML
+    private VBox formVBox;
 
     @FXML
     public void sendToDiscord(MouseEvent event) {
@@ -92,8 +105,11 @@ public class PrimaryController extends AbstractController {
         subScene.widthProperty().bind(back.widthProperty());
         subScene.heightProperty().bind(back.heightProperty());
 
-        BoxBlur blur = new BoxBlur(10, 10, 3); // (width, height, iterations)
-        subScene.setEffect(blur);
+        formVBox.setVisible(false);
+        formVBox.setManaged(false);
+
+//        BoxBlur blur = new BoxBlur(2, 2, 3); // (width, height, iterations)
+//        subScene.setEffect(blur);
 
         // ДОДАЄМО ПОРТАЛ НА ФОН (першим у списку дітей, щоб він був позаду кнопок)
         back.getChildren().add(0, subScene);
@@ -102,7 +118,7 @@ public class PrimaryController extends AbstractController {
         PerspectiveCamera camera = new PerspectiveCamera(true);
         camera.setNearClip(0.1);
         camera.setFarClip(10000.0);
-        camera.setTranslateZ(-1000);
+        camera.setTranslateZ(-1500);
 
         // 2. Створюємо Pivot
         Group cameraPivot = new Group();
@@ -121,12 +137,105 @@ public class PrimaryController extends AbstractController {
         pointLight.setTranslateZ(-1100);
         root3D.getChildren().add(pointLight);
 
-        // 5. Вмикаємо камеру ТІЛЬКИ ДЛЯ SUBSCENE
+        addVolumeToNode(dynamicLabel, cameraPivot, 100);
+
         subScene.setCamera(camera);
 
-        // ПРИБИРАЄМО scene.setCamera(camera) - вона ламає 2D!
-
         setupControls(clockLabel.getScene(), camera, rotateX, rotateY, model);
+    }
+
+    private void addVolumeToNode(Node uiNode, Group sceneRoot, double depth) {
+        Platform.runLater(() -> {
+            // 1. Отримуємо центр лейбла в координатах всього вікна
+            Bounds bounds = uiNode.localToScene(uiNode.getBoundsInLocal());
+            double nodeCenterX = bounds.getMinX() + bounds.getWidth() / 2;
+            double nodeCenterY = bounds.getMinY() + bounds.getHeight() / 2;
+
+            // 2. Отримуємо центр SubScene у координатах всього вікна
+            Bounds subBounds = back.localToScene(back.getBoundsInLocal());
+            double subCenterX = subBounds.getMinX() + subBounds.getWidth() / 2;
+            double subCenterY = subBounds.getMinY() + subBounds.getHeight() / 2;
+
+            // 3. Розраховуємо чисте зміщення
+            double x3D = nodeCenterX - subCenterX;
+            double y3D = nodeCenterY - subCenterY;
+
+            // 4. Створюємо Box (ПОВНІ розміри з FXML)
+            MeshView backplate = createRoundedBox(uiNode.getLayoutBounds().getWidth(), uiNode.getLayoutBounds().getHeight(), depth, 25);
+
+            backplate.setTranslateX(x3D);
+            backplate.setTranslateY(y3D);
+
+            // Маленький хак: ставимо його ПОВНІСТЮ за UI елемент
+            backplate.setTranslateZ(depth / 2 + 1);
+
+            sceneRoot.getChildren().add(backplate);
+        });
+    }
+
+    private MeshView createRoundedBox(double width, double height, double depth, double radius) {
+        TriangleMesh mesh = new TriangleMesh();
+
+        float w = (float) width / 2;
+        float h = (float) height / 2;
+        float d = (float) depth / 2;
+        float r = (float) radius;
+
+        // 1. Вершини (16 точок: 0-7 передня панель, 8-15 задня)
+        mesh.getPoints().addAll(
+                // Передня панель (Z = -d)
+                -w+r, -h,  -d,  // 0
+                w-r, -h,  -d,  // 1
+                w,   -h+r, -d, // 2
+                w,    h-r, -d, // 3
+                w-r,  h,   -d, // 4
+                -w+r,  h,   -d, // 5
+                -w,    h-r, -d, // 6
+                -w,   -h+r, -d, // 7
+                // Задня панель (Z = d)
+                -w+r, -h,   d,  // 8
+                w-r, -h,   d,  // 9
+                w,   -h+r, d,  // 10
+                w,    h-r, d,  // 11
+                w-r,  h,   d,  // 12
+                -w+r,  h,   d,  // 13
+                -w,    h-r, d,  // 14
+                -w,   -h+r, d   // 15
+        );
+
+        // 2. Текстурні координати (заглушка)
+        mesh.getTexCoords().addAll(0, 0);
+
+        // 3. Грані (Faces) - p1, t1, p2, t2, p3, t3
+        // Передня кришка
+        mesh.getFaces().addAll(
+                0,0, 1,0, 4,0,  4,0, 5,0, 0,0, // Центр
+                1,0, 2,0, 3,0,  3,0, 4,0, 1,0, // Права
+                5,0, 6,0, 7,0,  7,0, 0,0, 5,0  // Ліва
+        );
+
+        // Задня кришка
+        mesh.getFaces().addAll(
+                8,0, 12,0, 9,0,  12,0, 13,0, 8,0,
+                9,0, 11,0, 10,0, 11,0, 12,0, 9,0,
+                13,0, 15,0, 14,0, 15,0, 8,0, 13,0
+        );
+
+        // Бокові грані (з'єднуємо перед і зад)
+        for (int i = 0; i < 8; i++) {
+            int next = (i + 1) % 8;
+            mesh.getFaces().addAll(
+                    i, 0, next, 0, i + 8, 0,
+                    next, 0, next + 8, 0, i + 8, 0
+            );
+        }
+
+        MeshView meshView = new MeshView(mesh);
+        PhongMaterial material = new PhongMaterial(Color.web("#ffffff", 0.4));
+        material.setSpecularColor(Color.WHITE);
+        meshView.setMaterial(material);
+
+        return meshView;
     }
 
     private void setupControls(Scene subScene, Camera camera, Rotate rotateX, Rotate rotateY, Node model) {
@@ -152,12 +261,13 @@ public class PrimaryController extends AbstractController {
         });
 
         // Zoom через коліщатко
-        subScene.setOnScroll(scrollEvent -> {
-            double zoom = camera.getTranslateZ() + scrollEvent.getDeltaY() * 2;
-            if (zoom < -200 && zoom > -5000) {
-                camera.setTranslateZ(zoom);
-            }
-        });
+//        subScene.setOnScroll(scrollEvent -> {
+//            double zoom = camera.getTranslateZ() + scrollEvent.getDeltaY() * 2;
+//            if (zoom < -200 && zoom > -5000) {
+//                camera.setTranslateZ(zoom);
+//                System.out.println("zoom=" + zoom);
+//            }
+//        });
 
         subScene.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.W) {
