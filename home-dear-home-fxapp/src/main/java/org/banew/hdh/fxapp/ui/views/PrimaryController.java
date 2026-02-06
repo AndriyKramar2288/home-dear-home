@@ -3,7 +3,6 @@ package org.banew.hdh.fxapp.ui.views;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -12,7 +11,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
@@ -100,6 +98,12 @@ public class PrimaryController extends AbstractController {
         setUpDragAndDropAvatarImage(avatarImageBlock);
         metaInfoLabel.setText(String.format("HomeDearHome\nJavaFX %s", javaFXApp.getAppVersion()));
         topLabelStick.widthProperty().bind(topLabel.widthProperty());
+
+        registrationForm.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                setUpEverythingSmooth(newScene.getRoot());
+            }
+        });
     }
 
     @FXML
@@ -133,7 +137,7 @@ public class PrimaryController extends AbstractController {
     @FXML
     public void attachImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Вибери свою аватарку, Баняк");
+        fileChooser.setTitle("Choose your avatar image");
 
         // Фільтр, щоб не напхали сюди .exe або .obj
         fileChooser.getExtensionFilters().addAll(

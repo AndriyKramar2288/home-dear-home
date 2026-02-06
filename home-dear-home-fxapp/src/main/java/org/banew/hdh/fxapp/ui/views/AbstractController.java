@@ -1,10 +1,13 @@
 package org.banew.hdh.fxapp.ui.views;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
@@ -25,6 +28,21 @@ public abstract class AbstractController {
     protected final AudioClip clickSound = new AudioClip(
             getClass().getResource("/views/assets/sounds/click_sound.mp3").toExternalForm()
     );
+
+    protected void setUpEverythingSmooth(Parent root) {
+        Platform.runLater(() -> {
+            for (Node node : root.lookupAll("*")) { // Беремо всі елементи
+                node.visibleProperty().addListener((obs, wasVisible, isVisible) -> {
+                    if (isVisible) {
+                        node.setTranslateY(5);
+                        TranslateTransition tt = new TranslateTransition(Duration.millis(100), node);
+                        tt.setToY(0);
+                        tt.play();
+                    }
+                });
+            }
+        });
+    }
 
     protected <T> void future(CompletableFuture<T> future, Consumer<T> success, Consumer<Exception> failure) {
         future.thenAccept(t -> {
