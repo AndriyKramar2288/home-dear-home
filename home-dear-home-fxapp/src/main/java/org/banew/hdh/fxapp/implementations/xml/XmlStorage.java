@@ -2,7 +2,6 @@ package org.banew.hdh.fxapp.implementations.xml;
 
 import jakarta.xml.bind.annotation.*;
 import lombok.Data;
-import org.banew.hdh.core.api.users.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
 public class XmlStorage {
-    @XmlElementWrapper(name = "users")
+    @XmlElementWrapper(name = "users", required = true)
     @XmlElement(name = "user")
-    private List<XmlUser> users = new ArrayList<>();
+    private List<XmlUserInfo> users = new ArrayList<>();
 }

@@ -3,8 +3,9 @@ package org.banew.hdh.fxapp.implementations.xml;
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import lombok.Data;
-import org.banew.hdh.core.api.Location;
-import org.banew.hdh.core.api.users.User;
+import org.banew.hdh.core.api.domen.LocationInfo;
+import org.banew.hdh.core.api.domen.UserInfo;
+import org.banew.hdh.fxapp.implementations.LocalDateTimeAdapter;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -13,12 +14,12 @@ import java.util.Set;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public class XmlUser implements User {
-    @XmlAttribute
+public class XmlUserInfo implements UserInfo {
+    @XmlAttribute(required = true)
     private String username;
-    @XmlAttribute
+    @XmlAttribute(required = true)
     private String password;
-    @XmlAttribute
+    @XmlAttribute(required = true)
     private String email;
     @XmlAttribute
     private String fullname;
@@ -57,7 +58,7 @@ public class XmlUser implements User {
     }
 
     @Override
-    public Set<Location> getLocations() {
+    public Set<LocationInfo> getLocations() {
         return new HashSet<>(locations);
     }
 

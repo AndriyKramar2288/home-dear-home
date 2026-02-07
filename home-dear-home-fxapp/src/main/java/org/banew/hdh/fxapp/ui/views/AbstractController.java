@@ -1,6 +1,5 @@
 package org.banew.hdh.fxapp.ui.views;
 
-import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -13,7 +12,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.banew.hdh.core.api.users.forms.LoginForm;
 import org.banew.hdh.fxapp.ui.JavaFXApp;
 import org.springframework.beans.factory.annotation.Autowired;
 

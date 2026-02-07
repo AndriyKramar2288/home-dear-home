@@ -19,8 +19,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import org.banew.hdh.core.api.services.UserService;
-import org.banew.hdh.core.api.users.forms.LoginForm;
-import org.banew.hdh.core.api.users.forms.RegisterForm;
+import org.banew.hdh.core.api.runtime.forms.LoginForm;
+import org.banew.hdh.core.api.runtime.forms.RegisterForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -74,9 +74,9 @@ public class PrimaryController extends AbstractController {
     @FXML
     private TextField registrationUsernameField;
     @FXML
-    private TextField registrationPasswordField;
+    private PasswordField registrationPasswordField;
     @FXML
-    private TextField registrationRepeatPasswordField;
+    private PasswordField registrationRepeatPasswordField;
     private File registrationAvatarImage = null;
     @FXML
     private Label registrationErrorLabel;

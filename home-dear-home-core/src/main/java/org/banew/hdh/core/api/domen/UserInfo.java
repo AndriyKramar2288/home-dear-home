@@ -1,11 +1,9 @@
-package org.banew.hdh.core.api.users;
-
-import org.banew.hdh.core.api.Location;
+package org.banew.hdh.core.api.domen;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
-public interface User {
+public interface UserInfo {
     String getUsername();
     String getFullname();
     String getPassword();
@@ -13,5 +11,5 @@ public interface User {
     String getPhoneNumber();
     LocalDateTime getLastTimeLogin();
     void setLastTimeLogin(LocalDateTime lastTimeLogin);
-    Set<Location> getLocations();
+    Set<LocationInfo> getLocations();
 }

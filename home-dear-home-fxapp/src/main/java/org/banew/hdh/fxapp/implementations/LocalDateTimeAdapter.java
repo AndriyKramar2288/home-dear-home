@@ -1,4 +1,4 @@
-package org.banew.hdh.fxapp.implementations.xml;
+package org.banew.hdh.fxapp.implementations;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 

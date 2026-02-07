@@ -37,7 +37,6 @@ public class XmlService {
 
         Marshaller mar = context.createMarshaller();
 
-        // Щоб XML був гарним, а не в один рядок
         mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         mar.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "com.banew/home-dear-home/storage schema.xsd");
 

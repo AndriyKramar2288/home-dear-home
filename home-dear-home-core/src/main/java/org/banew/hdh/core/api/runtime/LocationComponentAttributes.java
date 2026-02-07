@@ -1,4 +1,4 @@
-package org.banew.hdh.core.api;
+package org.banew.hdh.core.api.runtime;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,12 +11,16 @@ public @interface LocationComponentAttributes {
 
     String name();
     String description();
-    Argument[] generationArguments();
-    Argument[] processingArguments();
+    boolean supportGeneration() default false;
+    boolean supportProcessing() default false;
+    Argument[] generationArguments() default {};
+    Argument[] processingArguments() default {};
 
     @interface Argument {
         String name();
         String desc();
         String format();
+        boolean required() default false;
+        String dependsOn() default "";
     }
 }

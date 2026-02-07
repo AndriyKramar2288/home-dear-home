@@ -2,27 +2,30 @@ package org.banew.hdh.fxapp.implementations.xml;
 
 import jakarta.xml.bind.annotation.*;
 import lombok.NoArgsConstructor;
-import org.banew.hdh.core.api.components.Action;
+import org.banew.hdh.core.api.domen.ActionInfo;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @NoArgsConstructor
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XmlAction implements Action {
+public class XmlAction implements ActionInfo {
 
     @XmlIDREF
-    @XmlAttribute
+    @XmlAttribute(required = true)
     private XmlLocationComponent sourceComponent;
 
     @XmlElementWrapper(name = "source-args")
     @XmlElement(name = "source-arg")
-    private String[] sourceArgs;
+    private Map<String, String> sourceArgs = new HashMap<>();
 
     @XmlIDREF
-    @XmlAttribute
+    @XmlAttribute(required = true)
     private XmlLocationComponent targetComponent;
 
     @XmlElementWrapper(name = "target-args")
     @XmlElement(name = "target-arg")
-    private String[] targetArgs;
+    private Map<String, String> targetArgs = new HashMap<>();
 
     @Override
     public String sourceComponentName() {
@@ -30,7 +33,7 @@ public class XmlAction implements Action {
     }
 
     @Override
-    public String[] sourceArgs() {
+    public Map<String, String> sourceArgs() {
         return sourceArgs;
     }
 
@@ -40,7 +43,7 @@ public class XmlAction implements Action {
     }
 
     @Override
-    public String[] targetArgs() {
+    public Map<String, String> targetArgs() {
         return targetArgs;
     }
 }

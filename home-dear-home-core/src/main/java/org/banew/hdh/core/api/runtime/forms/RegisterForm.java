@@ -1,4 +1,4 @@
-package org.banew.hdh.core.api.users.forms;
+package org.banew.hdh.core.api.runtime.forms;
 
 public record RegisterForm (
         String username,

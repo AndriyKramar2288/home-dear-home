@@ -1,4 +1,4 @@
-package org.banew.hdh.fxapp.implementations.xml;
+package org.banew.hdh.fxapp.implementations.runtime;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -8,12 +8,12 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
-import org.banew.hdh.core.api.components.Data;
-import org.banew.hdh.core.api.components.StringData;
+import org.banew.hdh.core.api.domen.LocationComponentInfo;
+import org.banew.hdh.core.api.runtime.LocationComponentAttributes;
+import org.banew.hdh.core.api.runtime.components.Data;
 import org.banew.hdh.fxapp.implementations.ComponentsContext;
-import org.banew.hdh.fxapp.implementations.StorageRepository;
 
+import java.util.Map;
 import java.util.function.Consumer;
 
 @XmlRootElement(name = "button")
@@ -28,24 +28,19 @@ public class ButtonComponent extends AbstractWidgetLocationComponent<Button> {
     private int y;
 
     @Override
-    protected int getProcessArgsCount() {
-        return -1;
-    }
-
-    @Override
-    protected int getGenerateArgsCount() {
-        return 0;
-    }
-
-    @Override
-    protected void processEvent(StringData stringData, String... args) {
+    protected void processEvent(Data data, Map<String, String> args) {
         throw new UnsupportedOperationException("Not supported.");
     }
 
     @Override
-    protected EventHandler<? extends Event> whenGenerateEvent(Consumer<Data> consumer, String... args) {
+    protected LocationComponentAttributes getMetadata() {
+        return getClass().getAnnotation(LocationComponentAttributes.class);
+    }
+
+    @Override
+    protected EventHandler<? extends Event> whenGenerateEvent(Consumer<Data> consumer, Map<String, String> args) {
         EventHandler<ActionEvent> handler = event -> {
-            consumer.accept(new StringData("Button clicked!"));
+            consumer.accept(new Data("Button clicked!"));
         };
         widget.addEventHandler(ActionEvent.ACTION, handler);
         return handler;

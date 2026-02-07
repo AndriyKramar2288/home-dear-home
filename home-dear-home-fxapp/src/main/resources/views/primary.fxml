@@ -165,13 +165,13 @@
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="275.0">
                                                    <children>
-                                                      <TextField fx:id="registrationPasswordField" prefHeight="43.0" prefWidth="310.0" promptText="password" styleClass="text-field" />
+                                                      <PasswordField fx:id="registrationPasswordField" prefHeight="43.0" prefWidth="310.0" promptText="password" styleClass="text-field" />
                                                       <FontIcon iconLiteral="mdrmz-vpn_key" iconSize="24" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                                    </children>
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="275.0">
                                                    <children>
-                                                      <TextField fx:id="registrationRepeatPasswordField" prefHeight="43.0" prefWidth="310.0" promptText="repeat password" styleClass="text-field" />
+                                                      <PasswordField fx:id="registrationRepeatPasswordField" prefHeight="43.0" prefWidth="310.0" promptText="repeat password" styleClass="text-field" />
                                                       <FontIcon iconLiteral="mdomz-vpn_key" iconSize="24" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                                    </children>
                                                 </AnchorPane>

@@ -1,22 +1,20 @@
 package org.banew.hdh.core.api.services;
 
-import org.banew.hdh.core.api.users.User;
-import org.banew.hdh.core.api.users.forms.LoginForm;
-import org.banew.hdh.core.api.users.forms.RegisterForm;
+import org.banew.hdh.core.api.domen.UserInfo;
+import org.banew.hdh.core.api.runtime.forms.LoginForm;
+import org.banew.hdh.core.api.runtime.forms.RegisterForm;
 
-import java.io.File;
-import java.io.InputStream;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public interface UserService {
-    CompletableFuture<? extends User> register(RegisterForm registerForm);
-    CompletableFuture<? extends User> login(LoginForm loginForm);
+    CompletableFuture<? extends UserInfo> register(RegisterForm registerForm);
+    CompletableFuture<? extends UserInfo> login(LoginForm loginForm);
     CompletableFuture<String> saveAvatarImage(byte[] image, String fileName);
-    User getCurrentUser();
+    UserInfo getCurrentUser();
 
-    Optional<? extends User> availableLoginByPassword();
-    CompletableFuture<? extends User> login(String password);
+    Optional<? extends UserInfo> availableLoginByPassword();
+    CompletableFuture<? extends UserInfo> login(String password);
 
     void logout();
 }

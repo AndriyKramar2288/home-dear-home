@@ -4,13 +4,13 @@ import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import jakarta.xml.bind.JAXBException;
 import lombok.Getter;
-import org.banew.hdh.core.api.Location;
-import org.banew.hdh.core.api.LocationComponent;
-import org.banew.hdh.core.api.users.User;
+import org.banew.hdh.core.api.domen.LocationInfo;
+import org.banew.hdh.core.api.domen.UserInfo;
 import org.banew.hdh.fxapp.ReflectionsUtils;
+import org.banew.hdh.fxapp.implementations.runtime.DesktopLocationComponent;
 import org.banew.hdh.fxapp.implementations.xml.XmlLocation;
 import org.banew.hdh.fxapp.implementations.xml.XmlStorage;
-import org.banew.hdh.fxapp.implementations.xml.XmlUser;
+import org.banew.hdh.fxapp.implementations.xml.XmlUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,12 +32,12 @@ public class StorageRepository {
     private XmlStorage xmlStorage;
 
     @Getter
-    private Set<Class<? extends LocationComponent>> allAvailableComponents;
+    private Set<Class<? extends DesktopLocationComponent>> allAvailableComponents;
 
     @PostConstruct
     private void initial() {
         xmlStorage = xmlService.loadFromXml(file).orElse(new XmlStorage());
-        allAvailableComponents = ReflectionsUtils.getAllImplementations(LocationComponent.class);
+        allAvailableComponents = ReflectionsUtils.getAllImplementations(DesktopLocationComponent.class);
     }
 
     @PreDestroy
@@ -46,33 +46,33 @@ public class StorageRepository {
         xmlService.saveToXml(xmlStorage, file);
     }
 
-    public Optional<? extends User> findByUsername(String username) {
+    public Optional<? extends UserInfo> findByUsername(String username) {
         return xmlStorage.getUsers().stream()
                 .filter(u -> u.getUsername().equals(username))
                 .findFirst();
     }
 
-    public Optional<? extends User> findByLastTimeLoginAfterThan(LocalDateTime lastTimeLogin) {
+    public Optional<? extends UserInfo> findByLastTimeLoginAfterThan(LocalDateTime lastTimeLogin) {
         return xmlStorage.getUsers().stream()
                 .filter(u -> u.getLastTimeLogin().isAfter(lastTimeLogin))
-                .min(Comparator.comparing(XmlUser::getLastTimeLogin));
+                .min(Comparator.comparing(XmlUserInfo::getLastTimeLogin));
     }
 
-    public void saveUser(XmlUser xmlUser) {
+    public void saveUser(XmlUserInfo xmlUser) {
         xmlStorage.getUsers().add(xmlUser);
     }
 
     public void createLocationByName(String name) {
-        Location location = new XmlLocation();
+        LocationInfo location = new XmlLocation();
         location.setName(name);
         authorizationContext.getCurrentUser().getLocations().add(location);
     }
 
-    public List<Location> getCurrentUserLocations() {
+    public List<LocationInfo> getCurrentUserLocations() {
         return authorizationContext.getCurrentUser().getLocations().stream().toList();
     }
 
-    public Optional<Location> findLocationById(String locationId) {
+    public Optional<LocationInfo> findLocationById(String locationId) {
         return authorizationContext.getCurrentUser().getLocations().stream()
                 .filter(l -> l.getId().equals(locationId))
                 .findFirst();

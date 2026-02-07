@@ -4,35 +4,39 @@ import jakarta.xml.bind.annotation.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.banew.hdh.core.api.Location;
-import org.banew.hdh.core.api.LocationComponent;
-import org.banew.hdh.core.api.components.Action;
+import org.banew.hdh.core.api.domen.ActionInfo;
+import org.banew.hdh.core.api.domen.LocationComponentInfo;
+import org.banew.hdh.core.api.domen.LocationInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @Getter
 @Setter
 @NoArgsConstructor
-public class XmlLocation implements Location {
-    @XmlAttribute(name = "id")
+public class XmlLocation implements LocationInfo {
+    @XmlAttribute(name = "id", required = true)
+    @XmlID
     private String id;
-    @XmlAttribute(name = "name")
+    @XmlAttribute(name = "name", required = true)
     private String name;
     @XmlElement(name = "description")
     private String description;
-    @XmlElementWrapper(name = "components")
+    @XmlElementWrapper(name = "components", required = true)
     @XmlElementRef
-    private List<XmlLocationComponent> components;
-    @XmlElementWrapper(name = "actions")
+    private List<XmlLocationComponent> components = new ArrayList<>();
+    @XmlElementWrapper(name = "actions", required = true)
     @XmlElement(name = "action")
-    private List<XmlAction> actions;
+    private List<XmlAction> actions = new ArrayList<>();
 
-    public List<LocationComponent> getComponents() {
-        return (List<LocationComponent>) (List<?>) components;
+    @SuppressWarnings("unchecked")
+    public List<LocationComponentInfo> getComponents() {
+        return (List<LocationComponentInfo>) (List<?>)  components;
     }
 
-    public List<Action> getActions() {
-        return (List<Action>) (List<?>) actions;
+    @SuppressWarnings("unchecked")
+    public List<ActionInfo> getActions() {
+        return (List<ActionInfo>) (List<?>)  actions;
     }
 }

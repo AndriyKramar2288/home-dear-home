@@ -1,11 +1,8 @@
-package org.banew.hdh.core.api;
-
-import org.banew.hdh.core.api.components.Action;
+package org.banew.hdh.core.api.domen;
 
 import java.util.List;
-import java.util.Map;
 
-public interface Location {
+public interface LocationInfo {
 
     String getId();
 
@@ -19,7 +16,7 @@ public interface Location {
 
     void setDescription(String description);
 
-    List<LocationComponent> getComponents();
+    List<LocationComponentInfo> getComponents();
 
-    List<Action> getActions();
+    List<ActionInfo> getActions();
 }
