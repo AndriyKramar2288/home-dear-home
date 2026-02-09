@@ -1,20 +1,21 @@
 package org.banew.hdh.fxapp.implementations.xml;
 
 import jakarta.xml.bind.annotation.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.banew.hdh.core.api.domen.ActionInfo;
-import org.banew.hdh.core.api.domen.LocationComponentInfo;
-import org.banew.hdh.core.api.domen.LocationInfo;
+import lombok.*;
+import org.banew.hdh.core.api.dto.ActionInfo;
+import org.banew.hdh.core.api.dto.LocationComponentInfo;
+import org.banew.hdh.core.api.dto.LocationInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder = true)
 public class XmlLocation implements LocationInfo {
     @XmlAttribute(name = "id", required = true)
     @XmlID
@@ -30,13 +31,40 @@ public class XmlLocation implements LocationInfo {
     @XmlElement(name = "action")
     private List<XmlAction> actions = new ArrayList<>();
 
-    @SuppressWarnings("unchecked")
-    public List<LocationComponentInfo> getComponents() {
-        return (List<LocationComponentInfo>) (List<?>)  components;
+    @Override
+    public String id() {
+        return id;
+    }
+
+    @Override
+    public String name() {
+        return name;
+    }
+
+    @Override
+    public String description() {
+        return description;
     }
 
     @SuppressWarnings("unchecked")
-    public List<ActionInfo> getActions() {
-        return (List<ActionInfo>) (List<?>)  actions;
+    public List<LocationComponentInfo> components() {
+        return (List<LocationComponentInfo>) (List<?>) components;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<ActionInfo> actions() {
+        return (List<ActionInfo>) (List<?>) actions;
+    }
+
+    @Override
+    public XmlLocation copy() {
+        return toBuilder()
+                .components(components.stream()
+                        .map(XmlLocationComponent::copy)
+                        .collect(Collectors.toCollection(ArrayList::new)))
+                .actions(actions.stream()
+                        .map(XmlAction::copy)
+                        .collect(Collectors.toCollection(ArrayList::new)))
+                .build();
     }
 }

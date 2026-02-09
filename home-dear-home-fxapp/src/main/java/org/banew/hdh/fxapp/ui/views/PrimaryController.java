@@ -119,7 +119,7 @@ public class PrimaryController extends AbstractController {
     public void login(ActionEvent event) {
         future(userService.login(new LoginForm(loginField.getText(), passwordField.getText())), u -> {
             // Успіх! Можемо переходити на іншу локацію
-            passwordField.setText("Welcome, " + u.getUsername());
+            passwordField.setText("Welcome, " + u.username());
         }, e -> {
             alertLogin(e.getMessage());
         });
@@ -163,7 +163,7 @@ public class PrimaryController extends AbstractController {
                     registrationEmailField.getText(),
                     imageUri
             )), u -> {
-                System.out.println("Новий негр! " + u.getUsername());
+                System.out.println("Новий негр! " + u.username());
             }, e -> {
                 alertRegister(e.getMessage());
             });

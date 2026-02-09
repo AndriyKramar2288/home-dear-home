@@ -1,12 +1,12 @@
 package org.banew.hdh.fxapp.implementations.services;
 
-import org.banew.hdh.core.api.services.UserService;
-import org.banew.hdh.core.api.domen.UserInfo;
+import org.banew.hdh.core.api.dto.DetailedUserInfo;
 import org.banew.hdh.core.api.runtime.forms.LoginForm;
 import org.banew.hdh.core.api.runtime.forms.RegisterForm;
+import org.banew.hdh.core.api.services.UserService;
 import org.banew.hdh.fxapp.implementations.AuthorizationContext;
-import org.banew.hdh.fxapp.implementations.StorageRepository;
 import org.banew.hdh.fxapp.implementations.XmlService;
+import org.banew.hdh.fxapp.implementations.XmlStorageRepository;
 import org.banew.hdh.fxapp.implementations.xml.XmlUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -26,7 +26,7 @@ import java.util.concurrent.CompletableFuture;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private StorageRepository storageRepository;
+    private XmlStorageRepository xmlStorageRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Async
-    public CompletableFuture<? extends UserInfo> register(RegisterForm registerForm) {
+    public CompletableFuture<? extends DetailedUserInfo> register(RegisterForm registerForm) {
         try {
             registerForm.validate();
 
@@ -42,9 +42,9 @@ public class UserServiceImpl implements UserService {
             xmlUser.setEmail(registerForm.email());
             xmlUser.setPassword(passwordEncoder.encode(registerForm.password()));
             xmlUser.setUsername(registerForm.username());
-            storageRepository.saveUser(xmlUser);
+            xmlStorageRepository.saveUser(xmlUser);
 
-            return CompletableFuture.completedFuture(xmlUser);
+            return CompletableFuture.completedFuture(xmlUser.copy());
         }
         catch (Exception e) {
             return CompletableFuture.failedFuture(e);
@@ -53,18 +53,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Async
-    public CompletableFuture<? extends UserInfo> login(LoginForm loginForm) {
+    public CompletableFuture<? extends DetailedUserInfo> login(LoginForm loginForm) {
         try {
             // Логіка пошуку та перевірки
-            var user = storageRepository.findByUsername(loginForm.username())
+            var user = xmlStorageRepository.findByUsername(loginForm.username())
                     .orElseThrow(() -> new IllegalArgumentException("Username or password is invalid"));
 
-            if (!passwordEncoder.matches(loginForm.password(), user.getPassword())) {
+            if (!passwordEncoder.matches(loginForm.password(), user.password())) {
                 throw new IllegalArgumentException("Username or password is invalid");
             }
 
             authorizationContext.setCurrentUser(user);
-            return CompletableFuture.completedFuture(user);
+            return CompletableFuture.completedFuture(user.copy());
 
         } catch (Exception e) {
             // Явно кажемо: "Цей запуск завершився провалом"
@@ -103,24 +103,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserInfo getCurrentUser() {
-        return authorizationContext.getCurrentUser();
+    public DetailedUserInfo getCurrentUser() {
+        return authorizationContext.getCurrentUser().copy();
     }
 
     @Override
-    public Optional<? extends UserInfo> availableLoginByPassword() {
-        return storageRepository.findByLastTimeLoginAfterThan(LocalDateTime.now().minusDays(3));
+    public Optional<? extends DetailedUserInfo> availableLoginByPassword() {
+        return xmlStorageRepository.findByLastTimeLoginAfterThan(LocalDateTime.now().minusDays(3));
     }
 
     @Override
     @Async
-    public CompletableFuture<? extends UserInfo> login(String password) {
-        UserInfo userInfo = availableLoginByPassword()
-                .orElseThrow(() -> new IllegalArgumentException("You can't login this way now!"));
+    public CompletableFuture<? extends DetailedUserInfo> login(String password) {
+        XmlUserInfo userInfo = xmlStorageRepository
+                .findByLastTimeLoginAfterThan(LocalDateTime.now().minusDays(3))
+                .orElseThrow();
 
-        if (passwordEncoder.matches(password, userInfo.getPassword())) {
+        if (passwordEncoder.matches(password, userInfo.password())) {
             authorizationContext.setCurrentUser(userInfo);
-            return CompletableFuture.completedFuture(userInfo);
+            return CompletableFuture.completedFuture(userInfo.copy());
         }
         else {
             return CompletableFuture.failedFuture(new IllegalArgumentException("Wrong password!"));

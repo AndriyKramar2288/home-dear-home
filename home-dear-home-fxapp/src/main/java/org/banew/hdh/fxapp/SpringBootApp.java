@@ -6,10 +6,12 @@ import org.banew.hdh.fxapp.implementations.xml.*;
 import org.banew.hdh.fxapp.ui.JavaFXApp;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
+@EnableAsync
 public class SpringBootApp {
     @Bean
     public JavaFXApp javaFXApp() {
@@ -24,7 +26,6 @@ public class SpringBootApp {
     @Bean
     public JAXBContext jaxbContext() {
         try {
-            //return JAXBContext.newInstance(XmlAction.class, XmlLocation.class, XmlLocationComponent.class, XmlStorage.class, XmlUserInfo.class);
             return ReflectionsUtils.createDynamicContext("org.banew.hdh.fxapp.implementations.xml");
         } catch (JAXBException e) {
             throw new RuntimeException(e);

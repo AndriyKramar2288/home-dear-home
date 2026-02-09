@@ -4,8 +4,8 @@ import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import jakarta.xml.bind.JAXBException;
 import lombok.Getter;
-import org.banew.hdh.core.api.domen.LocationInfo;
-import org.banew.hdh.core.api.domen.UserInfo;
+import org.banew.hdh.core.api.dto.DataPrototype;
+import org.banew.hdh.core.api.dto.LocationInfo;
 import org.banew.hdh.fxapp.ReflectionsUtils;
 import org.banew.hdh.fxapp.implementations.runtime.DesktopLocationComponent;
 import org.banew.hdh.fxapp.implementations.xml.XmlLocation;
@@ -16,13 +16,11 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
-public class StorageRepository {
+public class XmlStorageRepository {
     @Autowired
     private XmlService xmlService;
     @Autowired
@@ -46,39 +44,46 @@ public class StorageRepository {
         xmlService.saveToXml(xmlStorage, file);
     }
 
-    public Optional<? extends UserInfo> findByUsername(String username) {
+    public Optional<XmlUserInfo> findByUsername(String username) {
         return xmlStorage.getUsers().stream()
-                .filter(u -> u.getUsername().equals(username))
+                .filter(u -> u.username().equals(username))
                 .findFirst();
     }
 
-    public Optional<? extends UserInfo> findByLastTimeLoginAfterThan(LocalDateTime lastTimeLogin) {
+    public Optional<XmlUserInfo> findByLastTimeLoginAfterThan(LocalDateTime lastTimeLogin) {
         return xmlStorage.getUsers().stream()
-                .filter(u -> u.getLastTimeLogin().isAfter(lastTimeLogin))
-                .min(Comparator.comparing(XmlUserInfo::getLastTimeLogin));
+                .filter(u -> u.lastTimeLogin().isAfter(lastTimeLogin))
+                .min(Comparator.comparing(XmlUserInfo::lastTimeLogin));
     }
 
     public void saveUser(XmlUserInfo xmlUser) {
         xmlStorage.getUsers().add(xmlUser);
     }
 
-    public void createLocationByName(String name) {
-        LocationInfo location = new XmlLocation();
-        location.setName(name);
+    public void saveLocation(XmlLocation location) {
+
+        if (location.id() == null) {
+            location.setId(UUID.randomUUID().toString());
+        }
+
+        authorizationContext.getCurrentUser().getLocations().removeIf(l -> l.id().equals(location.id()));
         authorizationContext.getCurrentUser().getLocations().add(location);
     }
 
-    public List<LocationInfo> getCurrentUserLocations() {
-        return authorizationContext.getCurrentUser().getLocations().stream().toList();
+    public List<XmlLocation> getCurrentUserLocations() {
+        return authorizationContext.getCurrentUser().getLocations().stream()
+                .map(XmlLocation::copy)
+                .collect(Collectors.toList());
     }
 
-    public Optional<LocationInfo> findLocationById(String locationId) {
+    public Optional<XmlLocation> findLocationById(String locationId) {
         return authorizationContext.getCurrentUser().getLocations().stream()
-                .filter(l -> l.getId().equals(locationId))
-                .findFirst();
+                .filter(l -> l.id().equals(locationId))
+                .findFirst()
+                .map(XmlLocation::copy);
     }
 
     public void deleteLocationById(String locationId) {
-        authorizationContext.getCurrentUser().getLocations().removeIf(l -> l.getId().equals(locationId));
+        authorizationContext.getCurrentUser().locations().removeIf(l -> l.id().equals(locationId));
     }
 }

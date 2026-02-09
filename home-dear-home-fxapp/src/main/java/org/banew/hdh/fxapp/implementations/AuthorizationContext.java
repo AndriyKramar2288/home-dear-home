@@ -1,23 +1,23 @@
 package org.banew.hdh.fxapp.implementations;
 
-import org.banew.hdh.core.api.domen.UserInfo;
+import org.banew.hdh.fxapp.implementations.xml.XmlUserInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class AuthorizationContext {
-    private final AtomicReference<UserInfo> currentUser = new AtomicReference<>();
+    private final AtomicReference<XmlUserInfo> currentUser = new AtomicReference<>();
 
     public void logout() {
         currentUser.set(null);
     }
 
-    public UserInfo getCurrentUser() {
+    public XmlUserInfo getCurrentUser() {
         return currentUser.get();
     }
 
-    public void setCurrentUser(UserInfo userInfo) {
+    public void setCurrentUser(XmlUserInfo userInfo) {
         currentUser.set(userInfo);
     }
 }

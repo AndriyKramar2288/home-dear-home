@@ -2,19 +2,26 @@ package org.banew.hdh.fxapp.implementations.xml;
 
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import org.banew.hdh.core.api.domen.LocationInfo;
-import org.banew.hdh.core.api.domen.UserInfo;
+import lombok.NoArgsConstructor;
+import org.banew.hdh.core.api.dto.DetailedUserInfo;
+import org.banew.hdh.core.api.dto.LocationInfo;
 import org.banew.hdh.fxapp.implementations.LocalDateTimeAdapter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public class XmlUserInfo implements UserInfo {
+@Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
+public class XmlUserInfo implements DetailedUserInfo {
     @XmlAttribute(required = true)
     private String username;
     @XmlAttribute(required = true)
@@ -33,42 +40,44 @@ public class XmlUserInfo implements UserInfo {
     private List<XmlLocation> locations;
 
     @Override
-    public String getUsername() {
+    public String username() {
         return username;
     }
 
     @Override
-    public String getFullname() {
+    public String fullname() {
         return fullname;
     }
 
     @Override
-    public String getPassword() {
+    public String password() {
         return password;
     }
 
     @Override
-    public String getEmail() {
+    public String email() {
         return email;
     }
 
     @Override
-    public String getPhoneNumber() {
+    public String phoneNumber() {
         return phoneNumber;
     }
 
     @Override
-    public Set<LocationInfo> getLocations() {
+    public Set<LocationInfo> locations() {
         return new HashSet<>(locations);
     }
 
     @Override
-    public LocalDateTime getLastTimeLogin() {
+    public LocalDateTime lastTimeLogin() {
         return lastTimeLogin;
     }
 
     @Override
-    public void setLastTimeLogin(LocalDateTime lastTimeLogin) {
-        this.lastTimeLogin = lastTimeLogin;
+    public DetailedUserInfo copy() {
+        return toBuilder()
+                .locations(new ArrayList<>(locations))
+                .build();
     }
 }

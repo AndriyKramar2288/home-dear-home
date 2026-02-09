@@ -3,7 +3,7 @@ package org.banew.hdh.fxapp.implementations.runtime;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
-import org.banew.hdh.core.api.domen.LocationComponentInfo;
+import org.banew.hdh.core.api.dto.LocationComponentInfo;
 import org.banew.hdh.core.api.runtime.LocationComponentAttributes;
 import org.banew.hdh.core.api.runtime.components.Data;
 
