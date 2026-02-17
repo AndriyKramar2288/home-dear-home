@@ -83,9 +83,9 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <AnchorPane prefHeight="158.0" prefWidth="814.0" GridPane.columnIndex="4" GridPane.columnSpan="6" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                  <StackPane prefHeight="230.0" prefWidth="845.0" GridPane.columnIndex="4" GridPane.columnSpan="6" GridPane.rowIndex="2" GridPane.rowSpan="2">
                      <children>
-                        <VBox fx:id="regularLoginForm" alignment="CENTER" fillWidth="false" layoutX="41.0" layoutY="61.0" prefHeight="555.0" prefWidth="814.0" styleClass="central-box" stylesheets="@assets/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox fx:id="regularLoginForm" alignment="CENTER" fillWidth="false" prefHeight="555.0" prefWidth="814.0" styleClass="central-box" stylesheets="@assets/styles.css">
                            <children>
                               <VBox alignment="CENTER" fillWidth="false" prefHeight="117.0" prefWidth="357.0" spacing="10.0" styleClass="field-box" stylesheets="@assets/styles.css">
                                  <children>
@@ -135,7 +135,7 @@
                               <Insets />
                            </opaqueInsets>
                         </VBox>
-                        <AnchorPane fx:id="registrationForm" prefHeight="200.0" prefWidth="200.0" styleClass="central-box" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="registrationForm" prefHeight="200.0" prefWidth="200.0" styleClass="central-box">
                            <children>
                               <Button layoutX="200.0" layoutY="184.0" mnemonicParsing="false" onAction="#switchToRegularLogin" prefHeight="64.0" prefWidth="64.0" styleClass="register-return-button" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="24.0">
                                  <graphic>
@@ -201,24 +201,91 @@
                               </VBox>
                            </children>
                         </AnchorPane>
+                        <AnchorPane fx:id="locationChooseForm" prefHeight="200.0" prefWidth="200.0" styleClass="central-box">
+                           <children>
+                              <VBox alignment="CENTER" layoutX="372.0" layoutY="140.0" prefHeight="200.0" prefWidth="100.0" spacing="24.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                       <children>
+                                          <VBox prefHeight="100.0" prefWidth="330.0" styleClass="field-box">
+                                             <children>
+                                                <AnchorPane prefHeight="200.0" prefWidth="275.0">
+                                                   <children>
+                                                      <TextField fx:id="registrationEmailField1" prefHeight="43.0" prefWidth="310.0" promptText="email" styleClass="text-field" />
+                                                      <FontIcon iconLiteral="mdoal-email" iconSize="24" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="200.0" prefWidth="275.0">
+                                                   <children>
+                                                      <TextField fx:id="registrationUsernameField1" prefHeight="43.0" prefWidth="310.0" promptText="username" styleClass="text-field" />
+                                                      <FontIcon iconLiteral="mdal-account_box" iconSize="24" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="200.0" prefWidth="275.0">
+                                                   <children>
+                                                      <PasswordField fx:id="registrationPasswordField1" prefHeight="43.0" prefWidth="310.0" promptText="password" styleClass="text-field" />
+                                                      <FontIcon iconLiteral="mdrmz-vpn_key" iconSize="24" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="200.0" prefWidth="275.0">
+                                                   <children>
+                                                      <PasswordField fx:id="registrationRepeatPasswordField1" prefHeight="43.0" prefWidth="310.0" promptText="repeat password" styleClass="text-field" />
+                                                      <FontIcon iconLiteral="mdomz-vpn_key" iconSize="24" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </VBox>
+                                          <VBox fx:id="avatarImageBlock1" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="field-box">
+                                             <children>
+                                                <StackPane prefHeight="150.0" prefWidth="200.0">
+                                                   <children>
+                                                      <FontIcon iconLiteral="mdmz-photo_library" iconSize="64" />
+                                                      <ImageView fx:id="avatarPreview1" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                                   </children>
+                                                </StackPane>
+                                                <Button mnemonicParsing="false" onAction="#attachImage" prefHeight="40.0" prefWidth="200.0" text="avatar image">
+                                                   <graphic>
+                                                      <FontIcon iconLiteral="mdal-attachment" iconSize="24" />
+                                                   </graphic>
+                                                </Button>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                    <Circle fill="#a39fb3" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                                    <Label fx:id="registrationErrorLabel1" styleClass="form-alert-label" text="Label" visible="false" />
+                                    <Button mnemonicParsing="false" styleClass="form-button" text="Negr" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
                      </children>
-                  </AnchorPane>
-                  <VBox id="top-label-box" alignment="CENTER" fillWidth="false" prefHeight="236.0" prefWidth="560.0" GridPane.columnIndex="4" GridPane.columnSpan="6" GridPane.rowIndex="1">
+                  </StackPane>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.columnSpan="6" GridPane.rowIndex="1">
                      <children>
-                        <Label fx:id="topLabel" text="Hello!" textAlignment="CENTER">
-                           <font>
-                              <Font size="96.0" />
-                           </font>
-                        </Label>
-                        <Rectangle fx:id="topLabelStick" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="250.0">
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin></Rectangle>
+                        <VBox id="top-label-box" alignment="CENTER" fillWidth="false" prefHeight="122.0" prefWidth="492.0">
+                           <children>
+                              <Label fx:id="topLabel" text="Hello!" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="96.0" />
+                                 </font>
+                              </Label>
+                              <Rectangle fx:id="topLabelStick" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="250.0">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Rectangle>
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="30.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <ImageView fx:id="topLabelAvatar" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
-                     <GridPane.margin>
-                        <Insets bottom="100.0" />
-                     </GridPane.margin>
-                  </VBox>
+                  </HBox>
                   <VBox id="clock-area" alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="only-wide" GridPane.columnIndex="11" GridPane.columnSpan="3" GridPane.rowIndex="1">
                      <children>
                         <VBox id="clock-box" alignment="CENTER" prefHeight="137.0" prefWidth="243.0" stylesheets="@assets/styles.css">

@@ -13,5 +13,7 @@ public interface UserInfo extends DataPrototype<DetailedUserInfo> {
 
     String phoneNumber();
 
+    String photoSrc();
+
     LocalDateTime lastTimeLogin();
 }

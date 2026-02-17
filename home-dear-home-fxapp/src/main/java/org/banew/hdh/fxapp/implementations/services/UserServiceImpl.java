@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
 
             XmlUserInfo xmlUser = new XmlUserInfo();
             xmlUser.setEmail(registerForm.email());
+            xmlUser.setPhotoSrc(registerForm.photoSrc());
             xmlUser.setPassword(passwordEncoder.encode(registerForm.password()));
             xmlUser.setUsername(registerForm.username());
             xmlStorageRepository.saveUser(xmlUser);

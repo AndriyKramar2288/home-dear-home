@@ -18,6 +18,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.banew.hdh.core.api.services.UserService;
 import org.banew.hdh.core.api.runtime.forms.LoginForm;
 import org.banew.hdh.core.api.runtime.forms.RegisterForm;
@@ -62,11 +64,15 @@ public class PrimaryController extends AbstractController {
     private Pane regularLoginForm;
     @FXML
     private Pane registrationForm;
+    @FXML
+    private Pane locationChooseForm;
 
     @FXML
     private ImageView avatarPreview;
     @FXML
     private Node avatarImageBlock;
+    @FXML
+    private ImageView topLabelAvatar;
 
     //    REGISTRATION FIELDS
     @FXML
@@ -80,6 +86,50 @@ public class PrimaryController extends AbstractController {
     private File registrationAvatarImage = null;
     @FXML
     private Label registrationErrorLabel;
+
+    private PrimaryState currentState;
+
+    @Getter
+    @AllArgsConstructor
+    private enum PrimaryState {
+        LOGIN,
+        REGISTRATION,
+        LOCATION_CHOOSE;
+    }
+
+    record StateConfig(Node form, String title, int fontSize) {}
+
+    private void setCurrentState(PrimaryState currentState) {
+        this.currentState = currentState;
+        clickSound.play();
+
+        var config = getStateConfig(currentState);
+
+        config.form().toFront();
+
+        if (config.title() != null) {
+            topLabel.setText(config.title());
+            topLabel.setStyle("-fx-font-size: " + config.fontSize() + ";");
+        }
+
+        topLabelAvatar.setVisible(false);
+        topLabelAvatar.setManaged(false);
+
+        if (currentState == PrimaryState.LOCATION_CHOOSE && userService.getCurrentUser().photoSrc() != null) {
+            topLabelAvatar.setImage(new Image(userService.getCurrentUser().photoSrc()));
+            topLabelAvatar.setVisible(true);
+            topLabelAvatar.setManaged(true);
+        }
+    }
+
+    private StateConfig getStateConfig(PrimaryState state) {
+        return switch (state) {
+            case LOGIN -> new StateConfig(regularLoginForm, "Hello!", 96);
+            case REGISTRATION -> new StateConfig(registrationForm, "Account creation", 60);
+            case LOCATION_CHOOSE -> new StateConfig(locationChooseForm, null, 0);
+            default -> throw new IllegalStateException("Unexpected state: " + state);
+        };
+    }
 
     @FXML
     public void sendToDiscord(MouseEvent event) {
@@ -104,34 +154,28 @@ public class PrimaryController extends AbstractController {
                 setUpEverythingSmooth(newScene.getRoot());
             }
         });
+
+        setCurrentState(PrimaryState.LOGIN);
     }
 
     @FXML
     public void switchToRegisterForm(ActionEvent event) {
-        regularLoginForm.setVisible(false);
-        registrationForm.setVisible(true);
-        clickSound.play();
-        topLabel.setText("Account creation");
-        topLabel.setStyle("-fx-font-size: 60;");
+        setCurrentState(PrimaryState.REGISTRATION);
     }
 
     @FXML
     public void login(ActionEvent event) {
         future(userService.login(new LoginForm(loginField.getText(), passwordField.getText())), u -> {
-            // Успіх! Можемо переходити на іншу локацію
-            passwordField.setText("Welcome, " + u.username());
+            setCurrentState(PrimaryState.LOCATION_CHOOSE);
         }, e -> {
             alertLogin(e.getMessage());
+            throw new RuntimeException(e);
         });
     }
 
     @FXML
     public void switchToRegularLogin(ActionEvent event) {
-        regularLoginForm.setVisible(true);
-        registrationForm.setVisible(false);
-        clickSound.play();
-        topLabel.setText("Hello!");
-        topLabel.setStyle("-fx-font-size: 96;");
+        setCurrentState(PrimaryState.LOGIN);
     }
 
     @FXML
@@ -163,7 +207,7 @@ public class PrimaryController extends AbstractController {
                     registrationEmailField.getText(),
                     imageUri
             )), u -> {
-                System.out.println("Новий негр! " + u.username());
+                setCurrentState(PrimaryState.LOCATION_CHOOSE);
             }, e -> {
                 alertRegister(e.getMessage());
             });

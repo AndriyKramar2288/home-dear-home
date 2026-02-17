@@ -13,6 +13,7 @@ public @interface LocationComponentAttributes {
     String description();
     boolean supportGeneration() default false;
     boolean supportProcessing() default false;
+    Argument[] properties() default {};
     Argument[] generationArguments() default {};
     Argument[] processingArguments() default {};
 

@@ -33,11 +33,13 @@ public class XmlUserInfo implements DetailedUserInfo {
     @XmlAttribute
     private String phoneNumber;
     @XmlAttribute
+    private String photoSrc;
+    @XmlAttribute
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime lastTimeLogin;
     @XmlElementWrapper(name = "locations")
     @XmlElement(name = "location")
-    private List<XmlLocation> locations;
+    private List<XmlLocation> locations = new ArrayList<>();
 
     @Override
     public String username() {
@@ -62,6 +64,11 @@ public class XmlUserInfo implements DetailedUserInfo {
     @Override
     public String phoneNumber() {
         return phoneNumber;
+    }
+
+    @Override
+    public String photoSrc() {
+        return photoSrc;
     }
 
     @Override
