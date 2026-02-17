@@ -89,7 +89,7 @@ public class JavaFXApp extends Application {
         scene.setFill(stage.isMaximized() ? Color.BLACK : Color.TRANSPARENT);
     }
 
-    public void maximize() {
+    public boolean maximize() {
         if (stage.isMaximized()) {
             stage.setMaximized(false);
         } else {
@@ -98,6 +98,7 @@ public class JavaFXApp extends Application {
         }
 
         scene.setFill(stage.isMaximized() ? Color.BLACK : Color.TRANSPARENT);
+        return stage.isMaximized();
     }
 
     public static JavaFXApp getInstance() {

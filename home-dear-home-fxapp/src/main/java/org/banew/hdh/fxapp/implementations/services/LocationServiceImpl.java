@@ -2,7 +2,6 @@ package org.banew.hdh.fxapp.implementations.services;
 
 import lombok.AllArgsConstructor;
 import org.banew.hdh.core.api.dto.ActionInfo;
-import org.banew.hdh.core.api.dto.LocationComponentInfo;
 import org.banew.hdh.core.api.dto.LocationInfo;
 import org.banew.hdh.core.api.runtime.LocationComponent;
 import org.banew.hdh.core.api.services.LocationService;

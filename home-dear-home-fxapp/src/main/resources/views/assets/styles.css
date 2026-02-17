@@ -68,6 +68,13 @@
     -fx-fill-radius: 6;
 }
 
+.top-label-avatar-box {
+    -fx-border-color: -fx-city-blue;
+    -fx-border-width: 3;
+    -fx-border-radius: 60;
+    -fx-background-radius: 60;
+}
+
 
 
 /*FORM BUTTONS*/

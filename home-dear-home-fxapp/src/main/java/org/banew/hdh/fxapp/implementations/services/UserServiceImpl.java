@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public DetailedUserInfo getCurrentUser() {
-        return authorizationContext.getCurrentUser().copy();
+        return authorizationContext.getCurrentUser() == null ? null : authorizationContext.getCurrentUser().copy();
     }
 
     @Override
