@@ -1,5 +1,6 @@
 package org.banew.hdh.fxapp.ui;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -38,10 +39,10 @@ public class ControllerUtils {
             for (Node node : root.lookupAll("*")) { // Беремо всі елементи
                 node.visibleProperty().addListener((obs, wasVisible, isVisible) -> {
                     if (isVisible) {
-                        node.setTranslateY(5);
-                        TranslateTransition tt = new TranslateTransition(Duration.millis(100), node);
-                        tt.setToY(0);
-                        tt.play();
+                        node.setOpacity(0.25);
+                        FadeTransition ft = new FadeTransition(Duration.millis(100), node);
+                        ft.setToValue(1);
+                        ft.play();
                     }
                 });
             }

@@ -87,6 +87,6 @@ public class XmlStorageRepository {
         authorizationContext.getCurrentUser()
                 .setLocations(authorizationContext.getCurrentUser().getLocations().stream()
                         .filter(location -> !location.id().equals(locationId))
-                        .toList());
+                        .collect(Collectors.toList()));
     }
 }

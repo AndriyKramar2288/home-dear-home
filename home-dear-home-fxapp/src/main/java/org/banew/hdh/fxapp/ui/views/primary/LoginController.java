@@ -35,12 +35,6 @@ public class LoginController {
     @Setter
     private PrimaryController primaryController;
 
-    public void initialize() {
-        loginField.setText("Vasya");
-        passwordField.setText("ZZZ");
-        login(null);
-    }
-
     public void setVisible(boolean visible) {
         regularLoginForm.setVisible(visible);
     }

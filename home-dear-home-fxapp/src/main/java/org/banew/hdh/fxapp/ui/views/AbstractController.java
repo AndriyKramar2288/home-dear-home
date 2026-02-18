@@ -25,17 +25,25 @@ public abstract class AbstractController {
     @FXML
     private ModalController modalController;
 
+    public void hideModal() {
+        modalController.setVisible(false);
+    }
+
+    public void showModal(Node node) {
+        modalController.setContent(node, true);
+        modalController.setVisible(true);
+    }
+
     public void showWarning(String message, Runnable onConfirm) {
         try {
             var loader = javaFXApp.getLoader("warning");
             Node node = loader.load();
             WarningController controller = loader.getController();
-            modalController.hideCloseButton();
             controller.initData(message, () -> {
                 onConfirm.run();
                 modalController.setVisible(false);
             }, () -> modalController.setVisible(false));
-            modalController.setContent(node);
+            modalController.setContent(node, false);
         }
         catch (IOException exception) {
             throw new RuntimeException(exception);

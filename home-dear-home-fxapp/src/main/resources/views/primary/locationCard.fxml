@@ -38,7 +38,7 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#302f34" height="90.0" stroke="#ffffff00" strokeType="INSIDE" width="3.0" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <Button mnemonicParsing="false">
+                        <Button fx:id="runLocationButton" mnemonicParsing="false">
                            <graphic>
                               <FontIcon iconLiteral="mdomz-rocket" />
                            </graphic>

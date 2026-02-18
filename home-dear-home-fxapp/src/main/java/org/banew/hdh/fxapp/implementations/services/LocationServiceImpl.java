@@ -47,10 +47,11 @@ public class LocationServiceImpl implements LocationService<ComponentsContext> {
     }
 
     @Override
-    public LocationInfo createLocation(String name) {
+    public LocationInfo createLocation(String name, String desc) {
 
         var location = new XmlLocation();
         location.setName(name);
+        location.setDescription(desc);
         xmlStorageRepository.saveLocation(location);
 
         return location.copy();

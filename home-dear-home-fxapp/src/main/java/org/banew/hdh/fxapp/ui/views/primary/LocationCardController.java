@@ -1,6 +1,5 @@
 package org.banew.hdh.fxapp.ui.views.primary;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,6 +26,8 @@ public class LocationCardController {
     private Label locationNameLabel;
     @FXML
     private Button deleteLocationButton;
+    @FXML
+    private Button runLocationButton;
 
     private LocationCardController locationCardController;
 

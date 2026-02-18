@@ -1,6 +1,8 @@
 package org.banew.hdh.fxapp.ui.views.primary;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -10,11 +12,13 @@ import org.banew.hdh.core.api.services.UserService;
 import org.banew.hdh.fxapp.implementations.ComponentsContext;
 import org.banew.hdh.fxapp.ui.JavaFXApp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 @Component
+@Scope("prototype")
 public class LocationSelectionController {
 
     @Autowired
@@ -30,6 +34,18 @@ public class LocationSelectionController {
     private Pane locationChooseForm;
     @FXML
     private HBox locationList;
+
+    @FXML
+    public void createLocation(ActionEvent event) throws IOException {
+        var loader = javaFXApp.getLoader("primary/locationCreation");
+        Node node = loader.load();
+        LocationCreationController controller = loader.getController();
+        controller.setOnLocationCreated(() -> {
+            updateList();
+            primaryController.hideModal();
+        });
+        primaryController.showModal(node);
+    }
 
     public void setVisible(boolean visible) {
         locationChooseForm.setVisible(visible);

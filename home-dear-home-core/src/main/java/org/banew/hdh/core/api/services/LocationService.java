@@ -16,7 +16,7 @@ public interface LocationService<T> {
 
     Optional<? extends LocationInfo> getLocationById(String locationId);
 
-    LocationInfo createLocation(String name);
+    LocationInfo createLocation(String name, String desc);
 
     LocationInfo updateLocation(String locationId, LocationInfo updatedLocationInfo);
 

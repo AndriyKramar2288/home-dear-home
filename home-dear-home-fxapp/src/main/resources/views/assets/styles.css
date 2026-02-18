@@ -40,6 +40,14 @@
     -fx-border-width: 4;
 }
 
+.usual-button {
+    -fx-background-color: -fx-text-default;
+}
+
+.usual-button:hover {
+    -fx-background-color: -fx-text-default-button;
+}
+
 .modal-button {
     -fx-background-color: transparent;
     -fx-background-radius: 6;
@@ -50,7 +58,7 @@
 }
 
 .modal-button FontIcon {
-    -fx-icon-color: -fx-city-blue;
+    -fx-icon-color: -fx-text-default;
     -fx-icon-size: 24px;
 }
 
@@ -212,6 +220,10 @@
 
 .field-box Button:hover {
     -fx-background-color: -fx-text-default-button;
+}
+
+.text-field .content {
+    -fx-background-color: transparent;
 }
 
 .text-field {
