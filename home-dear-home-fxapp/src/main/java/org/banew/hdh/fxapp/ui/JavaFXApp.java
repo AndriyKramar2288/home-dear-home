@@ -110,11 +110,13 @@ public class JavaFXApp extends Application {
         }
     }
 
+    public FXMLLoader getLoader(String fxml) {
+        var resource = getClass().getResource("/views/" + fxml + ".fxml");
+        return new FXMLLoader(resource);
+    }
+
     private Parent loadFXML(String fxml) throws IOException {
-
-        var resource = getClass().getClassLoader().getResource("views/" + fxml + ".fxml");
-
-        FXMLLoader fxmlLoader = new FXMLLoader(resource);
+        FXMLLoader fxmlLoader = getLoader(fxml);
         fxmlLoader.setControllerFactory(context::getBean);
         return fxmlLoader.load();
     }

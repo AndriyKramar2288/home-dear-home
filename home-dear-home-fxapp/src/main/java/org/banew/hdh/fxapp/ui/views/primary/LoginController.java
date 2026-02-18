@@ -9,7 +9,6 @@ import javafx.scene.layout.Pane;
 import lombok.Setter;
 import org.banew.hdh.core.api.runtime.forms.LoginForm;
 import org.banew.hdh.core.api.services.UserService;
-import org.banew.hdh.fxapp.ui.views.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,9 +25,21 @@ public class LoginController {
 
     @FXML
     private Pane regularLoginForm;
+    @FXML
+    private Label formAlertLabel;
+    @FXML
+    private TextField loginField;
+    @FXML
+    private PasswordField passwordField;
 
     @Setter
     private Consumer<PrimaryController.PrimaryState> changeState;
+
+    public void initialize() {
+        loginField.setText("Vasya");
+        passwordField.setText("Aboba ZZZZ");
+        login(null);
+    }
 
     public void setVisible(boolean visible) {
         regularLoginForm.setVisible(visible);
@@ -51,11 +62,4 @@ public class LoginController {
     private void alertLogin(String text) {
         showTimedAlert(formAlertLabel, text, 5);
     }
-
-    @FXML
-    private Label formAlertLabel;
-    @FXML
-    private TextField loginField;
-    @FXML
-    private PasswordField passwordField;
 }

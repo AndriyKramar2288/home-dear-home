@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="locationChooseForm" prefHeight="369.0" prefWidth="795.0" styleClass="central-box" stylesheets="@../assets/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.primary.LocationSelectionController">
+   <children>
+      <VBox alignment="CENTER" layoutX="30.4" layoutY="140.0" prefHeight="327.0" prefWidth="557.0" spacing="24.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="MY LOCATIONS" textFill="#a39fb3">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <ScrollPane prefHeight="214.0" prefWidth="628.0" styleClass="scroll-pane" vbarPolicy="NEVER">
+               <content>
+                  <HBox fx:id="locationList" alignment="CENTER" prefHeight="208.0" prefWidth="539.0" spacing="20.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
