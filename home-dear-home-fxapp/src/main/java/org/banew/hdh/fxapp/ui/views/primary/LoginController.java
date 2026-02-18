@@ -33,11 +33,11 @@ public class LoginController {
     private PasswordField passwordField;
 
     @Setter
-    private Consumer<PrimaryController.PrimaryState> changeState;
+    private PrimaryController primaryController;
 
     public void initialize() {
         loginField.setText("Vasya");
-        passwordField.setText("Aboba ZZZZ");
+        passwordField.setText("ZZZ");
         login(null);
     }
 
@@ -47,13 +47,13 @@ public class LoginController {
 
     @FXML
     public void switchToRegisterForm(ActionEvent actionEvent) {
-        changeState.accept(PrimaryController.PrimaryState.REGISTRATION);
+        primaryController.setCurrentState(PrimaryController.PrimaryState.REGISTRATION);
     }
 
     @FXML
     public void login(ActionEvent event) {
         future(userService.login(new LoginForm(loginField.getText(), passwordField.getText())), u -> {
-            changeState.accept(PrimaryController.PrimaryState.LOCATION_CHOOSE);
+            primaryController.setCurrentState(PrimaryController.PrimaryState.LOCATION_CHOOSE);
         }, e -> {
             alertLogin(e.getMessage());
         });

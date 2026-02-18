@@ -84,6 +84,9 @@ public class XmlStorageRepository {
     }
 
     public void deleteLocationById(String locationId) {
-        authorizationContext.getCurrentUser().locations().removeIf(l -> l.id().equals(locationId));
+        authorizationContext.getCurrentUser()
+                .setLocations(authorizationContext.getCurrentUser().getLocations().stream()
+                        .filter(location -> !location.id().equals(locationId))
+                        .toList());
     }
 }

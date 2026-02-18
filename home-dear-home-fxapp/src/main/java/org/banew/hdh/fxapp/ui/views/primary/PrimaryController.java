@@ -56,7 +56,7 @@ public class PrimaryController extends AbstractController {
         LOCATION_CHOOSE;
     }
 
-    private void setCurrentState(PrimaryState state) {
+    public void setCurrentState(PrimaryState state) {
         ControllerUtils.clickSound();
         loginController.setVisible(state == PrimaryState.LOGIN);
         registrationController.setVisible(state == PrimaryState.REGISTRATION);
@@ -85,9 +85,9 @@ public class PrimaryController extends AbstractController {
         topLabelAvatar.setVisible(false);
         topLabelAvatar.setManaged(false);
 
-        loginController.setChangeState(this::setCurrentState);
-        registrationController.setChangeState(this::setCurrentState);
-        locationSelectionController.setChangeState(this::setCurrentState);
+        loginController.setPrimaryController(this);
+        registrationController.setPrimaryController(this);
+        locationSelectionController.setPrimaryController(this);
 
         metaInfoLabel.setText(String.format("HomeDearHome\nJavaFX %s", javaFXApp.getAppVersion()));
         topLabelStick.widthProperty().bind(topLabel.widthProperty());

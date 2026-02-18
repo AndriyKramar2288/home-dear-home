@@ -55,7 +55,7 @@ public class RegistrationController {
     }
 
     @Setter
-    private Consumer<PrimaryController.PrimaryState> changeState;
+    private PrimaryController primaryController;
 
     private void alertRegister(String text) {
         showTimedAlert(errorLabel, text, 5);
@@ -67,7 +67,7 @@ public class RegistrationController {
 
     @FXML
     public void switchToRegularLogin(ActionEvent actionEvent) {
-        changeState.accept(PrimaryController.PrimaryState.LOGIN);
+        primaryController.setCurrentState(PrimaryController.PrimaryState.LOGIN);
     }
 
     @FXML
@@ -81,7 +81,7 @@ public class RegistrationController {
                     registrationEmailField.getText(),
                     imageUri
             )), u -> {
-                changeState.accept(PrimaryController.PrimaryState.LOCATION_CHOOSE);
+                primaryController.setCurrentState(PrimaryController.PrimaryState.LOCATION_CHOOSE);
             }, e -> {
                 alertRegister(e.getMessage());
             });

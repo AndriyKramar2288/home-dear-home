@@ -10,6 +10,8 @@ import org.banew.hdh.fxapp.ui.JavaFXApp;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.IOException;
+
 public abstract class AbstractController {
 
     @Autowired
@@ -20,6 +22,25 @@ public abstract class AbstractController {
 
     @FXML
     private FontIcon maxMinControlIcon;
+    @FXML
+    private ModalController modalController;
+
+    public void showWarning(String message, Runnable onConfirm) {
+        try {
+            var loader = javaFXApp.getLoader("warning");
+            Node node = loader.load();
+            WarningController controller = loader.getController();
+            modalController.hideCloseButton();
+            controller.initData(message, () -> {
+                onConfirm.run();
+                modalController.setVisible(false);
+            }, () -> modalController.setVisible(false));
+            modalController.setContent(node);
+        }
+        catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
 
     @FXML
     private void handleTitleBarPressed(MouseEvent event) {

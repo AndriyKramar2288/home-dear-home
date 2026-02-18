@@ -1,6 +1,8 @@
 package org.banew.hdh.fxapp.ui.views.primary;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import org.banew.hdh.core.api.dto.LocationInfo;
@@ -23,13 +25,18 @@ public class LocationCardController {
     private Label actionsCountLabel;
     @FXML
     private Label locationNameLabel;
+    @FXML
+    private Button deleteLocationButton;
+
+    private LocationCardController locationCardController;
 
     public void initialize() {
         locationActualCard.setVisible(false);
         locationHolderCard.setVisible(true);
     }
 
-    public void initData(LocationInfo locationInfo) {
+    public void initData(LocationInfo locationInfo, Runnable onConfirm, Runnable onDelete) {
+        deleteLocationButton.setOnAction(actionEvent -> onDelete.run());
         isInitialized = true;
         locationHolderCard.setVisible(false);
         locationActualCard.setVisible(true);

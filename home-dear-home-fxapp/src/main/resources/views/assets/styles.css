@@ -32,7 +32,49 @@
     -fx-opacity: 0;
 }
 
+.modal {
+    -fx-background-color: rgba(48, 47, 52, 0.5);
+    -fx-background-radius: 12;
+    -fx-border-color: -fx-city-blue;
+    -fx-border-radius: 12;
+    -fx-border-width: 4;
+}
 
+.modal-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6;
+}
+
+.modal-button:hover {
+    -fx-background-color: rgba(48, 47, 52, 0.5);
+}
+
+.modal-button FontIcon {
+    -fx-icon-color: -fx-city-blue;
+    -fx-icon-size: 24px;
+}
+
+.warning * {
+    -fx-text-fill: -fx-text-default;
+    -fx-font-size: 24px;
+}
+
+.warning Button {
+    -fx-background-color: -fx-city-blue;
+    -fx-background-radius: 6;
+    -fx-padding: 5 40 5 40;
+}
+
+.warning Button:hover {
+    -fx-background-color: -fx-city-blue-button;
+}
+
+.form-button:hover {
+    -fx-padding: 5 40 5 40;
+
+    -fx-background-radius: 6;
+    -fx-font-size: 24px;
+}
 
 /*WINDOW & CENTRAL BOX*/
 
