@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane fx:id="locationChooseForm" prefHeight="369.0" prefWidth="795.0" styleClass="central-box" stylesheets="@../assets/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.primary.LocationSelectionController">
+<AnchorPane fx:id="locationChooseForm" prefHeight="369.0" prefWidth="795.0" styleClass="central-box" stylesheets="@../assets/styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.primary.LocationSelectionController">
    <children>
       <VBox alignment="CENTER" layoutX="30.4" layoutY="140.0" prefHeight="327.0" prefWidth="557.0" spacing="24.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
          <children>

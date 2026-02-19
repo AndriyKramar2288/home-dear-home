@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -48,6 +49,8 @@ public class PrimaryController extends AbstractController {
     private LocationSelectionController locationSelectionController;
     @FXML
     private ImageView topLabelAvatar;
+    @FXML
+    private Pane topLabelAvatarPane;
 
     @AllArgsConstructor
     public enum PrimaryState {
@@ -82,8 +85,8 @@ public class PrimaryController extends AbstractController {
     public void initialize() {
         setUpClock();
         setUpSmooth(topLabel);
-        topLabelAvatar.setVisible(false);
-        topLabelAvatar.setManaged(false);
+        topLabelAvatarPane.setVisible(false);
+        topLabelAvatarPane.setManaged(false);
 
         loginController.setPrimaryController(this);
         registrationController.setPrimaryController(this);
@@ -99,9 +102,9 @@ public class PrimaryController extends AbstractController {
         topLabel.setText(text);
         topLabel.setStyle("-fx-font-size: " + size + ";");
         boolean hasPhoto = userService.getCurrentUser() != null && userService.getCurrentUser().photoSrc() != null;
-        topLabelAvatar.setVisible(showAvatar && hasPhoto);
-        topLabelAvatar.setManaged(showAvatar && hasPhoto);
-        if (topLabelAvatar.isVisible()) {
+        topLabelAvatarPane.setVisible(showAvatar && hasPhoto);
+        topLabelAvatarPane.setManaged(showAvatar && hasPhoto);
+        if (topLabelAvatarPane.isVisible()) {
             double radius = 50;
             Circle clip = new Circle(radius, radius, radius);
             topLabelAvatar.setClip(clip);

@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<StackPane prefHeight="160.0" prefWidth="324.0" stylesheets="@../assets/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.primary.LocationCardController">
+<StackPane prefHeight="160.0" prefWidth="324.0" stylesheets="@../assets/styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.primary.LocationCardController">
    <children>
       <StackPane fx:id="locationHolderCard" prefHeight="117.0" prefWidth="222.0" styleClass="location-holder-card" visible="false" />
       <VBox fx:id="locationActualCard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="182.0" prefWidth="472.0" spacing="10.0" styleClass="location-actual-card">

@@ -14,13 +14,13 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane style="-fx-background-color: transparent;" stylesheets="@assets/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.primary.PrimaryController">
+<AnchorPane style="-fx-background-color: transparent;" stylesheets="@assets/styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.primary.PrimaryController">
    <children>
       <AnchorPane fx:id="mainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="979.0" prefWidth="1677.0" style="-fx-background-color: #1F1F1F;" styleClass="main-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox id="clock-area" alignment="CENTER" fillWidth="false" layoutY="48.0" prefHeight="238.0" prefWidth="274.0" spacing="20.0" styleClass="only-wide" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                <children>
-                  <VBox id="clock-box" alignment="CENTER" prefHeight="137.0" prefWidth="243.0" stylesheets="@assets/styles.css">
+                  <VBox id="clock-box" alignment="CENTER" prefHeight="137.0" prefWidth="243.0">
                      <children>
                         <Label fx:id="clockLabel">
                            <font>
@@ -45,14 +45,14 @@
             </VBox>
             <ImageView fitHeight="673.0" fitWidth="867.0" layoutX="452.8" layoutY="29.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                <image>
-                  <Image url="@assets/city.png" />
+                  <Image url="@assets/img/city.png" />
                </image>
             </ImageView>
             <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <VBox alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="954.0">
                      <children>
-                        <HBox alignment="CENTER" fillHeight="false" prefHeight="162.0" spacing="30.0">
+                        <HBox alignment="CENTER" fillHeight="false" prefHeight="162.0">
                            <children>
                               <VBox id="top-label-box" alignment="CENTER" fillWidth="false" prefHeight="122.0">
                                  <children>
@@ -68,10 +68,13 @@
                                     </Rectangle>
                                  </children>
                               </VBox>
-                              <StackPane styleClass="top-label-avatar-box">
+                              <StackPane fx:id="topLabelAvatarPane" styleClass="top-label-avatar-box">
                                  <children>
                                     <ImageView fx:id="topLabelAvatar" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
+                                 <HBox.margin>
+                                    <Insets left="30.0" />
+                                 </HBox.margin>
                               </StackPane>
                            </children>
                            <padding>
@@ -102,7 +105,7 @@
          </children>
       </AnchorPane>
       <fx:include fx:id="modal" source="modal.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <HBox alignment="CENTER_RIGHT" onMouseDragged="#handleTitleBarDragged" onMousePressed="#handleTitleBarPressed" prefHeight="0.0" prefWidth="1671.0" styleClass="top-bar" stylesheets="@assets/styles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER_RIGHT" onMouseDragged="#handleTitleBarDragged" onMousePressed="#handleTitleBarPressed" prefHeight="0.0" prefWidth="1671.0" styleClass="top-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button mnemonicParsing="false" onAction="#handleMinimize" prefHeight="42.0" prefWidth="38.0" styleClass="top-bar-button">
                <HBox.margin>

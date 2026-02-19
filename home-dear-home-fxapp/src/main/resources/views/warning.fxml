@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="251.0" prefWidth="414.0" spacing="20.0" styleClass="warning" stylesheets="@assets/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.WarningController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="251.0" prefWidth="414.0" spacing="20.0" styleClass="warning" stylesheets="@assets/styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.WarningController">
    <children>
       <Label fx:id="messageLabel" prefHeight="154.0" prefWidth="378.0" text="qwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww" textAlignment="CENTER" wrapText="true" />
       <HBox alignment="CENTER" prefHeight="49.0" prefWidth="168.0" spacing="20.0">

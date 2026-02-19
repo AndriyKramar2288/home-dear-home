@@ -3,7 +3,6 @@ package org.banew.hdh.fxapp.ui;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
-import javafx.css.PseudoClass;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -47,7 +46,7 @@ public class JavaFXApp extends Application {
     public void start(Stage stage) throws IOException {
         this.stage = stage;
 
-        Font.loadFont(getClass().getResourceAsStream("/views/assets/Gugi-Regular.ttf"), 60);
+        Font.loadFont(getClass().getResourceAsStream("/views/assets/fonts/Gugi-Regular.ttf"), 60);
 
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setMinWidth(MIN_WIDTH);
