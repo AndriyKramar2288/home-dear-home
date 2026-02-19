@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lombok.Getter;
 import org.banew.hdh.fxapp.SpringBootApp;
+import org.banew.hdh.fxapp.ui.views.WrapController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 
@@ -46,13 +47,13 @@ public class JavaFXApp extends Application {
     public void start(Stage stage) throws IOException {
         this.stage = stage;
 
-        Font.loadFont(getClass().getResourceAsStream("/views/assets/fonts/Gugi-Regular.ttf"), 60);
+        Font.loadFont(getClass().getResourceAsStream("/views/assets/styles/Gugi-Regular.ttf"), 60);
 
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setMinWidth(MIN_WIDTH);
         stage.setMinHeight(MIN_HEIGHT);
 
-        scene = new Scene(loadFXML("primary"), MIN_WIDTH, MIN_HEIGHT);
+        scene = new Scene(resolveSceneRoot("primary"), MIN_WIDTH, MIN_HEIGHT);
         scene.setFill(Color.TRANSPARENT);
 
         // narrow-mode listener
@@ -64,7 +65,6 @@ public class JavaFXApp extends Application {
         maximize();
         stage.show();
 
-        // resize settings
         stage.iconifiedProperty().addListener((observableValue, oldValue, newValue) -> {
             if (!newValue && stage.isMaximized()) {
                 resizeAsOpen(stage);
@@ -76,11 +76,21 @@ public class JavaFXApp extends Application {
     public void changeScene(String fxml) {
         Platform.runLater(() -> {
             try {
-                scene.setRoot(loadFXML(fxml));
+                scene.setRoot(resolveSceneRoot(fxml));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    private Parent resolveSceneRoot(String fxml) throws IOException {
+        var loader = getLoader("wrap");
+        Parent node = loader.load();
+        WrapController controller = loader.getController();
+
+        var sceneLoader = getLoader(fxml);
+        controller.setContent(sceneLoader.load());
+        return node;
     }
 
     public void minimize() {
@@ -114,12 +124,6 @@ public class JavaFXApp extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(resource);
         fxmlLoader.setControllerFactory(context::getBean);
         return fxmlLoader;
-    }
-
-    private Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = getLoader(fxml);
-        fxmlLoader.setControllerFactory(context::getBean);
-        return fxmlLoader.load();
     }
 
     private static void resizeAsOpen(Stage stage) {

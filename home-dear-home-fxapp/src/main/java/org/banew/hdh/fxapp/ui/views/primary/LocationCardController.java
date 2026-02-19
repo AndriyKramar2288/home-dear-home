@@ -38,6 +38,7 @@ public class LocationCardController {
 
     public void initData(LocationInfo locationInfo, Runnable onConfirm, Runnable onDelete) {
         deleteLocationButton.setOnAction(actionEvent -> onDelete.run());
+        runLocationButton.setOnAction(actionEvent -> onConfirm.run());
         isInitialized = true;
         locationHolderCard.setVisible(false);
         locationActualCard.setVisible(true);

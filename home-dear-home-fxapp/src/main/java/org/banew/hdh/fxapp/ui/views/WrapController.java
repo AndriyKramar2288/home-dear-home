@@ -5,17 +5,20 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.banew.hdh.fxapp.ui.JavaFXApp;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-public abstract class AbstractController {
+@Component
+public class WrapController {
 
     @Autowired
-    protected JavaFXApp javaFXApp;
+    private JavaFXApp javaFXApp;
 
     private double xOffset = 0;
     private double yOffset = 0;
@@ -23,7 +26,18 @@ public abstract class AbstractController {
     @FXML
     private FontIcon maxMinControlIcon;
     @FXML
+    private AnchorPane mainContainer;
+    @FXML
     private ModalController modalController;
+
+    public void setContent(Node node) {
+        mainContainer.getChildren().clear();
+        mainContainer.getChildren().add(node);
+        AnchorPane.setTopAnchor(node, 0.0);
+        AnchorPane.setBottomAnchor(node, 0.0);
+        AnchorPane.setLeftAnchor(node, 0.0);
+        AnchorPane.setRightAnchor(node, 0.0);
+    }
 
     public void hideModal() {
         modalController.setVisible(false);
@@ -51,7 +65,7 @@ public abstract class AbstractController {
     }
 
     @FXML
-    private void handleTitleBarPressed(MouseEvent event) {
+    public void handleTitleBarPressed(MouseEvent event) {
         if (event.getClickCount() == 2) {
             if (javaFXApp.maximize()) {
                 maxMinControlIcon.setIconLiteral("mdal-call_to_action");
@@ -70,7 +84,7 @@ public abstract class AbstractController {
     }
 
     @FXML
-    private void handleTitleBarDragged(MouseEvent event) {
+    public void handleTitleBarDragged(MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         if (!stage.isMaximized()) {
             stage.setX(event.getScreenX() - xOffset);
@@ -84,12 +98,12 @@ public abstract class AbstractController {
     }
 
     @FXML
-    private void handleMinimize(Event event) {
+    public void handleMinimize(Event event) {
         javaFXApp.minimize();
     }
 
     @FXML
-    private void handleMaximize(Event event) {
+    public void handleMaximize(Event event) {
         if (javaFXApp.maximize()) {
             maxMinControlIcon.setIconLiteral("mdal-call_to_action");
         }

@@ -10,10 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
-import lombok.Setter;
 import org.banew.hdh.core.api.runtime.forms.RegisterForm;
 import org.banew.hdh.core.api.services.UserService;
-import org.banew.hdh.fxapp.ui.views.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +26,8 @@ import static org.banew.hdh.fxapp.ui.ControllerUtils.*;
 @Component
 public class RegistrationController {
 
+    @Autowired
+    private PrimaryController primaryController;
     @Autowired
     private UserService userService;
 
@@ -53,9 +53,6 @@ public class RegistrationController {
     public void setVisible(boolean visible) {
         registrationForm.setVisible(visible);
     }
-
-    @Setter
-    private PrimaryController primaryController;
 
     private void alertRegister(String text) {
         showTimedAlert(errorLabel, text, 5);

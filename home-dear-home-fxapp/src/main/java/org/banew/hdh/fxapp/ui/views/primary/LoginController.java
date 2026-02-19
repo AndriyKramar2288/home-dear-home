@@ -22,6 +22,8 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private PrimaryController primaryController;
 
     @FXML
     private Pane regularLoginForm;
@@ -31,9 +33,6 @@ public class LoginController {
     private TextField loginField;
     @FXML
     private PasswordField passwordField;
-
-    @Setter
-    private PrimaryController primaryController;
 
     public void setVisible(boolean visible) {
         regularLoginForm.setVisible(visible);

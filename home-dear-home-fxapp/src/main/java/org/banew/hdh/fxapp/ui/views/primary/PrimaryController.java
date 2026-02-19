@@ -15,7 +15,7 @@ import javafx.util.Duration;
 import lombok.AllArgsConstructor;
 import org.banew.hdh.core.api.services.UserService;
 import org.banew.hdh.fxapp.ui.ControllerUtils;
-import org.banew.hdh.fxapp.ui.views.AbstractController;
+import org.banew.hdh.fxapp.ui.JavaFXApp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,10 +26,12 @@ import java.time.format.DateTimeFormatter;
 import static org.banew.hdh.fxapp.ui.ControllerUtils.setUpSmooth;
 
 @Component
-public class PrimaryController extends AbstractController {
+public class PrimaryController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private JavaFXApp javaFXApp;
 
     @FXML
     private Label clockLabel;
@@ -87,10 +89,6 @@ public class PrimaryController extends AbstractController {
         setUpSmooth(topLabel);
         topLabelAvatarPane.setVisible(false);
         topLabelAvatarPane.setManaged(false);
-
-        loginController.setPrimaryController(this);
-        registrationController.setPrimaryController(this);
-        locationSelectionController.setPrimaryController(this);
 
         metaInfoLabel.setText(String.format("HomeDearHome\nJavaFX %s", javaFXApp.getAppVersion()));
         topLabelStick.widthProperty().bind(topLabel.widthProperty());

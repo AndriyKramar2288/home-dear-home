@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -14,124 +14,97 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane style="-fx-background-color: transparent;" stylesheets="@assets/styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.primary.PrimaryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="979.0" prefWidth="1677.0" style="-fx-background-color: #1F1F1F;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.primary.PrimaryController">
    <children>
-      <AnchorPane fx:id="mainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="979.0" prefWidth="1677.0" style="-fx-background-color: #1F1F1F;" styleClass="main-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox id="clock-area" alignment="CENTER" fillWidth="false" layoutY="48.0" prefHeight="238.0" prefWidth="274.0" spacing="20.0" styleClass="only-wide" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <children>
-            <VBox id="clock-area" alignment="CENTER" fillWidth="false" layoutY="48.0" prefHeight="238.0" prefWidth="274.0" spacing="20.0" styleClass="only-wide" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+            <VBox id="clock-box" alignment="CENTER" prefHeight="137.0" prefWidth="243.0">
                <children>
-                  <VBox id="clock-box" alignment="CENTER" prefHeight="137.0" prefWidth="243.0">
-                     <children>
-                        <Label fx:id="clockLabel">
-                           <font>
-                              <Font size="64.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </Label>
-                        <Label fx:id="regionLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="35.0" prefWidth="218.0" textAlignment="RIGHT">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </VBox>
-                  <Circle fill="#a39fb3" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-               </children>
-            </VBox>
-            <ImageView fitHeight="673.0" fitWidth="867.0" layoutX="452.8" layoutY="29.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
-               <image>
-                  <Image url="@assets/img/city.png" />
-               </image>
-            </ImageView>
-            <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <VBox alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="954.0">
-                     <children>
-                        <HBox alignment="CENTER" fillHeight="false" prefHeight="162.0">
-                           <children>
-                              <VBox id="top-label-box" alignment="CENTER" fillWidth="false" prefHeight="122.0">
-                                 <children>
-                                    <Label fx:id="topLabel" text="Hello!" textAlignment="CENTER">
-                                       <font>
-                                          <Font size="96.0" />
-                                       </font>
-                                    </Label>
-                                    <Rectangle fx:id="topLabelStick" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="250.0">
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
-                                       </VBox.margin>
-                                    </Rectangle>
-                                 </children>
-                              </VBox>
-                              <StackPane fx:id="topLabelAvatarPane" styleClass="top-label-avatar-box">
-                                 <children>
-                                    <ImageView fx:id="topLabelAvatar" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets left="30.0" />
-                                 </HBox.margin>
-                              </StackPane>
-                           </children>
-                           <padding>
-                              <Insets bottom="20.0" top="20.0" />
-                           </padding>
-                        </HBox>
-                        <StackPane prefHeight="434.0" prefWidth="755.0">
-                           <children>
-                              <fx:include fx:id="registration" source="primary/registerForm.fxml" />
-                              <fx:include fx:id="locationSelection" source="primary/locationSelection.fxml" />
-                              <fx:include fx:id="login" source="primary/loginForm.fxml" />
-                           </children>
-                        </StackPane>
-                     </children>
-                  </VBox>
-               </children>
-            </StackPane>
-            <HBox id="metainfo-box" alignment="CENTER" prefHeight="100.0" prefWidth="399.0" spacing="20.0" styleClass="only-wide" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <children>
-                  <FontIcon iconLiteral="fab-discord" iconSize="50" onMouseClicked="#sendToDiscord" />
-                  <FontIcon iconLiteral="fab-github" iconSize="50" onMouseClicked="#sendToGithub" />
-                  <Label fx:id="metaInfoLabel" prefHeight="184.0" prefWidth="354.0" text="HomeDearHome JavaFX {-version-}" wrapText="true" />
+                  <Label fx:id="clockLabel">
+                     <font>
+                        <Font size="64.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="regionLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="35.0" prefWidth="218.0" textAlignment="RIGHT">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
                </children>
                <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
-            </HBox>
+            </VBox>
+            <Circle fill="#a39fb3" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
          </children>
-      </AnchorPane>
-      <fx:include fx:id="modal" source="modal.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <HBox alignment="CENTER_RIGHT" onMouseDragged="#handleTitleBarDragged" onMousePressed="#handleTitleBarPressed" prefHeight="0.0" prefWidth="1671.0" styleClass="top-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      </VBox>
+      <ImageView fitHeight="673.0" fitWidth="867.0" layoutX="452.8" layoutY="29.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+         <image>
+            <Image url="@assets/img/city.png" />
+         </image>
+      </ImageView>
+      <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleMinimize" prefHeight="42.0" prefWidth="38.0" styleClass="top-bar-button">
-               <HBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </HBox.margin>
-               <graphic>
-                  <FontIcon fill="#938fa3" iconLiteral="mdmz-minus" iconSize="15" wrappingWidth="15.200048828125091" />
-               </graphic>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#handleMaximize" prefHeight="42.0" prefWidth="38.0" styleClass="top-bar-button">
-               <HBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </HBox.margin>
-               <graphic>
-                  <FontIcon fx:id="maxMinControlIcon" fill="#938fa3" iconLiteral="mdal-call_to_action" iconSize="15" wrappingWidth="15.200048828125091" />
-               </graphic>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#closeHandle" prefHeight="42.0" prefWidth="38.0" styleClass="top-bar-button">
-               <HBox.margin>
-                  <Insets bottom="5.0" right="15.0" top="5.0" />
-               </HBox.margin>
-               <graphic>
-                  <FontIcon fill="#938fa3" iconLiteral="mdal-close" iconSize="15" wrappingWidth="15.200048828125091" />
-               </graphic>
-            </Button>
+            <VBox alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="954.0">
+               <children>
+                  <HBox alignment="CENTER" fillHeight="false" prefHeight="162.0">
+                     <children>
+                        <VBox id="top-label-box" alignment="CENTER" fillWidth="false" prefHeight="122.0">
+                           <children>
+                              <Label fx:id="topLabel" text="Hello!" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="96.0" />
+                                 </font>
+                              </Label>
+                              <Rectangle fx:id="topLabelStick" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="250.0">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Rectangle>
+                           </children>
+                        </VBox>
+                        <StackPane fx:id="topLabelAvatarPane" styleClass="top-label-avatar-box">
+                           <children>
+                              <ImageView fx:id="topLabelAvatar" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </StackPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" top="20.0" />
+                     </padding>
+                  </HBox>
+                  <StackPane prefHeight="434.0" prefWidth="755.0">
+                     <children>
+                        <fx:include fx:id="registration" source="primary/registerForm.fxml" />
+                        <fx:include fx:id="locationSelection" source="primary/locationSelection.fxml" />
+                        <fx:include fx:id="login" source="primary/loginForm.fxml" />
+                     </children>
+                  </StackPane>
+               </children>
+            </VBox>
          </children>
+      </StackPane>
+      <HBox id="metainfo-box" alignment="CENTER" prefHeight="100.0" prefWidth="399.0" spacing="20.0" styleClass="only-wide" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <FontIcon iconLiteral="fab-discord" iconSize="50" onMouseClicked="#sendToDiscord" />
+            <FontIcon iconLiteral="fab-github" iconSize="50" onMouseClicked="#sendToGithub" />
+            <Label fx:id="metaInfoLabel" prefHeight="184.0" prefWidth="354.0" text="HomeDearHome JavaFX {-version-}" wrapText="true" />
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
       </HBox>
    </children>
+   <stylesheets>
+      <URL value="@assets/styles/common.css" />
+      <URL value="@assets/styles/primary.css" />
+      <URL value="@assets/styles/location-selection.css" />
+      <URL value="@assets/styles/forms.css" />
+   </stylesheets>
 </AnchorPane>

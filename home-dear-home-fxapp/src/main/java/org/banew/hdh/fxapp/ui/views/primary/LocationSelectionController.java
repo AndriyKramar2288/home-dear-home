@@ -11,6 +11,7 @@ import org.banew.hdh.core.api.services.LocationService;
 import org.banew.hdh.core.api.services.UserService;
 import org.banew.hdh.fxapp.implementations.ComponentsContext;
 import org.banew.hdh.fxapp.ui.JavaFXApp;
+import org.banew.hdh.fxapp.ui.views.WrapController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -27,9 +28,9 @@ public class LocationSelectionController {
     private LocationService<ComponentsContext> locationService;
     @Autowired
     private JavaFXApp javaFXApp;
+    @Autowired
+    private WrapController wrapController;
 
-    @Setter
-    private PrimaryController primaryController;
     @FXML
     private Pane locationChooseForm;
     @FXML
@@ -42,9 +43,9 @@ public class LocationSelectionController {
         LocationCreationController controller = loader.getController();
         controller.setOnLocationCreated(() -> {
             updateList();
-            primaryController.hideModal();
+            wrapController.hideModal();
         });
-        primaryController.showModal(node);
+        wrapController.showModal(node);
     }
 
     public void setVisible(boolean visible) {
@@ -62,8 +63,9 @@ public class LocationSelectionController {
                     Parent card = loader.load();
                     LocationCardController controller = loader.getController();
                     controller.initData(location, () -> {
+                        javaFXApp.changeScene("main");
                     }, () -> {
-                        primaryController.showWarning("Are you sure you want to delete this location?", () -> {
+                        wrapController.showWarning("Are you sure you want to delete this location?", () -> {
                             locationService.removeLocation(location.id());
                             updateList();
                         });
