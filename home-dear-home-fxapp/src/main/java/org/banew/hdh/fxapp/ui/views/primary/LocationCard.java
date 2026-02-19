@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope("prototype")
-public class LocationCardController {
+public class LocationCard {
 
     private boolean isInitialized = false;
 
@@ -29,7 +29,7 @@ public class LocationCardController {
     @FXML
     private Button runLocationButton;
 
-    private LocationCardController locationCardController;
+    private LocationCard locationCard;
 
     public void initialize() {
         locationActualCard.setVisible(false);

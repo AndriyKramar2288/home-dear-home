@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox fx:id="regularLoginForm" alignment="CENTER" fillWidth="false" prefHeight="555.0" prefWidth="814.0" styleClass="central-box" stylesheets="@../assets/styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.primary.LoginController">
+<VBox fx:id="regularLoginForm" alignment="CENTER" fillWidth="false" prefHeight="555.0" prefWidth="814.0" styleClass="central-box" stylesheets="@../assets/styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.primary.Login">
    <children>
       <VBox alignment="CENTER" fillWidth="false" prefHeight="117.0" prefWidth="357.0" spacing="10.0" styleClass="field-box">
          <children>

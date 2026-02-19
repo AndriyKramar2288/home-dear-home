@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane fx:id="registrationForm" prefHeight="200.0" prefWidth="200.0" styleClass="central-box" stylesheets="@../assets/styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.primary.RegistrationController">
+<AnchorPane fx:id="registrationForm" prefHeight="200.0" prefWidth="200.0" styleClass="central-box" stylesheets="@../assets/styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.primary.Registration">
    <children>
       <Button layoutX="200.0" layoutY="184.0" mnemonicParsing="false" onAction="#switchToRegularLogin" prefHeight="64.0" prefWidth="64.0" styleClass="register-return-button" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <graphic>

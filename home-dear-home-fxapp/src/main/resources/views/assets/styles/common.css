@@ -28,6 +28,13 @@
     -fx-opacity: 0;
 }
 
+.avatar-box {
+    -fx-border-color: -fx-city-blue;
+    -fx-border-width: 3;
+    -fx-border-radius: 60;
+    -fx-background-radius: 60;
+}
+
 .modal {
     -fx-background-color: rgba(48, 47, 52, 0.5);
     -fx-background-radius: 12;

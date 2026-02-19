@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="979.0" prefWidth="1677.0" style="-fx-background-color: #1F1F1F;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.primary.PrimaryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="979.0" prefWidth="1677.0" style="-fx-background-color: #1F1F1F;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.primary.Primary">
    <children>
       <VBox id="clock-area" alignment="CENTER" fillWidth="false" layoutY="48.0" prefHeight="238.0" prefWidth="274.0" spacing="20.0" styleClass="only-wide" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <children>
@@ -66,7 +66,7 @@
                               </Rectangle>
                            </children>
                         </VBox>
-                        <StackPane fx:id="topLabelAvatarPane" styleClass="top-label-avatar-box">
+                        <StackPane fx:id="topLabelAvatarPane" styleClass="avatar-box">
                            <children>
                               <ImageView fx:id="topLabelAvatar" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
                            </children>

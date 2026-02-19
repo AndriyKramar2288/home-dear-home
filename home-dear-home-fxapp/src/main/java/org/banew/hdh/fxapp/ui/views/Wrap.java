@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class WrapController {
+public class Wrap {
 
     @Autowired
     private JavaFXApp javaFXApp;
@@ -28,7 +28,7 @@ public class WrapController {
     @FXML
     private AnchorPane mainContainer;
     @FXML
-    private ModalController modalController;
+    private Modal modalController;
 
     public void setContent(Node node) {
         mainContainer.getChildren().clear();
@@ -52,7 +52,7 @@ public class WrapController {
         try {
             var loader = javaFXApp.getLoader("warning");
             Node node = loader.load();
-            WarningController controller = loader.getController();
+            Warning controller = loader.getController();
             controller.initData(message, () -> {
                 onConfirm.run();
                 modalController.setVisible(false);

@@ -6,24 +6,21 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import lombok.Setter;
 import org.banew.hdh.core.api.runtime.forms.LoginForm;
 import org.banew.hdh.core.api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.function.Consumer;
-
 import static org.banew.hdh.fxapp.ui.ControllerUtils.future;
 import static org.banew.hdh.fxapp.ui.ControllerUtils.showTimedAlert;
 
 @Component
-public class LoginController {
+public class Login {
 
     @Autowired
     private UserService userService;
     @Autowired
-    private PrimaryController primaryController;
+    private Primary primary;
 
     @FXML
     private Pane regularLoginForm;
@@ -38,15 +35,21 @@ public class LoginController {
         regularLoginForm.setVisible(visible);
     }
 
+    public void initialize() {
+        loginField.setText("Petya");
+        passwordField.setText("12345678");
+        login(null);
+    }
+
     @FXML
     public void switchToRegisterForm(ActionEvent actionEvent) {
-        primaryController.setCurrentState(PrimaryController.PrimaryState.REGISTRATION);
+        primary.setCurrentState(Primary.PrimaryState.REGISTRATION);
     }
 
     @FXML
     public void login(ActionEvent event) {
         future(userService.login(new LoginForm(loginField.getText(), passwordField.getText())), u -> {
-            primaryController.setCurrentState(PrimaryController.PrimaryState.LOCATION_CHOOSE);
+            primary.setCurrentState(Primary.PrimaryState.LOCATION_CHOOSE);
         }, e -> {
             alertLogin(e.getMessage());
         });

@@ -26,7 +26,7 @@ import java.time.format.DateTimeFormatter;
 import static org.banew.hdh.fxapp.ui.ControllerUtils.setUpSmooth;
 
 @Component
-public class PrimaryController {
+public class Primary {
 
     @Autowired
     private UserService userService;
@@ -44,11 +44,11 @@ public class PrimaryController {
     @FXML
     private Rectangle topLabelStick;
     @FXML
-    private LoginController loginController;
+    private Login loginController;
     @FXML
-    private RegistrationController registrationController;
+    private Registration registrationController;
     @FXML
-    private LocationSelectionController locationSelectionController;
+    private LocationSelection locationSelectionController;
     @FXML
     private ImageView topLabelAvatar;
     @FXML
@@ -62,7 +62,6 @@ public class PrimaryController {
     }
 
     public void setCurrentState(PrimaryState state) {
-        ControllerUtils.clickSound();
         loginController.setVisible(state == PrimaryState.LOGIN);
         registrationController.setVisible(state == PrimaryState.REGISTRATION);
         locationSelectionController.setVisible(state == PrimaryState.LOCATION_CHOOSE);
@@ -103,13 +102,7 @@ public class PrimaryController {
         topLabelAvatarPane.setVisible(showAvatar && hasPhoto);
         topLabelAvatarPane.setManaged(showAvatar && hasPhoto);
         if (topLabelAvatarPane.isVisible()) {
-            double radius = 50;
-            Circle clip = new Circle(radius, radius, radius);
-            topLabelAvatar.setClip(clip);
-            topLabelAvatar.setFitWidth(100);
-            topLabelAvatar.setFitHeight(100);
-            topLabelAvatar.setPreserveRatio(false);
-            topLabelAvatar.setImage(new Image(userService.getCurrentUser().photoSrc()));
+            ControllerUtils.processAvatar(topLabelAvatar, userService.getCurrentUser().photoSrc(), 100);
         }
     }
 

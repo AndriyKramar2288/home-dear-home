@@ -6,12 +6,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import lombok.Setter;
 import org.banew.hdh.core.api.services.LocationService;
 import org.banew.hdh.core.api.services.UserService;
 import org.banew.hdh.fxapp.implementations.ComponentsContext;
 import org.banew.hdh.fxapp.ui.JavaFXApp;
-import org.banew.hdh.fxapp.ui.views.WrapController;
+import org.banew.hdh.fxapp.ui.views.Wrap;
+import org.banew.hdh.fxapp.ui.views.main.Main;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,7 @@ import java.io.IOException;
 
 @Component
 @Scope("prototype")
-public class LocationSelectionController {
+public class LocationSelection {
 
     @Autowired
     private UserService userService;
@@ -29,7 +29,7 @@ public class LocationSelectionController {
     @Autowired
     private JavaFXApp javaFXApp;
     @Autowired
-    private WrapController wrapController;
+    private Wrap wrap;
 
     @FXML
     private Pane locationChooseForm;
@@ -40,12 +40,12 @@ public class LocationSelectionController {
     public void createLocation(ActionEvent event) throws IOException {
         var loader = javaFXApp.getLoader("primary/locationCreation");
         Node node = loader.load();
-        LocationCreationController controller = loader.getController();
+        LocationCreation controller = loader.getController();
         controller.setOnLocationCreated(() -> {
             updateList();
-            wrapController.hideModal();
+            wrap.hideModal();
         });
-        wrapController.showModal(node);
+        wrap.showModal(node);
     }
 
     public void setVisible(boolean visible) {
@@ -61,11 +61,13 @@ public class LocationSelectionController {
                 try {
                     var loader = javaFXApp.getLoader("primary/locationCard");
                     Parent card = loader.load();
-                    LocationCardController controller = loader.getController();
+                    LocationCard controller = loader.getController();
                     controller.initData(location, () -> {
-                        javaFXApp.changeScene("main");
+                        javaFXApp.changeScene("main", (Main m) -> {
+                            m.initLocation(location);
+                        });
                     }, () -> {
-                        wrapController.showWarning("Are you sure you want to delete this location?", () -> {
+                        wrap.showWarning("Are you sure you want to delete this location?", () -> {
                             locationService.removeLocation(location.id());
                             updateList();
                         });

@@ -9,5 +9,7 @@ public interface LocationComponentInfo extends DataPrototype<LocationComponentIn
 
     String name();
 
+    boolean isDefault();
+
     Map<String, String> properties();
 }

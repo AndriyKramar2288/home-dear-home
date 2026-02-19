@@ -44,6 +44,7 @@ public class UserServiceImpl implements UserService {
             xmlUser.setPassword(passwordEncoder.encode(registerForm.password()));
             xmlUser.setUsername(registerForm.username());
             xmlStorageRepository.saveUser(xmlUser);
+            authorizationContext.setCurrentUser(xmlUser);
 
             return CompletableFuture.completedFuture(xmlUser.copy());
         }

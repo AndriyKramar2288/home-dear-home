@@ -14,11 +14,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lombok.Getter;
 import org.banew.hdh.fxapp.SpringBootApp;
-import org.banew.hdh.fxapp.ui.views.WrapController;
+import org.banew.hdh.fxapp.ui.views.Wrap;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 
 /**
  * JavaFX App
@@ -53,7 +54,7 @@ public class JavaFXApp extends Application {
         stage.setMinWidth(MIN_WIDTH);
         stage.setMinHeight(MIN_HEIGHT);
 
-        scene = new Scene(resolveSceneRoot("primary"), MIN_WIDTH, MIN_HEIGHT);
+        scene = new Scene(resolveSceneRoot("primary", null), MIN_WIDTH, MIN_HEIGHT);
         scene.setFill(Color.TRANSPARENT);
 
         // narrow-mode listener
@@ -74,22 +75,32 @@ public class JavaFXApp extends Application {
     }
 
     public void changeScene(String fxml) {
+        changeScene(fxml, null);
+    }
+
+    public void changeScene(String fxml, Consumer<?> sceneControllerUpdater) {
         Platform.runLater(() -> {
             try {
-                scene.setRoot(resolveSceneRoot(fxml));
+                scene.setRoot(resolveSceneRoot(fxml, sceneControllerUpdater));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
     }
 
-    private Parent resolveSceneRoot(String fxml) throws IOException {
+    private Parent resolveSceneRoot(String fxml, Consumer<?> sceneControllerUpdater) throws IOException {
         var loader = getLoader("wrap");
         Parent node = loader.load();
-        WrapController controller = loader.getController();
+        Wrap controller = loader.getController();
 
         var sceneLoader = getLoader(fxml);
-        controller.setContent(sceneLoader.load());
+        Parent sceneNode = sceneLoader.load();
+
+        if (sceneControllerUpdater != null) {
+            sceneControllerUpdater.accept(sceneLoader.getController());
+        }
+
+        controller.setContent(sceneNode);
         return node;
     }
 

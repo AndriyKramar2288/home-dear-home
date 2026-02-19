@@ -6,11 +6,8 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.effect.GaussianBlur;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import org.banew.hdh.fxapp.ui.JavaFXApp;
@@ -19,8 +16,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
-@Scope("prototype")
-public class ModalController {
+public class Modal {
 
     @Autowired
     private JavaFXApp javaFXApp;
@@ -53,7 +49,7 @@ public class ModalController {
         if (node.getEffect() == null) node.setEffect(blur);
         double targetRadius = visible ? 15.0 : 0.0;
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.millis(100),
+                new KeyFrame(Duration.millis(200),
                         new KeyValue(blur.radiusProperty(), targetRadius, Interpolator.EASE_BOTH)
                 )
         );

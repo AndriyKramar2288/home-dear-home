@@ -54,6 +54,11 @@ public class XmlLocationComponent implements LocationComponentInfo {
     }
 
     @Override
+    public boolean isDefault() {
+        return false;
+    }
+
+    @Override
     public Map<String, String> properties() {
         return new HashMap<>(properties);
     }

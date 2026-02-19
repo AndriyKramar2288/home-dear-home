@@ -24,10 +24,10 @@ import java.util.function.Consumer;
 import static org.banew.hdh.fxapp.ui.ControllerUtils.*;
 
 @Component
-public class RegistrationController {
+public class Registration {
 
     @Autowired
-    private PrimaryController primaryController;
+    private Primary primary;
     @Autowired
     private UserService userService;
 
@@ -64,7 +64,7 @@ public class RegistrationController {
 
     @FXML
     public void switchToRegularLogin(ActionEvent actionEvent) {
-        primaryController.setCurrentState(PrimaryController.PrimaryState.LOGIN);
+        primary.setCurrentState(Primary.PrimaryState.LOGIN);
     }
 
     @FXML
@@ -78,7 +78,7 @@ public class RegistrationController {
                     registrationEmailField.getText(),
                     imageUri
             )), u -> {
-                primaryController.setCurrentState(PrimaryController.PrimaryState.LOCATION_CHOOSE);
+                primary.setCurrentState(Primary.PrimaryState.LOCATION_CHOOSE);
             }, e -> {
                 alertRegister(e.getMessage());
             });

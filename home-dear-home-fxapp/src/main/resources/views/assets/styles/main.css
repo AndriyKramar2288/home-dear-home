@@ -1,0 +1,36 @@
+Label {
+    -fx-text-fill: -fx-text-default;
+}
+
+.left-panel-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6;
+}
+
+.left-panel-button:hover FontIcon {
+    -fx-icon-color: -fx-text-default-button;
+}
+
+.left-panel-button FontIcon {
+    -fx-icon-color: -fx-text-default;
+    -fx-icon-size: 40px;
+}
+
+.components-list-view {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 5;
+    /* Прибираємо фокусну рамку, яка бісить */
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* Стиль для кожної комірки */
+.components-list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-default; /* Твоя змінна */
+    -fx-padding: 10 15;
+    -fx-background-radius: 8;
+    -fx-margin: 2 0;
+    -fx-transition: all 0.2s ease-in-out;
+}

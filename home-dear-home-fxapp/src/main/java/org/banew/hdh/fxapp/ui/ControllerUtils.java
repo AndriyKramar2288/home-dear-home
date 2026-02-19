@@ -7,9 +7,12 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.media.AudioClip;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -17,14 +20,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class ControllerUtils {
-
-    private static final AudioClip clickSound = new AudioClip(
-            ControllerUtils.class.getResource("/views/assets/sounds/click_sound.mp3").toExternalForm()
-    );
-
-    public static void clickSound() {
-        clickSound.play();
-    }
 
     public static void setUpSmooth(Node anyNode) {
         anyNode.sceneProperty().addListener((obs, oldScene, newScene) -> {
@@ -40,7 +35,7 @@ public class ControllerUtils {
                 node.visibleProperty().addListener((obs, wasVisible, isVisible) -> {
                     if (isVisible) {
                         node.setOpacity(0.25);
-                        FadeTransition ft = new FadeTransition(Duration.millis(100), node);
+                        FadeTransition ft = new FadeTransition(Duration.millis(50), node);
                         ft.setToValue(1);
                         ft.play();
                     }
@@ -125,5 +120,15 @@ public class ControllerUtils {
         });
 
         pause.play(); // Запускаємо таймер
+    }
+
+    public static void processAvatar(ImageView topLabelAvatar, String url, int size) {
+        double radius = (double) size / 2;
+        Circle clip = new Circle(radius, radius, radius);
+        topLabelAvatar.setClip(clip);
+        topLabelAvatar.setFitWidth(size);
+        topLabelAvatar.setFitHeight(size);
+        topLabelAvatar.setPreserveRatio(false);
+        topLabelAvatar.setImage(new Image(url));
     }
 }
