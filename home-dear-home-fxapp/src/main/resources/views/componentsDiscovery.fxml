@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane prefHeight="638.0" prefWidth="1026.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.main.ComponentsDiscovery">
+   <stylesheets>
+      <URL value="@assets/styles/forms.css" />
+      <URL value="@assets/styles/common.css" />
+      <URL value="@assets/styles/main.css" />
+      <URL value="@assets/styles/styles.css" />
+      <URL value="@assets/styles/location-selection.css" />
+   </stylesheets>
+   <children>
+      <VBox alignment="CENTER" layoutX="11.199999809265137" layoutY="10.399999618530273" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="826.0" spacing="10.0">
+               <children>
+                  <RadioButton accessibleText="ADDED" mnemonicParsing="false" selected="true" styleClass="tab-radio-button" text="Added">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="tabRadioButtonGroup" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton accessibleText="NEW" mnemonicParsing="false" styleClass="tab-radio-button" text="Search new" toggleGroup="$tabRadioButtonGroup" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" spacing="20.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="423.0" prefWidth="289.0" spacing="10.0">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a17070" height="4.0" stroke="#ffffff00" strokeType="INSIDE" width="400.0" />
+                        <HBox alignment="CENTER" prefHeight="71.0" prefWidth="332.0" spacing="10.0" styleClass="field-box">
+                           <children>
+                              <TextField prefHeight="43.0" prefWidth="294.0" styleClass="text-field" />
+                              <Button mnemonicParsing="false" styleClass="usual-button">
+                                 <graphic>
+                                    <FontIcon iconLiteral="mdomz-search" iconSize="36" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <StackPane VBox.vgrow="ALWAYS">
+                           <children>
+                              <ListView fx:id="newComponentsListView" prefHeight="200.0" prefWidth="200.0" styleClass="components-list-view" />
+                              <ListView fx:id="addedComponentsListView" prefHeight="200.0" prefWidth="200.0" styleClass="components-list-view" />
+                           </children>
+                        </StackPane>
+                     </children>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="423.0" prefWidth="406.0" spacing="10.0">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a17070" height="4.0" stroke="#ffffff00" strokeType="INSIDE" width="400.0">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Rectangle>
+                        <fx:include fx:id="componentInfo" source="componentInfo.fxml" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

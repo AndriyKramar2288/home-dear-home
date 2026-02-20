@@ -5,6 +5,7 @@ import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -130,7 +131,21 @@ public class JavaFXApp extends Application {
         }
     }
 
-    public FXMLLoader getLoader(String fxml) {
+    public Node getControlledNode(String fxml, Consumer<?> sceneControllerUpdater) {
+        try {
+            var loader = getLoader(fxml);
+            Node node = loader.load();
+            if (sceneControllerUpdater != null) {
+                sceneControllerUpdater.accept(loader.getController());
+            }
+            return node;
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private FXMLLoader getLoader(String fxml) {
         var resource = getClass().getResource("/views/" + fxml + ".fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(resource);
         fxmlLoader.setControllerFactory(context::getBean);

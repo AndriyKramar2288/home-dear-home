@@ -17,6 +17,11 @@ import java.util.function.Consumer;
 
 @XmlRootElement(name = "button")
 @XmlAccessorType(XmlAccessType.FIELD)
+@LocationComponentAttributes(
+        name = "Button",
+        description = "Aboba",
+        supportGeneration = true
+)
 public class ButtonComponent extends AbstractWidgetLocationComponent<Button> {
 
     @XmlAttribute

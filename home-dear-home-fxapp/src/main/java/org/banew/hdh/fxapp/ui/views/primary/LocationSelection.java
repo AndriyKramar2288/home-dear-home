@@ -38,14 +38,13 @@ public class LocationSelection {
 
     @FXML
     public void createLocation(ActionEvent event) throws IOException {
-        var loader = javaFXApp.getLoader("primary/locationCreation");
-        Node node = loader.load();
-        LocationCreation controller = loader.getController();
-        controller.setOnLocationCreated(() -> {
-            updateList();
-            wrap.hideModal();
-        });
-        wrap.showModal(node);
+        wrap.showModal(javaFXApp.getControlledNode(
+                "primary/locationCreation", (LocationCreation controller) -> {
+            controller.setOnLocationCreated(() -> {
+                updateList();
+                wrap.hideModal();
+            });
+        }));
     }
 
     public void setVisible(boolean visible) {
@@ -58,24 +57,19 @@ public class LocationSelection {
         if (user != null) {
             locationList.getChildren().clear();
             user.locations().forEach(location -> {
-                try {
-                    var loader = javaFXApp.getLoader("primary/locationCard");
-                    Parent card = loader.load();
-                    LocationCard controller = loader.getController();
-                    controller.initData(location, () -> {
-                        javaFXApp.changeScene("main", (Main m) -> {
-                            m.initLocation(location);
-                        });
-                    }, () -> {
-                        wrap.showWarning("Are you sure you want to delete this location?", () -> {
-                            locationService.removeLocation(location.id());
-                            updateList();
-                        });
-                    });
-                    locationList.getChildren().add(card);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                locationList.getChildren().add(javaFXApp.getControlledNode(
+                        "primary/locationCard", (LocationCard controller) -> {
+                            controller.initData(location, () -> {
+                                javaFXApp.changeScene("main", (Main m) -> {
+                                    m.initLocation(location);
+                                });
+                            }, () -> {
+                                wrap.showWarning("Are you sure you want to delete this location?", () -> {
+                                    locationService.removeLocation(location.id());
+                                    updateList();
+                                });
+                            });
+                        }));
             });
         }
     }

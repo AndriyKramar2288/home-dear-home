@@ -49,19 +49,12 @@ public class Wrap {
     }
 
     public void showWarning(String message, Runnable onConfirm) {
-        try {
-            var loader = javaFXApp.getLoader("warning");
-            Node node = loader.load();
-            Warning controller = loader.getController();
+        modalController.setContent(javaFXApp.getControlledNode("warning", (Warning controller) -> {
             controller.initData(message, () -> {
                 onConfirm.run();
                 modalController.setVisible(false);
             }, () -> modalController.setVisible(false));
-            modalController.setContent(node, false);
-        }
-        catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
+        }), false);
     }
 
     @FXML

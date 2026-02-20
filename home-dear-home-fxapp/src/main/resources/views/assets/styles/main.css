@@ -16,21 +16,104 @@ Label {
     -fx-icon-size: 40px;
 }
 
+
+
+/*COMPONENT TABS*/
+
+.tab-radio-button {
+    -fx-background-color: -fx-text-default;
+    -fx-padding: 5 15 5 5;
+    -fx-background-radius: 6;
+    -fx-text-fill: -fx-city-blue;
+    -fx-font-size: 20px;
+}
+
+.tab-radio-button:selected {
+    -fx-background-color: derive(#a17070, -10%);
+}
+
+.tab-radio-button:hover {
+    -fx-background-color: #a17070;
+}
+
+.tab-radio-button .radio,
+.tab-radio-button .dot {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+    -fx-padding: 0;
+    -fx-opacity: 0;
+}
+
+
+
 .components-list-view {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
     -fx-padding: 5;
-    /* Прибираємо фокусну рамку, яка бісить */
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
 
 /* Стиль для кожної комірки */
 .components-list-view .list-cell {
-    -fx-background-color: transparent;
+    -fx-background-color: transparent; -fx-padding: 0 5 10 0;
+}
+
+.components-list-view .list-cell > * {
+    -fx-background-color: -fx-brown-lighter;
+    -fx-font-size: 20px;
     -fx-text-fill: -fx-text-default; /* Твоя змінна */
     -fx-padding: 10 15;
-    -fx-background-radius: 8;
+    -fx-background-radius: 12;
     -fx-margin: 2 0;
     -fx-transition: all 0.2s ease-in-out;
+}
+
+/* 1. Загальний фон скролбару (і вертикального, і горизонтального) */
+.components-list-view .scroll-bar:horizontal,
+.components-list-view .scroll-bar:vertical {
+    -fx-background-color: #a17070;
+    -fx-pref-width: 10;
+}
+
+/* 2. Доріжка (Track), по якій їздить повзунок */
+.components-list-view .scroll-bar:horizontal .track,
+.components-list-view .scroll-bar:vertical .track {
+    -fx-background-color: #a17070;
+    -fx-border-color: transparent;
+    -fx-background-radius: 6;
+    -fx-pref-width: 6;
+}
+
+/*SCROLL BAR*/
+
+/* 3. Сам повзунок (Thumb) */
+.components-list-view .scroll-bar:horizontal .thumb,
+.components-list-view .scroll-bar:vertical .thumb {
+    -fx-background-color: derive(#a17070, -10%);
+    -fx-background-radius: 6;
+}
+
+/* Опціонально: ефект при наведенні на повзунок */
+.components-list-view .scroll-bar:horizontal .thumb:hover,
+.components-list-view .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: derive(#a17070, -20%); /* робить колір трохи темнішим */
+}
+
+/* 4. Прибираємо потворні кнопки зі стрілочками по краях (Сучасний дизайн) */
+.components-list-view .scroll-bar:horizontal .increment-button,
+.components-list-view .scroll-bar:horizontal .decrement-button,
+.components-list-view .scroll-bar:vertical .increment-button,
+.components-list-view .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0; /* Це стискає їх в нуль, щоб вони не займали місце */
+}
+
+.components-list-view .scroll-bar:horizontal .increment-arrow,
+.components-list-view .scroll-bar:horizontal .decrement-arrow,
+.components-list-view .scroll-bar:vertical .increment-arrow,
+.components-list-view .scroll-bar:vertical .decrement-arrow {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
 }

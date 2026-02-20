@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.banew.hdh.core.api.dto.ActionInfo;
 import org.banew.hdh.core.api.dto.LocationInfo;
 import org.banew.hdh.core.api.runtime.LocationComponent;
+import org.banew.hdh.core.api.runtime.LocationComponentAttributes;
 import org.banew.hdh.core.api.services.LocationService;
 import org.banew.hdh.fxapp.implementations.ComponentsContext;
 import org.banew.hdh.fxapp.implementations.XmlStorageRepository;
@@ -30,7 +31,7 @@ public class LocationServiceImpl implements LocationService<ComponentsContext> {
 
     @Override
     public List<Class<? extends LocationComponent<ComponentsContext>>> getAvailableComponents() {
-        return xmlStorageRepository.getAllAvailableComponents()
+        return xmlStorageRepository.getAllAvailableComponents().values()
                 .stream()
                 .map(clazz -> (Class<? extends LocationComponent<ComponentsContext>>) clazz)
                 .collect(Collectors.toList());
@@ -110,7 +111,12 @@ public class LocationServiceImpl implements LocationService<ComponentsContext> {
 
 
         String id = UUID.randomUUID().toString();
-        var component = new XmlLocationComponent(id, name, properties, clazz.getPackageName());
+
+        var component = new XmlLocationComponent(id,
+                name,
+                properties,
+                clazz.getPackageName(),
+                clazz.getAnnotation(LocationComponentAttributes.class));
 
         location.getComponents().add(component);
         xmlStorageRepository.saveLocation(location);

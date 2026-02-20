@@ -37,11 +37,10 @@ public class Main {
     private LocationInfo currentLocation;
 
     @FXML
-    public void openComponentsButton(ActionEvent event) throws IOException {
-        var loader = javaFXApp.getLoader("componentsDiscovery");
-        Node node = loader.load();
-        ((ComponentsDiscovery) loader.getController()).initData(currentLocation.components());
-        modal.setContent(node, true);
+    public void openComponentsButton(ActionEvent event) {
+        modal.setContent(javaFXApp.getControlledNode("componentsDiscovery", (ComponentsDiscovery c) -> {
+            c.initData(currentLocation.components(), locationService.getAvailableComponents());
+        }), true);
     }
 
     public void initLocation(LocationInfo locationInfo) {

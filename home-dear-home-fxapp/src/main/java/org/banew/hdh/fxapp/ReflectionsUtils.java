@@ -23,7 +23,7 @@ public class ReflectionsUtils {
 
     public static <T> Set<Class<? extends T>> getAllImplementations(Class<T> targetInterface) {
         // 1. Налаштовуємо сканування ВСЬОГО доступного classpath
-        Reflections reflections = new Reflections("com.banew");
+        Reflections reflections = new Reflections("org.banew");
 
         // 2. Отримуємо всі підтипи
         Set<Class<? extends T>> allTypes = reflections.getSubTypesOf(targetInterface);

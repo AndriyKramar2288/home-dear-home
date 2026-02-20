@@ -1,10 +1,5 @@
 /*WINDOW & CENTRAL BOX*/
 
-.main-container {
-    -fx-background-color: #2b2b2b; /* Твій колір фону (або з AtlantaFX) */
-    -fx-background-radius: 10;    /* Заокруглення фону */
-}
-
 .central-box {
     -fx-background-radius: 24;
     -fx-background-image: url("/views/assets/img/central_box_back.png");
@@ -55,22 +50,6 @@
 
 #metainfo-box FontIcon:hover {
     -fx-icon-color: #8c8899;
-}
-
-/*TOP BAR*/
-
-.top-bar-button:hover {
-    -fx-background-color:  #3F3F3F !important;
-}
-
-.top-bar-button {
-    -fx-background-radius: 5;
-    -fx-background-color: #242424;
-}
-
-.top-bar {
-    -fx-background-color: #242424;
-    -fx-background-radius: 10;
 }
 
 /*REGISTRATION*/

@@ -6,6 +6,7 @@ import jakarta.xml.bind.JAXBException;
 import lombok.Getter;
 import org.banew.hdh.core.api.dto.DataPrototype;
 import org.banew.hdh.core.api.dto.LocationInfo;
+import org.banew.hdh.core.api.runtime.LocationComponentAttributes;
 import org.banew.hdh.fxapp.ReflectionsUtils;
 import org.banew.hdh.fxapp.implementations.runtime.DesktopLocationComponent;
 import org.banew.hdh.fxapp.implementations.xml.XmlLocation;
@@ -30,12 +31,23 @@ public class XmlStorageRepository {
     private XmlStorage xmlStorage;
 
     @Getter
-    private Set<Class<? extends DesktopLocationComponent>> allAvailableComponents;
+    private Map<String, Class<? extends DesktopLocationComponent>> allAvailableComponents;
 
     @PostConstruct
     private void initial() {
         xmlStorage = xmlService.loadFromXml(file).orElse(new XmlStorage());
-        allAvailableComponents = ReflectionsUtils.getAllImplementations(DesktopLocationComponent.class);
+        allAvailableComponents = ReflectionsUtils.getAllImplementations(DesktopLocationComponent.class).stream()
+                        .collect(Collectors.toMap(Class::getName, e -> e));
+
+        xmlStorage.getUsers().stream()
+                .flatMap(u -> u.getLocations().stream())
+                .flatMap(l -> l.getComponents().stream())
+                .forEach(component -> {
+                    var clazz = allAvailableComponents.get(component.fullClassName());
+                    if (clazz != null) {
+                        component.setClassAttributes(clazz.getAnnotation(LocationComponentAttributes.class));
+                    }
+                });
     }
 
     @PreDestroy

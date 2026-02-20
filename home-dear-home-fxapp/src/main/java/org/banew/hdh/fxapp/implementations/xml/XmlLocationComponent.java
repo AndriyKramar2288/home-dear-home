@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.banew.hdh.core.api.dto.LocationComponentInfo;
+import org.banew.hdh.core.api.runtime.LocationComponentAttributes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +32,9 @@ public class XmlLocationComponent implements LocationComponentInfo {
     @XmlAttribute(required = true)
     private String fullClassName;
 
+    @XmlTransient
+    private LocationComponentAttributes classAttributes;
+
     @Override
     public XmlLocationComponent copy() {
         return toBuilder()
@@ -49,13 +53,13 @@ public class XmlLocationComponent implements LocationComponentInfo {
     }
 
     @Override
-    public String name() {
-        return name;
+    public LocationComponentAttributes classAttributes() {
+        return classAttributes;
     }
 
     @Override
-    public boolean isDefault() {
-        return false;
+    public String name() {
+        return name;
     }
 
     @Override

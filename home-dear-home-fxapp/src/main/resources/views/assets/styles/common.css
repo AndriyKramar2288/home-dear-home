@@ -12,6 +12,7 @@
     -fx-text-default: #A39FB3;
     -fx-text-default-button: #938FA3;
     -fx-brown-black: #2F2320;
+    -fx-brown-lighter: rgba(49,37,34,0.5);
     -fx-city-blue: #302F34;
     -fx-city-blue-button: #353438;
 }
@@ -85,4 +86,20 @@
 
     -fx-background-radius: 6;
     -fx-font-size: 24px;
+}
+
+/*TOP BAR*/
+
+.top-bar-button:hover {
+    -fx-background-color:  #3F3F3F !important;
+}
+
+.top-bar-button {
+    -fx-background-radius: 5;
+    -fx-background-color: #242424;
+}
+
+.top-bar {
+    -fx-background-color: #242424;
+    -fx-background-radius: 10;
 }

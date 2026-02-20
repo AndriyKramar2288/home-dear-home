@@ -1,5 +1,7 @@
 package org.banew.hdh.core.api.dto;
 
+import org.banew.hdh.core.api.runtime.LocationComponentAttributes;
+
 import java.util.Map;
 
 public interface LocationComponentInfo extends DataPrototype<LocationComponentInfo> {
@@ -7,9 +9,9 @@ public interface LocationComponentInfo extends DataPrototype<LocationComponentIn
 
     String fullClassName();
 
-    String name();
+    LocationComponentAttributes classAttributes();
 
-    boolean isDefault();
+    String name();
 
     Map<String, String> properties();
 }
