@@ -21,14 +21,24 @@
          <content>
             <VBox fx:id="actualComponentInfoBox" alignment="CENTER_LEFT" spacing="10.0">
                <children>
-                  <HBox fx:id="componentNameBox" alignment="CENTER">
+                  <HBox fx:id="componentNameBox" alignment="CENTER" spacing="5.0">
                      <children>
                         <Label fx:id="componentName" prefHeight="58.0" prefWidth="378.0" style="-fx-font-size: 36;" text="Component name">
                            <font>
                               <Font size="36.0" />
                            </font>
                         </Label>
-                        <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="48.0" styleClass="usual-button">
+                        <Button fx:id="disableEditingButton" mnemonicParsing="false" prefHeight="48.0" prefWidth="48.0" styleClass="usual-button">
+                           <graphic>
+                              <FontIcon iconColor="#766565" iconLiteral="far-times-circle" iconSize="36" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="saveEditingButton" mnemonicParsing="false" prefHeight="48.0" prefWidth="48.0" styleClass="usual-button">
+                           <graphic>
+                              <FontIcon iconColor="#766565" iconLiteral="far-check-circle" iconSize="36" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="enableEditingButton" mnemonicParsing="false" prefHeight="48.0" prefWidth="48.0" styleClass="usual-button">
                            <graphic>
                               <FontIcon iconColor="#766565" iconLiteral="fas-edit" iconSize="36" />
                            </graphic>

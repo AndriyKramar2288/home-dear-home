@@ -62,6 +62,7 @@ public class PropertyView {
                          Consumer<String> valueCallback) {
 
         this.valueCallback = valueCallback;
+        setEditable(true);
 
         if (argument.choices().length > 0) {
             propertyChoice.getItems().clear();

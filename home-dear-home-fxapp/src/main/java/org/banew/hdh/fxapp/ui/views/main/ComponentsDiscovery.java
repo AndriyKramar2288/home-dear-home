@@ -47,7 +47,7 @@ public class ComponentsDiscovery {
                     newComponentsListView.setVisible(false);
                     var sel = addedComponentsListView.getSelectionModel().getSelectedItem();
                     if (sel != null) {
-                        componentInfoController.showExistComponent(sel);
+                        componentInfoController.showExistComponent(sel, this::setLockedEverything);
                     }
                 }
                 else {
@@ -55,7 +55,7 @@ public class ComponentsDiscovery {
                     addedComponentsListView.setVisible(false);
                     var sel = newComponentsListView.getSelectionModel().getSelectedItem();
                     if (sel != null) {
-                        componentInfoController.showAvailableComponent(sel);
+                        componentInfoController.showAvailableComponent(sel, this::setLockedEverything);
                     }
                 }
             }
@@ -63,13 +63,13 @@ public class ComponentsDiscovery {
 
         setUpListView(addedComponentsListView,
                 comp -> new HBox(new Label(comp.name())),
-                comp -> componentInfoController.showExistComponent(comp),
+                comp -> componentInfoController.showExistComponent(comp, this::setLockedEverything),
                                     () -> componentInfoController.hide());
 
         setUpListView(newComponentsListView,
                 comp -> new HBox(new Label(
                         comp.attributes() == null? comp.fullClassName() : comp.attributes().name())),
-                comp -> componentInfoController.showAvailableComponent(comp),
+                comp -> componentInfoController.showAvailableComponent(comp, this::setLockedEverything),
                 () -> componentInfoController.hide());
     }
 
@@ -77,6 +77,12 @@ public class ComponentsDiscovery {
                          List<AvailableComponent> classes) {
         addedComponentsListView.getItems().addAll(infos);
         newComponentsListView.getItems().addAll(classes);
+    }
+
+    public void setLockedEverything(boolean isLocked) {
+        tabRadioButtonGroup.getToggles().forEach(e -> ((RadioButton) e).setDisable(isLocked));
+        newComponentsListView.setDisable(isLocked);
+        addedComponentsListView.setDisable(isLocked);
     }
 
     private static <T> void setUpListView(ListView<T> list, Function<T, Node> nodeCreator, Consumer<T> onShow, Runnable onHide) {
