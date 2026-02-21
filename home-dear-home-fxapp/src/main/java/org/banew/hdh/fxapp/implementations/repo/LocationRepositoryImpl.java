@@ -46,8 +46,10 @@ public class LocationRepositoryImpl implements LocationRepository {
             location.setId(UUID.randomUUID().toString());
         }
 
-        authorizationContext.getCurrentUser().getLocations().removeIf(l -> l.getId().equals(location.getId()));
-        authorizationContext.getCurrentUser().getLocations().add(location);
+        authorizationContext.getCurrentUser().setLocations(
+                authorizationContext.getCurrentUser().getLocations().stream()
+                        .map(l -> l.getId().equals(location.getId()) ? location : l)
+                        .toList());
     }
 
     @Override

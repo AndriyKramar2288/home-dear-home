@@ -1,16 +1,12 @@
 package org.banew.hdh.fxapp.ui.views.main;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import org.banew.hdh.core.api.layers.services.dto.AvailableComponent;
 import org.banew.hdh.core.api.layers.services.dto.LocationComponentDto;
-import org.banew.hdh.core.api.runtime.LocationComponent;
-import org.banew.hdh.core.api.runtime.LocationComponentAttributes;
-import org.banew.hdh.fxapp.implementations.services.ComponentsContextImpl;
+import org.banew.hdh.fxapp.ui.views.main.component.ComponentInfo;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -74,9 +70,11 @@ public class ComponentsDiscovery {
     }
 
     public void initData(Collection<? extends LocationComponentDto> infos,
-                         List<AvailableComponent> classes) {
+                         List<AvailableComponent> classes,
+                         String locationId) {
         addedComponentsListView.getItems().addAll(infos);
         newComponentsListView.getItems().addAll(classes);
+        componentInfoController.setLocationId(locationId);
     }
 
     public void setLockedEverything(boolean isLocked) {

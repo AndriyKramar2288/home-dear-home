@@ -35,7 +35,7 @@ public class Main {
     @FXML
     public void openComponentsButton(ActionEvent event) {
         modal.setContent(javaFXApp.getControlledNode("componentsDiscovery", (ComponentsDiscovery c) -> {
-            c.initData(currentLocation.components(), locationService.getAvailableComponents());
+            c.initData(currentLocation.components(), locationService.getAvailableComponents(), currentLocation.id());
         }), true);
     }
 

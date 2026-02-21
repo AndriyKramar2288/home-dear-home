@@ -87,6 +87,15 @@ public class LocationServiceImpl implements LocationService {
 
         location.setName(updatedLocationDto.name());
         location.setDescription(updatedLocationDto.description());
+        location.getComponents().forEach(component -> {
+            updatedLocationDto.components().stream()
+                    .filter(c -> c.id().equals(component.getId()))
+                    .findFirst()
+                    .ifPresent(newLocationComponent -> {
+                        component.setName(newLocationComponent.name());
+                        component.setProperties(new HashMap<>(newLocationComponent.properties()));
+                    });
+        });
         locationRepository.save(location);
         return basicMapper.locationEntityToDto(location);
     }
