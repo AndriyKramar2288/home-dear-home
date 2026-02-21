@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.banew.hdh.core.api.dto.ActionInfo;
+import org.banew.hdh.core.api.layers.data.entities.ActionEntity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,8 +15,7 @@ import java.util.Map;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Data
-public class XmlAction implements ActionInfo {
-
+public class XmlAction implements ActionEntity {
     @XmlAttribute(required = true)
     @XmlID
     private String actionId;
@@ -34,37 +33,4 @@ public class XmlAction implements ActionInfo {
     @XmlElementWrapper(name = "target-args")
     @XmlElement(name = "target-arg")
     private Map<String, String> targetArgs = new HashMap<>();
-
-    @Override
-    public String id() {
-        return actionId;
-    }
-
-    @Override
-    public String sourceComponentName() {
-        return sourceComponentName;
-    }
-
-    @Override
-    public Map<String, String> sourceArgs() {
-        return new HashMap<>(sourceArgs);
-    }
-
-    @Override
-    public String targetComponentName() {
-        return targetComponentName;
-    }
-
-    @Override
-    public Map<String, String> targetArgs() {
-        return new HashMap<>(targetArgs);
-    }
-
-    @Override
-    public XmlAction copy() {
-        return toBuilder()
-                .sourceArgs(new HashMap<>(sourceArgs))
-                .targetArgs(new HashMap<>(targetArgs))
-                .build();
-    }
 }

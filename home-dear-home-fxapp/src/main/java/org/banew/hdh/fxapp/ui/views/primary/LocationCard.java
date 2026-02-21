@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import org.banew.hdh.core.api.dto.LocationInfo;
+import org.banew.hdh.core.api.layers.services.dto.LocationDto;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -36,14 +36,14 @@ public class LocationCard {
         locationHolderCard.setVisible(true);
     }
 
-    public void initData(LocationInfo locationInfo, Runnable onConfirm, Runnable onDelete) {
+    public void initData(LocationDto locationDto, Runnable onConfirm, Runnable onDelete) {
         deleteLocationButton.setOnAction(actionEvent -> onDelete.run());
         runLocationButton.setOnAction(actionEvent -> onConfirm.run());
         isInitialized = true;
         locationHolderCard.setVisible(false);
         locationActualCard.setVisible(true);
-        componentsCountLabel.setText("Components: " + locationInfo.components().size());
-        actionsCountLabel.setText("Actions: " + locationInfo.actions().size());
-        locationNameLabel.setText(locationInfo.name());
+        componentsCountLabel.setText("Components: " + locationDto.components().size());
+        actionsCountLabel.setText("Actions: " + locationDto.actions().size());
+        locationNameLabel.setText(locationDto.name());
     }
 }

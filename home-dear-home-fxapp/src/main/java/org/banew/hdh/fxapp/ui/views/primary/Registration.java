@@ -10,8 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
-import org.banew.hdh.core.api.runtime.forms.RegisterForm;
-import org.banew.hdh.core.api.services.UserService;
+import org.banew.hdh.core.api.layers.services.dto.RegisterForm;
+import org.banew.hdh.core.api.layers.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

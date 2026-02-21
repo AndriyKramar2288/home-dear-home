@@ -2,13 +2,11 @@ package org.banew.hdh.fxapp.ui.views.primary;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import org.banew.hdh.core.api.services.LocationService;
-import org.banew.hdh.core.api.services.UserService;
-import org.banew.hdh.fxapp.implementations.ComponentsContext;
+import org.banew.hdh.core.api.layers.services.LocationService;
+import org.banew.hdh.core.api.layers.services.UserService;
+import org.banew.hdh.fxapp.implementations.services.ComponentsContextImpl;
 import org.banew.hdh.fxapp.ui.JavaFXApp;
 import org.banew.hdh.fxapp.ui.views.Wrap;
 import org.banew.hdh.fxapp.ui.views.main.Main;
@@ -25,7 +23,7 @@ public class LocationSelection {
     @Autowired
     private UserService userService;
     @Autowired
-    private LocationService<ComponentsContext> locationService;
+    private LocationService locationService;
     @Autowired
     private JavaFXApp javaFXApp;
     @Autowired

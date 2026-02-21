@@ -3,10 +3,10 @@ package org.banew.hdh.fxapp.ui.views.main;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import org.banew.hdh.core.api.dto.LocationComponentInfo;
+import org.banew.hdh.core.api.layers.services.dto.LocationComponentDto;
 import org.banew.hdh.core.api.runtime.LocationComponent;
 import org.banew.hdh.core.api.runtime.LocationComponentAttributes;
-import org.banew.hdh.fxapp.implementations.ComponentsContext;
+import org.banew.hdh.fxapp.implementations.services.ComponentsContextImpl;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +32,7 @@ public class ComponentInfo {
         actualComponentInfoBox.setVisible(false);
     }
 
-    public void showAvailableComponent(Class<? extends LocationComponent<ComponentsContext>> clazz) {
+    public void showAvailableComponent(Class<? extends LocationComponent<ComponentsContextImpl>> clazz) {
         componentNameBox.setVisible(false);
         componentNameBox.setManaged(false);
         actualComponentInfoBox.setVisible(true);
@@ -42,7 +42,7 @@ public class ComponentInfo {
         }
     }
 
-    public void showExistComponent(LocationComponentInfo info) {
+    public void showExistComponent(LocationComponentDto info) {
         componentNameBox.setVisible(true);
         componentNameBox.setManaged(true);
         actualComponentInfoBox.setVisible(true);

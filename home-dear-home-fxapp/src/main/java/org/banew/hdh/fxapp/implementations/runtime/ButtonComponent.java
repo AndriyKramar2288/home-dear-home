@@ -10,7 +10,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import org.banew.hdh.core.api.runtime.LocationComponentAttributes;
 import org.banew.hdh.core.api.runtime.components.Data;
-import org.banew.hdh.fxapp.implementations.ComponentsContext;
+import org.banew.hdh.fxapp.implementations.services.ComponentsContextImpl;
 
 import java.util.Map;
 import java.util.function.Consumer;
@@ -51,10 +51,10 @@ public class ButtonComponent extends AbstractWidgetLocationComponent<Button> {
     }
 
     @Override
-    public void init(ComponentsContext componentsContext) {
+    public void init(ComponentsContextImpl componentsContextImpl) {
         widget = new Button(text);
         widget.setTranslateX(x);
         widget.setTranslateY(y);
-        componentsContext.getMainPane().getChildren().add(widget);
+        componentsContextImpl.getMainPane().getChildren().add(widget);
     }
 }

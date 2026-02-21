@@ -2,21 +2,19 @@ package org.banew.hdh.fxapp.implementations.xml;
 
 import jakarta.xml.bind.annotation.*;
 import lombok.*;
-import org.banew.hdh.core.api.dto.ActionInfo;
-import org.banew.hdh.core.api.dto.LocationComponentInfo;
-import org.banew.hdh.core.api.dto.LocationInfo;
+import org.banew.hdh.core.api.layers.data.entities.ComponentEntity;
+import org.banew.hdh.core.api.layers.data.entities.LocationEntity;
+import org.banew.hdh.core.api.layers.data.entities.ActionEntity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder(toBuilder = true)
-public class XmlLocation implements LocationInfo {
+public class XmlLocation implements LocationEntity {
     @XmlAttribute(name = "id", required = true)
     @XmlID
     private String id;
@@ -32,39 +30,16 @@ public class XmlLocation implements LocationInfo {
     private List<XmlAction> actions = new ArrayList<>();
 
     @Override
-    public String id() {
-        return id;
+    public void setComponents(List<? extends ComponentEntity> comp) {
+        for (ComponentEntity componentEntity : comp) {
+            components.add((XmlLocationComponent) comp);
+        }
     }
 
     @Override
-    public String name() {
-        return name;
-    }
-
-    @Override
-    public String description() {
-        return description;
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<LocationComponentInfo> components() {
-        return (List<LocationComponentInfo>) (List<?>) components;
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<ActionInfo> actions() {
-        return (List<ActionInfo>) (List<?>) actions;
-    }
-
-    @Override
-    public XmlLocation copy() {
-        return toBuilder()
-                .components(components.stream()
-                        .map(XmlLocationComponent::copy)
-                        .collect(Collectors.toCollection(ArrayList::new)))
-                .actions(actions.stream()
-                        .map(XmlAction::copy)
-                        .collect(Collectors.toCollection(ArrayList::new)))
-                .build();
+    public void setActions(List<? extends ActionEntity> act) {
+        for (ActionEntity actionEntity : act) {
+            actions.add((XmlAction) actionEntity);
+        }
     }
 }

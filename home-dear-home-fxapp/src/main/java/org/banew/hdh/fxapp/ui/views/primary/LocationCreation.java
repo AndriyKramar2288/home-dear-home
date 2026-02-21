@@ -5,8 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import lombok.Setter;
-import org.banew.hdh.core.api.services.LocationService;
-import org.banew.hdh.fxapp.implementations.ComponentsContext;
+import org.banew.hdh.core.api.layers.services.LocationService;
+import org.banew.hdh.fxapp.implementations.services.ComponentsContextImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class LocationCreation {
 
     @Autowired
-    private LocationService<ComponentsContext> locationService;
+    private LocationService locationService;
 
     @FXML
     private TextField locationName;

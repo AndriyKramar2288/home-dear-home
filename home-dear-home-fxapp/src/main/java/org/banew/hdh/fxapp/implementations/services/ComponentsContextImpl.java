@@ -1,14 +1,15 @@
-package org.banew.hdh.fxapp.implementations;
+package org.banew.hdh.fxapp.implementations.services;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import lombok.AllArgsConstructor;
+import org.banew.hdh.core.api.layers.components.ComponentsContextSource;
 import org.banew.hdh.fxapp.ui.JavaFXApp;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class ComponentsContext {
+public class ComponentsContextImpl implements ComponentsContextSource<ComponentsContextImpl> {
 
     private final JavaFXApp javaFXApp;
 
@@ -23,5 +24,10 @@ public class ComponentsContext {
         catch (ClassCastException | NullPointerException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
+    }
+
+    @Override
+    public ComponentsContextImpl get() {
+        return this;
     }
 }

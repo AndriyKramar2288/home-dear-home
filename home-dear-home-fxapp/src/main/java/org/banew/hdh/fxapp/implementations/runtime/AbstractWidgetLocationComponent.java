@@ -3,7 +3,7 @@ package org.banew.hdh.fxapp.implementations.runtime;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
-import org.banew.hdh.core.api.dto.LocationComponentInfo;
+import org.banew.hdh.core.api.layers.services.dto.LocationComponentDto;
 import org.banew.hdh.core.api.runtime.LocationComponentAttributes;
 import org.banew.hdh.core.api.runtime.components.Data;
 
@@ -16,17 +16,17 @@ import java.util.function.Consumer;
 public abstract class AbstractWidgetLocationComponent<T extends Parent> implements DesktopLocationComponent {
 
     private final Map<String, EventHandler<? extends Event>> actions = new HashMap<>();
-    private LocationComponentInfo info;
+    private LocationComponentDto info;
 
     protected T widget;
 
     @Override
-    public LocationComponentInfo getInfo() {
+    public LocationComponentDto getInfo() {
         return info;
     }
 
     @Override
-    public void setInfo(LocationComponentInfo info) {
+    public void setInfo(LocationComponentDto info) {
         this.info = info;
     }
 

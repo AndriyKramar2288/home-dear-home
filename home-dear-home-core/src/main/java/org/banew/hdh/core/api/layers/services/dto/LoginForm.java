@@ -1,4 +1,4 @@
-package org.banew.hdh.core.api.runtime.forms;
+package org.banew.hdh.core.api.layers.services.dto;
 
 public record LoginForm (
         String username,
