@@ -1,9 +1,16 @@
 package org.banew.hdh.core.api.layers.services.dto;
 
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public record DetailedUserDto(
-        Set<LocationDto> locations,
-        UserDto userDto // TODO 何??!
+        List<LocationDto> locations,
+        String username,
+        String fullname,
+        String password,
+        String email,
+        String phoneNumber,
+        String photoSrc,
+        LocalDateTime lastTimeLogin
 ) {
 }

@@ -39,7 +39,7 @@ public class XmlUserInfo implements UserEntity {
 
     @Override
     public List<LocationEntity> getLocations() {
-        return List.of();
+        return locations.stream().map(e -> (LocationEntity) e).toList();
     }
 
     @Override

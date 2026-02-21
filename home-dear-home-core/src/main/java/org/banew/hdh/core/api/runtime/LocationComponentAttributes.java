@@ -23,5 +23,6 @@ public @interface LocationComponentAttributes {
         String format();
         boolean required() default false;
         String dependsOn() default "";
+        String[] choices() default {};
     }
 }

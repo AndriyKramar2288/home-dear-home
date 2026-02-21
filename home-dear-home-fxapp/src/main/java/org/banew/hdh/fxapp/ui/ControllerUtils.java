@@ -16,6 +16,7 @@ import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -88,21 +89,6 @@ public class ControllerUtils {
 
             event.setDropCompleted(success);
             event.consume();
-        });
-    }
-
-    public static <T> void future(CompletableFuture<T> future, Consumer<T> success, Consumer<Exception> failure) {
-        future.thenAccept(t -> {
-            Platform.runLater(() -> {
-                success.accept(t);
-            });
-        }).exceptionally(e -> {
-            // Витягуємо реальну причину (cause) з обгортки
-            Throwable cause = (e.getCause() != null) ? e.getCause() : e;
-            Platform.runLater(() -> {
-                failure.accept((Exception) cause);
-            });
-            return null; // exceptionally має щось повернути
         });
     }
 

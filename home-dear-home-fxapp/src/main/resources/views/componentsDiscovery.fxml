@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="638.0" prefWidth="1026.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.main.ComponentsDiscovery">
+<AnchorPane prefHeight="703.0" prefWidth="855.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.main.ComponentsDiscovery">
    <stylesheets>
       <URL value="@assets/styles/forms.css" />
       <URL value="@assets/styles/common.css" />
@@ -23,7 +23,7 @@
       <URL value="@assets/styles/location-selection.css" />
    </stylesheets>
    <children>
-      <VBox alignment="CENTER" layoutX="11.199999809265137" layoutY="10.399999618530273" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <VBox alignment="CENTER" layoutX="11.199999809265137" layoutY="10.399999618530273" spacing="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
             <HBox alignment="CENTER" prefHeight="30.0" prefWidth="826.0" spacing="10.0">
                <children>
@@ -35,12 +35,12 @@
                   <RadioButton accessibleText="NEW" mnemonicParsing="false" styleClass="tab-radio-button" text="Search new" toggleGroup="$tabRadioButtonGroup" />
                </children>
             </HBox>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a17070" height="4.0" stroke="#ffffff00" strokeType="INSIDE" width="250.0" />
             <HBox alignment="CENTER" spacing="20.0">
                <children>
-                  <VBox alignment="TOP_CENTER" prefHeight="423.0" prefWidth="289.0" spacing="10.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="531.0" prefWidth="341.0" spacing="10.0">
                      <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a17070" height="4.0" stroke="#ffffff00" strokeType="INSIDE" width="400.0" />
-                        <HBox alignment="CENTER" prefHeight="71.0" prefWidth="332.0" spacing="10.0" styleClass="field-box">
+                        <HBox alignment="CENTER" prefHeight="71.0" prefWidth="254.0" spacing="10.0" styleClass="field-box">
                            <children>
                               <TextField prefHeight="43.0" prefWidth="294.0" styleClass="text-field" />
                               <Button mnemonicParsing="false" styleClass="usual-button">
@@ -61,13 +61,8 @@
                         <Insets top="10.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" prefHeight="423.0" prefWidth="406.0" spacing="10.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="588.0" prefWidth="451.0" spacing="10.0">
                      <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a17070" height="4.0" stroke="#ffffff00" strokeType="INSIDE" width="400.0">
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Rectangle>
                         <fx:include fx:id="componentInfo" source="componentInfo.fxml" />
                      </children>
                   </VBox>

@@ -9,6 +9,7 @@ import org.banew.hdh.core.api.layers.data.entities.ActionEntity;
 import org.banew.hdh.core.api.layers.data.entities.LocationEntity;
 import org.banew.hdh.core.api.layers.services.LocationService;
 import org.banew.hdh.core.api.layers.services.dto.ActionDto;
+import org.banew.hdh.core.api.layers.services.dto.AvailableComponent;
 import org.banew.hdh.core.api.layers.services.dto.LocationDto;
 import org.banew.hdh.core.api.runtime.LocationComponent;
 import org.banew.hdh.core.api.runtime.LocationComponentAttributes;
@@ -52,7 +53,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public List<LocationComponentAttributes> getAvailableComponents() {
+    public List<AvailableComponent> getAvailableComponents() {
         return classesManager.getAvailableComponents().stream().toList();
     }
 

@@ -59,9 +59,9 @@ public class JavaFXApp extends Application {
         scene.setFill(Color.TRANSPARENT);
 
         // narrow-mode listener
-        stage.widthProperty().addListener((obs, oldVal, newVal) -> {
-            scene.getRoot().pseudoClassStateChanged(MyStyles.NARROW_MODE, newVal.doubleValue() < 1400);
-        });
+//        stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+//            scene.getRoot().pseudoClassStateChanged(MyStyles.NARROW_MODE, newVal.doubleValue() < 1400);
+//        });
 
         stage.setScene(scene);
         maximize();

@@ -18,8 +18,10 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 @SpringBootApplication
-@EnableAsync
 public class SpringBootApp {
     @Bean
     public JavaFXApp javaFXApp() {
@@ -34,6 +36,11 @@ public class SpringBootApp {
     @Bean
     public BasicMapper basicMapper() {
         return BasicMapper.INSTANCE;
+    }
+
+    @Bean
+    public ExecutorService executorService() {
+        return Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     }
 
     @Bean

@@ -20,7 +20,27 @@ import java.util.function.Consumer;
 @LocationComponentAttributes(
         name = "Button",
         description = "Aboba",
-        supportGeneration = true
+        supportGeneration = true,
+        generationArguments = {
+                @LocationComponentAttributes.Argument(
+                        name = "ababwewq",
+                        required = true,
+                        desc = "wqeeqeqwqwe",
+                        format = "WWWWWW"
+                ),
+                @LocationComponentAttributes.Argument(
+                        name = "qwwww",
+                        desc = "sssssssssss",
+                        format = "ZZZZ"
+                )
+        },
+        properties = {
+                @LocationComponentAttributes.Argument(
+                        name = "AAAAAAA",
+                        desc = "wwwww",
+                        format = "ZZZZ"
+                )
+        }
 )
 public class ButtonComponent extends AbstractWidgetLocationComponent<Button> {
 

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.banew.hdh.fxapp.ui.views.primary.PropertyView">
+   <children>
+      <VBox alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER">
+               <children>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Name" />
+                        <Label fx:id="propertyName" style="-fx-font-size: 16;" text="Name">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Description" />
+                     </children>
+                  </VBox>
+                  <Pane HBox.hgrow="ALWAYS" />
+                  <Label fx:id="propertyRequired" text="Label" />
+               </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <Label fx:id="propertyDescription" prefHeight="100.0" text="Description" wrapText="true" />
+            <VBox fx:id="propertyValueBox">
+               <children>
+                  <Label text="Value" />
+                  <StackPane>
+                     <children>
+                        <ComboBox fx:id="propertyChoice" prefWidth="150.0" />
+                        <TextField fx:id="propertyValue" styleClass="text-field" />
+                     </children>
+                  </StackPane>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+         <StackPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </StackPane.margin>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@assets/styles/common.css" />
+      <URL value="@assets/styles/forms.css" />
+      <URL value="@assets/styles/location-selection.css" />
+      <URL value="@assets/styles/main.css" />
+      <URL value="@assets/styles/styles.css" />
+   </stylesheets>
+</StackPane>

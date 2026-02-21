@@ -13,5 +13,5 @@ import java.util.List;
 public class XmlStorage {
     @XmlElementWrapper(name = "users", required = true)
     @XmlElement(name = "user")
-    private List<UserEntity> users = new ArrayList<>();
+    private List<XmlUserInfo> users = new ArrayList<>();
 }

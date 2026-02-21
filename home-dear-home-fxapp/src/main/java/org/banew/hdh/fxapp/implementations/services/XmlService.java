@@ -1,4 +1,4 @@
-package org.banew.hdh.fxapp.implementations;
+package org.banew.hdh.fxapp.implementations.services;
 
 import jakarta.xml.bind.*;
 import org.banew.hdh.fxapp.implementations.xml.XmlStorage;

@@ -1,6 +1,7 @@
 package org.banew.hdh.core.api.layers.services;
 
 import org.banew.hdh.core.api.layers.services.dto.ActionDto;
+import org.banew.hdh.core.api.layers.services.dto.AvailableComponent;
 import org.banew.hdh.core.api.layers.services.dto.LocationDto;
 import org.banew.hdh.core.api.runtime.LocationComponentAttributes;
 
@@ -10,7 +11,7 @@ import java.util.Optional;
 
 public interface LocationService {
 
-    List<LocationComponentAttributes> getAvailableComponents();
+    List<AvailableComponent> getAvailableComponents();
 
     List<? extends LocationDto> getLocations();
 

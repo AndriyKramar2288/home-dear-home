@@ -6,10 +6,11 @@ import jakarta.xml.bind.JAXBException;
 import lombok.Getter;
 import org.banew.hdh.core.api.layers.components.AuthorizationContext;
 import org.banew.hdh.core.api.layers.components.ComponentsClassesManager;
+import org.banew.hdh.core.api.layers.services.dto.AvailableComponent;
 import org.banew.hdh.core.api.runtime.LocationComponent;
 import org.banew.hdh.core.api.runtime.LocationComponentAttributes;
 import org.banew.hdh.fxapp.ReflectionsUtils;
-import org.banew.hdh.fxapp.implementations.XmlService;
+import org.banew.hdh.fxapp.implementations.services.XmlService;
 import org.banew.hdh.fxapp.implementations.runtime.DesktopLocationComponent;
 import org.banew.hdh.fxapp.implementations.xml.XmlStorage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,10 +59,9 @@ public class XmlDataContainer implements ComponentsClassesManager {
     }
 
     @Override
-    public Set<LocationComponentAttributes> getAvailableComponents() {
+    public Set<AvailableComponent> getAvailableComponents() {
         return allAvailableComponents.values().stream()
-                .map(cl -> cl.getAnnotation(LocationComponentAttributes.class))
-                .filter(Objects::nonNull)
+                .map(cl -> new AvailableComponent(cl.getName(), cl.getAnnotation(LocationComponentAttributes.class)))
                 .collect(Collectors.toSet());
     }
 

@@ -70,6 +70,14 @@ Label {
     -fx-transition: all 0.2s ease-in-out;
 }
 
+.components-list-view .list-cell > *:hover {
+    -fx-background-color: derive(#a17070, -25%);
+}
+
+.components-list-view .list-cell:selected > * {
+    -fx-background-color: #a17070;
+}
+
 /* 1. Загальний фон скролбару (і вертикального, і горизонтального) */
 .components-list-view .scroll-bar:horizontal,
 .components-list-view .scroll-bar:vertical {

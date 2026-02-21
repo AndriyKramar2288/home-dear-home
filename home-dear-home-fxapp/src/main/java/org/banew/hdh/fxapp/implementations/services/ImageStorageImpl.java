@@ -1,7 +1,7 @@
 package org.banew.hdh.fxapp.implementations.services;
 
 import org.banew.hdh.core.api.layers.components.ImageStorage;
-import org.banew.hdh.fxapp.implementations.XmlService;
+import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.nio.file.Files;
@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
+@Component
 public class ImageStorageImpl implements ImageStorage {
     @Override
     public URL saveAvatarImage(byte[] image, String fileName) {

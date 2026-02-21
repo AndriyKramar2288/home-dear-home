@@ -42,7 +42,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void save(UserEntity user) {
-        data.getXmlStorage().getUsers().add(user);
+        data.getXmlStorage().getUsers().add((XmlUserInfo) user);
     }
 }
 

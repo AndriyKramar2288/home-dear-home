@@ -10,13 +10,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import lombok.RequiredArgsConstructor;
+import org.banew.hdh.core.api.layers.components.ImageStorage;
 import org.banew.hdh.core.api.layers.services.dto.RegisterForm;
 import org.banew.hdh.core.api.layers.services.UserService;
+import org.banew.hdh.fxapp.implementations.services.AsyncRunner;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.function.Consumer;
@@ -24,12 +29,14 @@ import java.util.function.Consumer;
 import static org.banew.hdh.fxapp.ui.ControllerUtils.*;
 
 @Component
+@Scope("prototype")
+@RequiredArgsConstructor
 public class Registration {
 
-    @Autowired
-    private Primary primary;
-    @Autowired
-    private UserService userService;
+    private final Primary primary;
+    private final UserService userService;
+    private final AsyncRunner asyncRunner;
+    private final ImageStorage imageStorage;
 
     @FXML
     private TextField registrationEmailField;
@@ -70,13 +77,13 @@ public class Registration {
     @FXML
     public void createAccountHandler(ActionEvent event) throws IOException {
 
-        Consumer<String> callback = (imageUri) -> {
-            future(userService.register(new RegisterForm(
+        Consumer<URL> callback = (imageUri) -> {
+            asyncRunner.future(() -> userService.register(new RegisterForm(
                     registrationUsernameField.getText(),
                     registrationPasswordField.getText(),
                     registrationRepeatPasswordField.getText(),
                     registrationEmailField.getText(),
-                    imageUri
+                    imageUri.toString()
             )), u -> {
                 primary.setCurrentState(Primary.PrimaryState.LOCATION_CHOOSE);
             }, e -> {
@@ -85,7 +92,7 @@ public class Registration {
         };
 
         if (registrationAvatarImage != null) {
-            future(userService.saveAvatarImage(Files.readAllBytes(Paths.get(registrationAvatarImage.toURI())),
+            asyncRunner.future(() -> imageStorage.saveAvatarImage(Files.readAllBytes(Paths.get(registrationAvatarImage.toURI())),
                     registrationAvatarImage.getName()), callback, e -> {
                 alertRegister(e.getMessage());
             });

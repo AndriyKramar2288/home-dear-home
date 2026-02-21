@@ -29,6 +29,14 @@ public class XmlLocation implements LocationEntity {
     @XmlElement(name = "action")
     private List<XmlAction> actions = new ArrayList<>();
 
+    public List<ActionEntity> getActions() {
+        return actions.stream().map(a -> (ActionEntity) a).toList();
+    }
+
+    public List<ComponentEntity> getComponents() {
+        return components.stream().map(c -> (ComponentEntity) c).toList();
+    }
+
     @Override
     public void setComponents(List<? extends ComponentEntity> comp) {
         for (ComponentEntity componentEntity : comp) {

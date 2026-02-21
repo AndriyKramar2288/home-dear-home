@@ -43,8 +43,8 @@ public class Main {
         currentLocation = locationDto;
 
         locationNameLabel.setText(locationDto.name());
-        if (userService.getCurrentUser() != null && userService.getCurrentUser().userDto().photoSrc() != null) {
-            ControllerUtils.processAvatar(avatarImage, userService.getCurrentUser().userDto().photoSrc(), 40);
+        if (userService.getCurrentUser() != null && userService.getCurrentUser().photoSrc() != null) {
+            ControllerUtils.processAvatar(avatarImage, userService.getCurrentUser().photoSrc(), 40);
         }
     }
 }

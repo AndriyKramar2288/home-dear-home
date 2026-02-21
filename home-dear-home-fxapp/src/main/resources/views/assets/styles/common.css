@@ -103,3 +103,26 @@
     -fx-background-color: #242424;
     -fx-background-radius: 10;
 }
+
+/*LOCATIONS SCROLL PANE*/
+
+/* 1. Магічне комбо для повної прозорості */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent; /* Це критично важливо для ScrollPane */
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* 2. Стилізуємо скролбар */
+.scroll-pane .scroll-bar:horizontal, .scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:horizontal .thumb, .scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: -fx-city-blue;
+    -fx-background-radius: 6;
+}

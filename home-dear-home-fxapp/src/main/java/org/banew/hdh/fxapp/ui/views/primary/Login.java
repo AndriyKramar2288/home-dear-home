@@ -6,21 +6,21 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import org.banew.hdh.core.api.layers.services.dto.LoginForm;
+import lombok.RequiredArgsConstructor;
 import org.banew.hdh.core.api.layers.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.banew.hdh.core.api.layers.services.dto.LoginForm;
+import org.banew.hdh.fxapp.implementations.services.AsyncRunner;
 import org.springframework.stereotype.Component;
 
-import static org.banew.hdh.fxapp.ui.ControllerUtils.future;
 import static org.banew.hdh.fxapp.ui.ControllerUtils.showTimedAlert;
 
 @Component
+@RequiredArgsConstructor
 public class Login {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private Primary primary;
+    private final UserService userService;
+    private final Primary primary;
+    private final AsyncRunner asyncRunner;
 
     @FXML
     private Pane regularLoginForm;
@@ -48,7 +48,7 @@ public class Login {
 
     @FXML
     public void login(ActionEvent event) {
-        future(userService.login(new LoginForm(loginField.getText(), passwordField.getText())), u -> {
+        asyncRunner.future(() -> userService.login(new LoginForm(loginField.getText(), passwordField.getText())), u -> {
             primary.setCurrentState(Primary.PrimaryState.LOCATION_CHOOSE);
         }, e -> {
             alertLogin(e.getMessage());
