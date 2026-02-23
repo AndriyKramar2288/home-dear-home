@@ -1,25 +1,18 @@
 package org.banew.hdh.core.api.layers.data.entities;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public interface LocationEntity {
-    String getId();
-
-    String getName();
-
-    String getDescription();
-
-    List<ComponentEntity> getComponents();
-
-    List<ActionEntity> getActions();
-
-    void setId(String id);
-
-    void setName(String name);
-
-    void setDescription(String description);
-
-    void setComponents(List<? extends ComponentEntity> components);
-
-    void setActions(List<? extends ActionEntity> actions);
+@Data
+@NoArgsConstructor
+public class LocationEntity {
+    private String id;
+    private String name;
+    private String description;
+    private List<ComponentEntity> components = new ArrayList<>();
+    private List<ActionEntity> actions = new ArrayList<>();
+    private UserEntity owner;
 }

@@ -1,27 +1,18 @@
 package org.banew.hdh.core.api.layers.data.entities;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.banew.hdh.core.api.runtime.LocationComponentAttributes;
 
+import java.util.HashMap;
 import java.util.Map;
 
-public interface ComponentEntity {
-    String getId();
-
-    String getName();
-
-    Map<String, String> getProperties();
-
-    String getFullClassName();
-
-    LocationComponentAttributes getClassAttributes();
-
-    void setId(String id);
-
-    void setName(String name);
-
-    void setProperties(Map<String, String> properties);
-
-    void setFullClassName(String fullClassName);
-
-    void setClassAttributes(LocationComponentAttributes classAttributes);
+@Data
+@NoArgsConstructor
+public class ComponentEntity {
+    private String id;
+    private String name;
+    private Map<String, String> properties = new HashMap<>();
+    private String fullClassName;
+    private LocationComponentAttributes classAttributes;
 }

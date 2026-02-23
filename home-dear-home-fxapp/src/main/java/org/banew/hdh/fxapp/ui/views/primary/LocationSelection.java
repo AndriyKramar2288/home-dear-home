@@ -4,13 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import lombok.RequiredArgsConstructor;
 import org.banew.hdh.core.api.layers.services.LocationService;
 import org.banew.hdh.core.api.layers.services.UserService;
-import org.banew.hdh.fxapp.implementations.services.ComponentsContextImpl;
 import org.banew.hdh.fxapp.ui.JavaFXApp;
 import org.banew.hdh.fxapp.ui.views.Wrap;
 import org.banew.hdh.fxapp.ui.views.main.Main;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -18,16 +17,13 @@ import java.io.IOException;
 
 @Component
 @Scope("prototype")
+@RequiredArgsConstructor
 public class LocationSelection {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private LocationService locationService;
-    @Autowired
-    private JavaFXApp javaFXApp;
-    @Autowired
-    private Wrap wrap;
+    private final UserService userService;
+    private final LocationService locationService;
+    private final JavaFXApp javaFXApp;
+    private final Wrap wrap;
 
     @FXML
     private Pane locationChooseForm;
@@ -51,24 +47,21 @@ public class LocationSelection {
     }
 
     private void updateList() {
-        var user = userService.getCurrentUser();
-        if (user != null) {
-            locationList.getChildren().clear();
-            user.locations().forEach(location -> {
-                locationList.getChildren().add(javaFXApp.getControlledNode(
-                        "primary/locationCard", (LocationCard controller) -> {
-                            controller.initData(location, () -> {
-                                javaFXApp.changeScene("main", (Main m) -> {
-                                    m.initLocation(location);
-                                });
-                            }, () -> {
-                                wrap.showWarning("Are you sure you want to delete this location?", () -> {
-                                    locationService.removeLocation(location.id());
-                                    updateList();
-                                });
+        locationList.getChildren().clear();
+        locationService.getLocations().forEach(location -> {
+            locationList.getChildren().add(javaFXApp.getControlledNode(
+                    "primary/locationCard", (LocationCard controller) -> {
+                        controller.initData(location, () -> {
+                            javaFXApp.changeScene("main", (Main m) -> {
+                                m.initLocation(location);
                             });
-                        }));
-            });
-        }
+                        }, () -> {
+                            wrap.showWarning("Are you sure you want to delete this location?", () -> {
+                                locationService.removeLocation(location.id());
+                                updateList();
+                            });
+                        });
+                    }));
+        });
     }
 }

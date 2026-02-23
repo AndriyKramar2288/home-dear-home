@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import lombok.RequiredArgsConstructor;
+import org.banew.hdh.core.api.layers.data.ComponentRepository;
+import org.banew.hdh.core.api.layers.services.LocationService;
 import org.banew.hdh.core.api.layers.services.dto.AvailableComponent;
 import org.banew.hdh.core.api.layers.services.dto.LocationComponentDto;
 import org.banew.hdh.fxapp.ui.views.main.component.ComponentInfo;
@@ -17,11 +20,15 @@ import java.util.function.Function;
 
 @Component
 @Scope("prototype")
+@RequiredArgsConstructor
 public class ComponentsDiscovery {
+
+    private final LocationService locationService;
+
     @FXML
     private ListView<AvailableComponent> newComponentsListView;
     @FXML
-    private ListView<LocationComponentDto> addedComponentsListView;
+    private ListView<String> addedComponentsListView;
     @FXML
     private ComponentInfo componentInfoController;
     @FXML
@@ -43,10 +50,10 @@ public class ComponentsDiscovery {
                     newComponentsListView.setVisible(false);
                     var sel = addedComponentsListView.getSelectionModel().getSelectedItem();
                     if (sel != null) {
-                        componentInfoController.showExistComponent(sel, this::setLockedEverything);
+                        componentInfoController.showExistComponent(locationService.getLocationComponentById(sel).orElseThrow(),
+                                this::setLockedEverything);
                     }
-                }
-                else {
+                } else {
                     newComponentsListView.setVisible(true);
                     addedComponentsListView.setVisible(false);
                     var sel = newComponentsListView.getSelectionModel().getSelectedItem();
@@ -58,18 +65,19 @@ public class ComponentsDiscovery {
         });
 
         setUpListView(addedComponentsListView,
-                comp -> new HBox(new Label(comp.name())),
-                comp -> componentInfoController.showExistComponent(comp, this::setLockedEverything),
-                                    () -> componentInfoController.hide());
+                comp -> new HBox(new Label(locationService.getLocationComponentById(comp).orElseThrow().name())),
+                comp -> componentInfoController.showExistComponent(locationService.getLocationComponentById(comp).orElseThrow(),
+                        this::setLockedEverything),
+                () -> componentInfoController.hide());
 
         setUpListView(newComponentsListView,
                 comp -> new HBox(new Label(
-                        comp.attributes() == null? comp.fullClassName() : comp.attributes().name())),
+                        comp.attributes() == null ? comp.fullClassName() : comp.attributes().name())),
                 comp -> componentInfoController.showAvailableComponent(comp, this::setLockedEverything),
                 () -> componentInfoController.hide());
     }
 
-    public void initData(Collection<? extends LocationComponentDto> infos,
+    public void initData(Collection<String> infos,
                          List<AvailableComponent> classes,
                          String locationId) {
         addedComponentsListView.getItems().addAll(infos);
@@ -106,8 +114,7 @@ public class ComponentsDiscovery {
         list.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 onShow.accept(newSelection);
-            }
-            else {
+            } else {
                 onHide.run();
             }
         });

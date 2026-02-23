@@ -15,7 +15,7 @@ import java.util.Map;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Data
-public class XmlAction implements ActionEntity {
+public class XmlAction {
     @XmlAttribute(required = true)
     @XmlID
     private String actionId;

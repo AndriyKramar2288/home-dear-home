@@ -15,7 +15,7 @@ import java.util.Map;
 @NoArgsConstructor
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "component")
-public class XmlLocationComponent implements ComponentEntity {
+public class XmlLocationComponent {
     @XmlID
     @XmlAttribute(required = true)
     private String id;

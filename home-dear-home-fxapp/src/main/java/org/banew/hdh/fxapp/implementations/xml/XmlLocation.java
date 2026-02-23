@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class XmlLocation implements LocationEntity {
+public class XmlLocation {
     @XmlAttribute(name = "id", required = true)
     @XmlID
     private String id;
@@ -28,26 +28,6 @@ public class XmlLocation implements LocationEntity {
     @XmlElementWrapper(name = "actions", required = true)
     @XmlElement(name = "action")
     private List<XmlAction> actions = new ArrayList<>();
-
-    public List<ActionEntity> getActions() {
-        return actions.stream().map(a -> (ActionEntity) a).toList();
-    }
-
-    public List<ComponentEntity> getComponents() {
-        return components.stream().map(c -> (ComponentEntity) c).toList();
-    }
-
-    @Override
-    public void setComponents(List<? extends ComponentEntity> comp) {
-        for (ComponentEntity componentEntity : comp) {
-            components.add((XmlLocationComponent) comp);
-        }
-    }
-
-    @Override
-    public void setActions(List<? extends ActionEntity> act) {
-        for (ActionEntity actionEntity : act) {
-            actions.add((XmlAction) actionEntity);
-        }
-    }
+    @XmlElementRef
+    private XmlUserInfo owner;
 }

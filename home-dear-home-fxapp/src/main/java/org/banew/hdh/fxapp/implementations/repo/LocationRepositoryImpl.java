@@ -3,41 +3,24 @@ package org.banew.hdh.fxapp.implementations.repo;
 import lombok.RequiredArgsConstructor;
 import org.banew.hdh.core.api.layers.components.AuthorizationContext;
 import org.banew.hdh.core.api.layers.data.LocationRepository;
-import org.banew.hdh.core.api.layers.data.UserRepository;
-import org.banew.hdh.core.api.layers.data.entities.ActionEntity;
-import org.banew.hdh.core.api.layers.data.entities.ComponentEntity;
 import org.banew.hdh.core.api.layers.data.entities.LocationEntity;
 import org.banew.hdh.core.api.layers.data.entities.UserEntity;
-import org.banew.hdh.core.api.runtime.LocationComponentAttributes;
-import org.banew.hdh.fxapp.implementations.xml.XmlAction;
-import org.banew.hdh.fxapp.implementations.xml.XmlLocation;
-import org.banew.hdh.fxapp.implementations.xml.XmlLocationComponent;
+import org.banew.hdh.fxapp.implementations.services.XmlEntityMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
 public class LocationRepositoryImpl implements LocationRepository {
 
-    private final AuthorizationContext authorizationContext;
+    private final XmlDataContainer xmlDataContainer;
+    private final XmlEntityMapper xmlEntityMapper;
     private final XmlDataContainer data;
-
-    @Override
-    public LocationEntity create() {
-        return new XmlLocation();
-    }
-
-    @Override
-    public ActionEntity createAction(String sourceComponentName,
-                                     Map<String, String> sourceArgs,
-                                     String targetComponentName,
-                                     Map<String, String> targetArgs) {
-        return new XmlAction(targetComponentName, sourceComponentName, sourceArgs, targetComponentName, targetArgs);
-    }
 
     @Override
     public void save(LocationEntity location) {
@@ -46,33 +29,45 @@ public class LocationRepositoryImpl implements LocationRepository {
             location.setId(UUID.randomUUID().toString());
         }
 
-        authorizationContext.getCurrentUser().setLocations(
-                authorizationContext.getCurrentUser().getLocations().stream()
-                        .map(l -> l.getId().equals(location.getId()) ? location : l)
-                        .toList());
+        AtomicBoolean changed = new AtomicBoolean(false);
+
+        var actualUser = xmlDataContainer.getXmlStorage().getUsers().stream()
+                .filter(u -> u.getId().equals(location.getOwner().getId()))
+                .findFirst().orElseThrow();
+
+        actualUser.setLocations(actualUser.getLocations().stream()
+                .map(l -> {
+                    if (l.getId().equals(location.getId())) {
+                        changed.set(true);
+                        return xmlEntityMapper.locationEntityToXml(location);
+                    }
+                    return l;
+                }).collect(Collectors.toList()));
+
+        if (!changed.get()) {
+            actualUser.getLocations().add(xmlEntityMapper.locationEntityToXml(location));
+        }
     }
 
     @Override
-    public List<? extends LocationEntity> findByUser(UserEntity user) {
-        return user.getLocations();
+    public List<LocationEntity> findByUser(UserEntity user) {
+        return user == null ? List.of() : List.copyOf(user.getLocations());
     }
 
     @Override
-    public Optional<? extends LocationEntity> findById(String locationId) {
+    public Optional<LocationEntity> findById(String locationId) {
         return data.getXmlStorage().getUsers().stream()
                 .flatMap(u -> u.getLocations().stream())
                 .filter(l -> l.getId().equals(locationId))
+                .map(xmlEntityMapper::locationXmlToEntity)
                 .findFirst();
     }
 
     @Override
     public void deleteById(String locationId) {
         data.getXmlStorage().getUsers().forEach(
-                u -> u.getLocations().removeIf(l -> l.getId().equals(locationId)));
-    }
-
-    @Override
-    public ComponentEntity createComponent(String name, Map<String, String> properties, String packageName, LocationComponentAttributes annotation) {
-        return new XmlLocationComponent(UUID.randomUUID().toString(), name, properties, packageName, annotation);
+                u -> u.setLocations(u.getLocations().stream()
+                        .filter(l ->
+                                !l.getId().equals(locationId)).toList()));
     }
 }

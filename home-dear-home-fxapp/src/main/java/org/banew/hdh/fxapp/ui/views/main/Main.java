@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import org.banew.hdh.core.api.layers.services.LocationService;
 import org.banew.hdh.core.api.layers.services.UserService;
+import org.banew.hdh.core.api.layers.services.dto.LocationComponentDto;
 import org.banew.hdh.core.api.layers.services.dto.LocationDto;
 import org.banew.hdh.fxapp.ui.ControllerUtils;
 import org.banew.hdh.fxapp.ui.JavaFXApp;
@@ -35,7 +36,8 @@ public class Main {
     @FXML
     public void openComponentsButton(ActionEvent event) {
         modal.setContent(javaFXApp.getControlledNode("componentsDiscovery", (ComponentsDiscovery c) -> {
-            c.initData(currentLocation.components(), locationService.getAvailableComponents(), currentLocation.id());
+            c.initData(currentLocation.components().stream().map(LocationComponentDto::id).toList(),
+                    locationService.getAvailableComponents(), currentLocation.id());
         }), true);
     }
 

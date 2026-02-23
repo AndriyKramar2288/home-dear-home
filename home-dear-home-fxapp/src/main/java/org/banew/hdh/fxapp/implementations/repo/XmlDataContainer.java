@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import jakarta.xml.bind.JAXBException;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.banew.hdh.core.api.layers.components.AuthorizationContext;
 import org.banew.hdh.core.api.layers.components.ComponentsClassesManager;
 import org.banew.hdh.core.api.layers.services.dto.AvailableComponent;
@@ -13,21 +14,22 @@ import org.banew.hdh.fxapp.ReflectionsUtils;
 import org.banew.hdh.fxapp.implementations.services.XmlService;
 import org.banew.hdh.fxapp.implementations.runtime.DesktopLocationComponent;
 import org.banew.hdh.fxapp.implementations.xml.XmlStorage;
+import org.banew.hdh.fxapp.implementations.xml.XmlUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class XmlDataContainer implements ComponentsClassesManager {
-    @Autowired
-    private XmlService xmlService;
-    @Autowired
-    private AuthorizationContext authorizationContext;
+
+    private final XmlService xmlService;
 
     private final File file = new File(XmlService.USER_FILES_PREFIX + "storage.xml");
 

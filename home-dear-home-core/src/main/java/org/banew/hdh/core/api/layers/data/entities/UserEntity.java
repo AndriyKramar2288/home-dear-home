@@ -1,38 +1,22 @@
 package org.banew.hdh.core.api.layers.data.entities;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
-public interface UserEntity {
-    String getUsername();
-
-    String getPassword();
-
-    String getEmail();
-
-    String getFullname();
-
-    String getPhoneNumber();
-
-    String getPhotoSrc();
-
-    LocalDateTime getLastTimeLogin();
-
-    List<LocationEntity> getLocations();
-
-    void setUsername(String username);
-
-    void setPassword(String password);
-
-    void setEmail(String email);
-
-    void setFullname(String fullname);
-
-    void setPhoneNumber(String phoneNumber);
-
-    void setPhotoSrc(String photoSrc);
-
-    void setLastTimeLogin(LocalDateTime lastTimeLogin);
-
-    void setLocations(List<? extends LocationEntity> locations);
+@NoArgsConstructor
+@Data
+public class UserEntity {
+    private String id;
+    private String username;
+    private String password;
+    private String email;
+    private String fullname;
+    private String phoneNumber;
+    private String photoSrc;
+    private LocalDateTime lastTimeLogin;
+    private List<LocationEntity> locations = new ArrayList<>();
 }

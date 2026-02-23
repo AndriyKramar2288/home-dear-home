@@ -4,12 +4,16 @@ import org.banew.hdh.core.api.layers.components.AuthorizationContext;
 import org.banew.hdh.core.api.layers.components.BasicMapper;
 import org.banew.hdh.core.api.layers.components.ComponentsClassesManager;
 import org.banew.hdh.core.api.layers.components.ComponentsContextSource;
+import org.banew.hdh.core.api.layers.data.ActionRepository;
+import org.banew.hdh.core.api.layers.data.ComponentRepository;
 import org.banew.hdh.core.api.layers.data.LocationRepository;
 import org.banew.hdh.core.api.layers.data.entities.ActionEntity;
+import org.banew.hdh.core.api.layers.data.entities.ComponentEntity;
 import org.banew.hdh.core.api.layers.data.entities.LocationEntity;
 import org.banew.hdh.core.api.layers.services.LocationService;
 import org.banew.hdh.core.api.layers.services.dto.ActionDto;
 import org.banew.hdh.core.api.layers.services.dto.AvailableComponent;
+import org.banew.hdh.core.api.layers.services.dto.LocationComponentDto;
 import org.banew.hdh.core.api.layers.services.dto.LocationDto;
 import org.banew.hdh.core.api.runtime.LocationComponent;
 import org.banew.hdh.core.api.runtime.LocationComponentAttributes;
@@ -21,6 +25,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class LocationServiceImpl implements LocationService {
 
     private final LocationRepository locationRepository;
+    private final ActionRepository actionRepository;
+    private final ComponentRepository componentRepository;
     private final ComponentsClassesManager classesManager;
     private final AuthorizationContext authorizationContext;
     private final BasicMapper basicMapper;
@@ -31,12 +37,14 @@ public class LocationServiceImpl implements LocationService {
 
     private final Set<String> enabledLocationsId = new HashSet<>();
 
-    public <T> LocationServiceImpl(LocationRepository locationRepository,
+    public <T> LocationServiceImpl(LocationRepository locationRepository, ActionRepository actionRepository, ComponentRepository componentRepository,
                                    ComponentsClassesManager classesManager,
                                    AuthorizationContext authorizationContext,
                                    BasicMapper basicMapper,
                                    ComponentsContextSource<T> componentsContextSource) {
         this.locationRepository = locationRepository;
+        this.actionRepository = actionRepository;
+        this.componentRepository = componentRepository;
         this.classesManager = classesManager;
         this.authorizationContext = authorizationContext;
         this.basicMapper = basicMapper;
@@ -58,23 +66,29 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public List<? extends LocationDto> getLocations() {
+    public List<LocationDto> getLocations() {
         return locationRepository.findByUser(authorizationContext.getCurrentUser()).stream()
                 .map(basicMapper::locationEntityToDto)
                 .toList();
     }
 
     @Override
-    public Optional<? extends LocationDto> getLocationById(String locationId) {
+    public Optional<LocationDto> getLocationById(String locationId) {
         return locationRepository.findById(locationId).map(basicMapper::locationEntityToDto);
+    }
+
+    @Override
+    public Optional<LocationComponentDto> getLocationComponentById(String locationId) {
+        return componentRepository.findById(locationId).map(basicMapper::componentEntityToDto);
     }
 
     @Override
     public LocationDto createLocation(String name, String desc) {
 
-        var location = locationRepository.create();
+        var location = new LocationEntity();
         location.setName(name);
         location.setDescription(desc);
+        location.setOwner(authorizationContext.getCurrentUser());
         locationRepository.save(location);
 
         return basicMapper.locationEntityToDto(location);
@@ -136,15 +150,14 @@ public class LocationServiceImpl implements LocationService {
         LocationEntity location = locationRepository.findById(locationId)
                 .orElseThrow(() -> new IllegalArgumentException("Location not found!"));
 
-
         String id = UUID.randomUUID().toString();
         var clazz = classesManager.getLocationComponentClass(classFullname);
 
-        var component = locationRepository.createComponent(
-                name,
-                properties,
-                clazz.getPackageName(),
-                clazz.getAnnotation(LocationComponentAttributes.class));
+        var component = new ComponentEntity();
+        component.setName(name);
+        component.setProperties(properties);
+        component.setFullClassName(classFullname);
+        component.setClassAttributes(clazz.getAnnotation(LocationComponentAttributes.class));
 
         location.getComponents().add(component);
         locationRepository.save(location);
@@ -179,11 +192,11 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public ActionDto addAction(String locationId, ActionDto action) {
 
-        var savedAction = locationRepository.createAction(
-                action.sourceComponentName(),
-                action.sourceArgs(),
-                action.targetComponentName(),
-                action.targetArgs());
+        var savedAction = new ActionEntity();
+        savedAction.setSourceArgs(action.sourceArgs());
+        savedAction.setTargetArgs(action.targetArgs());
+        savedAction.setSourceComponentName(action.sourceComponentName());
+        savedAction.setTargetComponentName(action.targetComponentName());
 
         var location = locationRepository.findById(locationId)
                 .orElseThrow(() -> new IllegalArgumentException("Location not found!"));

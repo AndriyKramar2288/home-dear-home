@@ -1,6 +1,8 @@
 package org.banew.hdh.fxapp.ui.views.main.component;
 
 import org.banew.hdh.core.api.layers.services.dto.AvailableComponent;
+
+import java.util.HashMap;
 import java.util.Map;
 
 public class ViewAvailableMode implements ComponentMode {
@@ -22,7 +24,7 @@ public class ViewAvailableMode implements ComponentMode {
         if (available.attributes() != null) {
             ui.getComponentDescription().setText(available.attributes().description());
             // Передаємо порожню мапу, бо це лише шаблон, і false (не редагується)
-            ui.refreshArguments(available.attributes(), Map.of(), false);
+            ui.refreshArguments(available.attributes(), new HashMap<>(), false);
         } else {
             ui.getComponentName().setText("--NO INFO--");
             ui.hideDynamicAreas();

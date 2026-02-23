@@ -5,7 +5,6 @@ import org.banew.hdh.core.api.layers.components.BasicMapper;
 import org.banew.hdh.core.api.layers.data.UserRepository;
 import org.banew.hdh.core.api.layers.data.entities.UserEntity;
 import org.banew.hdh.core.api.layers.services.UserService;
-import org.banew.hdh.core.api.layers.services.dto.DetailedUserDto;
 import org.banew.hdh.core.api.layers.services.dto.LoginForm;
 import org.banew.hdh.core.api.layers.services.dto.RegisterForm;
 import org.banew.hdh.core.api.layers.services.dto.UserDto;
@@ -31,22 +30,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public DetailedUserDto register(RegisterForm registerForm) {
+    public UserDto register(RegisterForm registerForm) {
         registerForm.validate();
 
-        UserEntity user = userRepository.create();
+        UserEntity user = new UserEntity();
         user.setEmail(registerForm.email());
         user.setPhotoSrc(registerForm.photoSrc());
         user.setPassword(passwordEncoder.encode(registerForm.password()));
         user.setUsername(registerForm.username());
         userRepository.save(user);
-        authorizationContext.setCurrentUser(user);
+        authorizationContext.setCurrentUserId(user.getId());
 
-        return basicMapper.userEntityToDetailedDto(user);
+        return basicMapper.userEntityToDto(user);
     }
 
     @Override
-    public DetailedUserDto login(LoginForm loginForm) {
+    public UserDto login(LoginForm loginForm) {
         // Логіка пошуку та перевірки
         var user = userRepository.findByUsername(loginForm.username())
                 .orElseThrow(() -> new IllegalArgumentException("Username or password is invalid"));
@@ -55,14 +54,14 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Username or password is invalid");
         }
 
-        authorizationContext.setCurrentUser(user);
-        return basicMapper.userEntityToDetailedDto(user);
+        authorizationContext.setCurrentUserId(user.getId());
+        return basicMapper.userEntityToDto(user);
     }
 
     @Override
-    public DetailedUserDto getCurrentUser() {
+    public UserDto getCurrentUser() {
         return authorizationContext.getCurrentUser() == null ? null
-                : basicMapper.userEntityToDetailedDto(authorizationContext.getCurrentUser());
+                : basicMapper.userEntityToDto(authorizationContext.getCurrentUser());
     }
 
     @Override
@@ -72,14 +71,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public DetailedUserDto login(String password) {
+    public UserDto login(String password) {
         UserEntity userInfo = userRepository
                 .findByLastTimeLoginAfterThan(LocalDateTime.now().minusDays(3))
                 .orElseThrow();
 
         if (passwordEncoder.matches(password, userInfo.getPassword())) {
-            authorizationContext.setCurrentUser(userInfo);
-            return basicMapper.userEntityToDetailedDto(userInfo);
+            authorizationContext.setCurrentUserId(userInfo.getId());
+            return basicMapper.userEntityToDto(userInfo);
         }
         else {
             throw new IllegalArgumentException("Wrong password!");
@@ -88,6 +87,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void logout() {
-        authorizationContext.setCurrentUser(null);
+        authorizationContext.setCurrentUserId(null);
     }
 }

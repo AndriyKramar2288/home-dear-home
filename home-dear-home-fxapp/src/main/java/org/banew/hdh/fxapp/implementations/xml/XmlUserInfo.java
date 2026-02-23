@@ -17,7 +17,10 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class XmlUserInfo implements UserEntity {
+@XmlRootElement(name = "user")
+public class XmlUserInfo {
+    @XmlAttribute(required = true)
+    private String id;
     @XmlAttribute(required = true)
     private String username;
     @XmlAttribute(required = true)
@@ -36,16 +39,4 @@ public class XmlUserInfo implements UserEntity {
     @XmlElementWrapper(name = "locations")
     @XmlElement(name = "location")
     private List<XmlLocation> locations = new ArrayList<>();
-
-    @Override
-    public List<LocationEntity> getLocations() {
-        return locations.stream().map(e -> (LocationEntity) e).toList();
-    }
-
-    @Override
-    public void setLocations(List<? extends LocationEntity> l) {
-        for (LocationEntity locationEntity : l) {
-            locations.add((XmlLocation) locationEntity);
-        }
-    }
 }

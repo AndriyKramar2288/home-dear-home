@@ -7,11 +7,11 @@ import java.util.Optional;
 
 public interface UserRepository {
 
-    UserEntity create();
+    Optional<UserEntity> findByUsername(String username);
 
-    Optional<? extends UserEntity> findByUsername(String username);
+    Optional<UserEntity> findByLastTimeLoginAfterThan(LocalDateTime lastTimeLogin);
 
-    Optional<? extends UserEntity> findByLastTimeLoginAfterThan(LocalDateTime lastTimeLogin);
+    void save(UserEntity user);
 
-    void save(UserEntity xmlUser);
+    Optional<UserEntity> findById(String id);
 }

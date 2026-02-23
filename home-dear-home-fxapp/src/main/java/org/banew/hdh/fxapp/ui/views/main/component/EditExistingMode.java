@@ -40,18 +40,19 @@ public class EditExistingMode implements ComponentMode {
 
     @Override
     public void onSaveClicked(ComponentInfo ui) {
-        // ТУТ БУДЕ ТВОЯ ЛОГІКА ЗБЕРЕЖЕННЯ (виклик сервісу і т.д.)
+
         System.out.println("Збережено властивості: " + editingProperties);
+        var updatedComponent = new LocationComponentDto(originalInfo.id(),
+                originalInfo.fullClassName(),
+                originalInfo.classAttributes(),
+                originalInfo.name(),
+                editingProperties);
 
         locationService.getLocationById(locationId).ifPresent(location -> {
             var newComponentsList = location.components().stream()
                     .map(dto -> {
                         if (dto.id().equals(originalInfo.id())) {
-                            return new LocationComponentDto(originalInfo.id(),
-                                    originalInfo.fullClassName(),
-                                    originalInfo.classAttributes(),
-                                    originalInfo.name(),
-                                    editingProperties);
+                            return updatedComponent;
                         }
                         else {
                             return dto;
@@ -67,7 +68,7 @@ public class EditExistingMode implements ComponentMode {
         });
 
         // Після збереження (або імітації) повертаємось у режим перегляду
-        ui.setMode(new ViewExistingMode(originalInfo, locationService));
+        ui.setMode(new ViewExistingMode(updatedComponent, locationService));
     }
 
     @Override

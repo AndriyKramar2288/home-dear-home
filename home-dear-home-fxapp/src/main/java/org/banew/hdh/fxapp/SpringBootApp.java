@@ -6,10 +6,13 @@ import org.banew.hdh.core.api.layers.components.AuthorizationContext;
 import org.banew.hdh.core.api.layers.components.BasicMapper;
 import org.banew.hdh.core.api.layers.components.ComponentsClassesManager;
 import org.banew.hdh.core.api.layers.components.ComponentsContextSource;
+import org.banew.hdh.core.api.layers.data.ActionRepository;
+import org.banew.hdh.core.api.layers.data.ComponentRepository;
 import org.banew.hdh.core.api.layers.data.LocationRepository;
 import org.banew.hdh.core.api.layers.data.UserRepository;
 import org.banew.hdh.core.implementations.LocationServiceImpl;
 import org.banew.hdh.core.implementations.UserServiceImpl;
+import org.banew.hdh.fxapp.implementations.services.XmlEntityMapper;
 import org.banew.hdh.fxapp.implementations.xml.*;
 import org.banew.hdh.fxapp.ui.JavaFXApp;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -39,6 +42,11 @@ public class SpringBootApp {
     }
 
     @Bean
+    public XmlEntityMapper xmlEntityMapper() {
+        return XmlEntityMapper.INSTANCE;
+    }
+
+    @Bean
     public ExecutorService executorService() {
         return Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     }
@@ -55,9 +63,13 @@ public class SpringBootApp {
     public LocationServiceImpl locationService(LocationRepository locationRepository,
                                                ComponentsClassesManager componentsClassesManager,
                                                BasicMapper basicMapper,
+                                               ComponentRepository componentRepository,
+                                               ActionRepository actionRepository,
                                                AuthorizationContext authorizationContext,
                                                ComponentsContextSource<?> componentsContextSource) {
         return new LocationServiceImpl(locationRepository,
+                actionRepository,
+                componentRepository,
                 componentsClassesManager,
                 authorizationContext,
                 basicMapper,
