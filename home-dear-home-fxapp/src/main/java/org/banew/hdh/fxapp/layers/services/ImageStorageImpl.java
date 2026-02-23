@@ -1,4 +1,4 @@
-package org.banew.hdh.fxapp.implementations.services;
+package org.banew.hdh.fxapp.layers.services;
 
 import org.banew.hdh.core.api.layers.components.ImageStorage;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package org.banew.hdh.fxapp;
+package org.banew.hdh.fxapp.utils;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;

@@ -1,7 +1,7 @@
-package org.banew.hdh.fxapp.implementations.services;
+package org.banew.hdh.fxapp.layers.services;
 
 import jakarta.xml.bind.*;
-import org.banew.hdh.fxapp.implementations.xml.XmlStorage;
+import org.banew.hdh.fxapp.layers.repo.xml.XmlStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

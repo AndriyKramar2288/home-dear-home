@@ -6,18 +6,16 @@ import org.banew.hdh.core.api.layers.components.AuthorizationContext;
 import org.banew.hdh.core.api.layers.components.BasicMapper;
 import org.banew.hdh.core.api.layers.components.ComponentsClassesManager;
 import org.banew.hdh.core.api.layers.components.ComponentsContextSource;
-import org.banew.hdh.core.api.layers.data.ActionRepository;
 import org.banew.hdh.core.api.layers.data.ComponentRepository;
 import org.banew.hdh.core.api.layers.data.LocationRepository;
 import org.banew.hdh.core.api.layers.data.UserRepository;
 import org.banew.hdh.core.implementations.LocationServiceImpl;
 import org.banew.hdh.core.implementations.UserServiceImpl;
-import org.banew.hdh.fxapp.implementations.services.XmlEntityMapper;
-import org.banew.hdh.fxapp.implementations.xml.*;
+import org.banew.hdh.fxapp.layers.services.XmlEntityMapper;
 import org.banew.hdh.fxapp.ui.JavaFXApp;
+import org.banew.hdh.fxapp.utils.ReflectionsUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -64,11 +62,9 @@ public class SpringBootApp {
                                                ComponentsClassesManager componentsClassesManager,
                                                BasicMapper basicMapper,
                                                ComponentRepository componentRepository,
-                                               ActionRepository actionRepository,
                                                AuthorizationContext authorizationContext,
                                                ComponentsContextSource<?> componentsContextSource) {
         return new LocationServiceImpl(locationRepository,
-                actionRepository,
                 componentRepository,
                 componentsClassesManager,
                 authorizationContext,
@@ -79,7 +75,7 @@ public class SpringBootApp {
     @Bean
     public JAXBContext jaxbContext() {
         try {
-            return ReflectionsUtils.createDynamicContext("org.banew.hdh.fxapp.implementations.xml");
+            return ReflectionsUtils.createDynamicContext("org.banew.hdh.fxapp.layers.repo.xml");
         } catch (JAXBException e) {
             throw new RuntimeException(e);
         }

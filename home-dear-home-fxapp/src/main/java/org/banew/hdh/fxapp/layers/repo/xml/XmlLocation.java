@@ -1,10 +1,7 @@
-package org.banew.hdh.fxapp.implementations.xml;
+package org.banew.hdh.fxapp.layers.repo.xml;
 
 import jakarta.xml.bind.annotation.*;
 import lombok.*;
-import org.banew.hdh.core.api.layers.data.entities.ComponentEntity;
-import org.banew.hdh.core.api.layers.data.entities.LocationEntity;
-import org.banew.hdh.core.api.layers.data.entities.ActionEntity;
 
 import java.util.ArrayList;
 import java.util.List;

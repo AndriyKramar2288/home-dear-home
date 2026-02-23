@@ -1,11 +1,10 @@
-package org.banew.hdh.fxapp.implementations.repo;
+package org.banew.hdh.fxapp.layers.repo;
 
 import lombok.RequiredArgsConstructor;
-import org.banew.hdh.core.api.layers.components.AuthorizationContext;
 import org.banew.hdh.core.api.layers.data.LocationRepository;
 import org.banew.hdh.core.api.layers.data.entities.LocationEntity;
 import org.banew.hdh.core.api.layers.data.entities.UserEntity;
-import org.banew.hdh.fxapp.implementations.services.XmlEntityMapper;
+import org.banew.hdh.fxapp.layers.services.XmlEntityMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
-public class LocationRepositoryImpl implements LocationRepository {
+class LocationRepositoryImpl implements LocationRepository {
 
     private final XmlDataContainer xmlDataContainer;
     private final XmlEntityMapper xmlEntityMapper;

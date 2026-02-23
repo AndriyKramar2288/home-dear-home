@@ -1,33 +1,28 @@
-package org.banew.hdh.fxapp.implementations.repo;
+package org.banew.hdh.fxapp.layers.repo;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import jakarta.xml.bind.JAXBException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.banew.hdh.core.api.layers.components.AuthorizationContext;
 import org.banew.hdh.core.api.layers.components.ComponentsClassesManager;
 import org.banew.hdh.core.api.layers.services.dto.AvailableComponent;
 import org.banew.hdh.core.api.runtime.LocationComponent;
 import org.banew.hdh.core.api.runtime.LocationComponentAttributes;
-import org.banew.hdh.fxapp.ReflectionsUtils;
-import org.banew.hdh.fxapp.implementations.services.XmlService;
+import org.banew.hdh.fxapp.utils.ReflectionsUtils;
+import org.banew.hdh.fxapp.layers.services.XmlService;
 import org.banew.hdh.fxapp.implementations.runtime.DesktopLocationComponent;
-import org.banew.hdh.fxapp.implementations.xml.XmlStorage;
-import org.banew.hdh.fxapp.implementations.xml.XmlUserInfo;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.banew.hdh.fxapp.layers.repo.xml.XmlStorage;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class XmlDataContainer implements ComponentsClassesManager {
+class XmlDataContainer implements ComponentsClassesManager {
 
     private final XmlService xmlService;
 

@@ -1,32 +1,32 @@
-package org.banew.hdh.fxapp.implementations.repo;
+package org.banew.hdh.fxapp.layers.repo;
 
 import lombok.RequiredArgsConstructor;
-import org.banew.hdh.core.api.layers.components.AuthorizationContext;
-import org.banew.hdh.fxapp.implementations.services.XmlEntityMapper;
+import org.banew.hdh.fxapp.layers.services.XmlEntityMapper;
 import org.banew.hdh.core.api.layers.data.UserRepository;
 import org.banew.hdh.core.api.layers.data.entities.UserEntity;
-import org.banew.hdh.fxapp.implementations.xml.XmlUserInfo;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
-public class UserRepositoryImpl implements UserRepository {
+class UserRepositoryImpl implements UserRepository {
 
     private final XmlDataContainer data;
     private final XmlEntityMapper mapper;
 
     @Override
-    public Optional<UserEntity> findByUsername(String username) {
+    public List<UserEntity> findByUsername(String username) {
         return data.getXmlStorage().getUsers().stream()
                 .filter(u -> u.getUsername().equals(username))
                 .map(mapper::userXmlToEntity)
-                .findFirst();
+                .toList();
     }
 
     @Override
@@ -39,6 +39,10 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void save(UserEntity user) {
+
+        if (user.getId() == null) {
+            user.setId(UUID.randomUUID().toString());
+        }
 
         var currentUserOptional = data.getXmlStorage().getUsers().stream()
                 .filter(u -> u.getId().equals(user.getId()))

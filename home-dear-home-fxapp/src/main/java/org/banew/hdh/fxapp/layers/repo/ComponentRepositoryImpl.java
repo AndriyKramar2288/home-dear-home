@@ -1,16 +1,16 @@
-package org.banew.hdh.fxapp.implementations.repo;
+package org.banew.hdh.fxapp.layers.repo;
 
 import lombok.RequiredArgsConstructor;
 import org.banew.hdh.core.api.layers.data.ComponentRepository;
 import org.banew.hdh.core.api.layers.data.entities.ComponentEntity;
-import org.banew.hdh.fxapp.implementations.services.XmlEntityMapper;
+import org.banew.hdh.fxapp.layers.services.XmlEntityMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class ComponentRepositoryImpl implements ComponentRepository {
+class ComponentRepositoryImpl implements ComponentRepository {
 
     private final XmlDataContainer xmlDataContainer;
     private final XmlEntityMapper xmlEntityMapper;

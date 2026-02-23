@@ -14,8 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.banew.hdh.core.api.layers.components.ImageStorage;
 import org.banew.hdh.core.api.layers.services.dto.RegisterForm;
 import org.banew.hdh.core.api.layers.services.UserService;
-import org.banew.hdh.fxapp.implementations.services.AsyncRunner;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.banew.hdh.fxapp.layers.services.AsyncRunner;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -83,7 +82,7 @@ public class Registration {
                     registrationPasswordField.getText(),
                     registrationRepeatPasswordField.getText(),
                     registrationEmailField.getText(),
-                    imageUri.toString()
+                    imageUri == null ? null : imageUri.toString()
             )), u -> {
                 primary.setCurrentState(Primary.PrimaryState.LOCATION_CHOOSE);
             }, e -> {

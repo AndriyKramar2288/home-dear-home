@@ -6,7 +6,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import lombok.Setter;
 import org.banew.hdh.core.api.layers.services.LocationService;
-import org.banew.hdh.fxapp.implementations.services.ComponentsContextImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

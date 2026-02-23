@@ -1,4 +1,4 @@
-package org.banew.hdh.fxapp.implementations.services;
+package org.banew.hdh.fxapp.layers.services;
 
 import lombok.RequiredArgsConstructor;
 import org.banew.hdh.core.api.layers.components.AuthorizationContext;

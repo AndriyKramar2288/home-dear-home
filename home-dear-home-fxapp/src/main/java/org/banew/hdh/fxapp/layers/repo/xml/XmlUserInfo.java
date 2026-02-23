@@ -1,13 +1,11 @@
-package org.banew.hdh.fxapp.implementations.xml;
+package org.banew.hdh.fxapp.layers.repo.xml;
 
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.banew.hdh.core.api.layers.data.entities.LocationEntity;
-import org.banew.hdh.core.api.layers.data.entities.UserEntity;
-import org.banew.hdh.fxapp.implementations.LocalDateTimeAdapter;
+import org.banew.hdh.fxapp.utils.LocalDateTimeAdapter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

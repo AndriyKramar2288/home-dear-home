@@ -1,4 +1,4 @@
-package org.banew.hdh.fxapp.implementations.services;
+package org.banew.hdh.fxapp.layers.services;
 
 import javafx.application.Platform;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +28,9 @@ public class AsyncRunner {
             });
         }).exceptionally(e -> {
             // Витягуємо реальну причину (cause) з обгортки
-            Throwable cause = (e.getCause() != null) ? e.getCause() : e;
+            Throwable cause = (e.getCause() != null) ? e.getCause().getCause() : e;
             Platform.runLater(() -> {
+                e.printStackTrace();
                 failure.accept((Exception) cause);
             });
             return null; // exceptionally має щось повернути

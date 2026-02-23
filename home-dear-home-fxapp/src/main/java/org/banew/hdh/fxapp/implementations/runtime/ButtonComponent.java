@@ -10,7 +10,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import org.banew.hdh.core.api.runtime.LocationComponentAttributes;
 import org.banew.hdh.core.api.runtime.components.Data;
-import org.banew.hdh.fxapp.implementations.services.ComponentsContextImpl;
+import org.banew.hdh.fxapp.layers.services.ComponentsContextImpl;
 
 import java.util.Map;
 import java.util.function.Consumer;

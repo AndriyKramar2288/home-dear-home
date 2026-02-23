@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto login(LoginForm loginForm) {
         // Логіка пошуку та перевірки
-        var user = userRepository.findByUsername(loginForm.username())
+        var user = userRepository.findByUsername(loginForm.username()).stream().findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Username or password is invalid"));
 
         if (!passwordEncoder.matches(loginForm.password(), user.getPassword())) {

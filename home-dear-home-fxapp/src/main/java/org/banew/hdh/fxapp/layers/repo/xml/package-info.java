@@ -5,7 +5,7 @@
                 @XmlNs(prefix = "hdh", namespaceURI = "com.banew/home-dear-home/storage")
         }
 )
-package org.banew.hdh.fxapp.implementations.xml;
+package org.banew.hdh.fxapp.layers.repo.xml;
 
 import jakarta.xml.bind.annotation.XmlNs;
 import jakarta.xml.bind.annotation.XmlNsForm;

@@ -4,7 +4,6 @@ import org.banew.hdh.core.api.layers.components.AuthorizationContext;
 import org.banew.hdh.core.api.layers.components.BasicMapper;
 import org.banew.hdh.core.api.layers.components.ComponentsClassesManager;
 import org.banew.hdh.core.api.layers.components.ComponentsContextSource;
-import org.banew.hdh.core.api.layers.data.ActionRepository;
 import org.banew.hdh.core.api.layers.data.ComponentRepository;
 import org.banew.hdh.core.api.layers.data.LocationRepository;
 import org.banew.hdh.core.api.layers.data.entities.ActionEntity;
@@ -25,7 +24,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class LocationServiceImpl implements LocationService {
 
     private final LocationRepository locationRepository;
-    private final ActionRepository actionRepository;
     private final ComponentRepository componentRepository;
     private final ComponentsClassesManager classesManager;
     private final AuthorizationContext authorizationContext;
@@ -37,13 +35,12 @@ public class LocationServiceImpl implements LocationService {
 
     private final Set<String> enabledLocationsId = new HashSet<>();
 
-    public <T> LocationServiceImpl(LocationRepository locationRepository, ActionRepository actionRepository, ComponentRepository componentRepository,
+    public <T> LocationServiceImpl(LocationRepository locationRepository, ComponentRepository componentRepository,
                                    ComponentsClassesManager classesManager,
                                    AuthorizationContext authorizationContext,
                                    BasicMapper basicMapper,
                                    ComponentsContextSource<T> componentsContextSource) {
         this.locationRepository = locationRepository;
-        this.actionRepository = actionRepository;
         this.componentRepository = componentRepository;
         this.classesManager = classesManager;
         this.authorizationContext = authorizationContext;

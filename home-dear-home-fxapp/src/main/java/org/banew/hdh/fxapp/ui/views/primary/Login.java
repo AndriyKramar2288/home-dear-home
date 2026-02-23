@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 import lombok.RequiredArgsConstructor;
 import org.banew.hdh.core.api.layers.services.UserService;
 import org.banew.hdh.core.api.layers.services.dto.LoginForm;
-import org.banew.hdh.fxapp.implementations.services.AsyncRunner;
+import org.banew.hdh.fxapp.layers.services.AsyncRunner;
 import org.springframework.stereotype.Component;
 
 import static org.banew.hdh.fxapp.ui.ControllerUtils.showTimedAlert;
