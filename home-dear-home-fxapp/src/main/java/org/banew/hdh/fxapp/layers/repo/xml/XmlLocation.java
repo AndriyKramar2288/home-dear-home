@@ -25,6 +25,6 @@ public class XmlLocation {
     @XmlElementWrapper(name = "actions", required = true)
     @XmlElement(name = "action")
     private List<XmlAction> actions = new ArrayList<>();
-    @XmlElementRef
-    private XmlUserInfo owner;
+    @XmlAttribute(name = "owner-id", required = true)
+    private String ownerId;
 }

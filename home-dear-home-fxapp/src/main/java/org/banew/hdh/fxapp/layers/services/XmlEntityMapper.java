@@ -7,6 +7,7 @@ import org.banew.hdh.fxapp.layers.repo.xml.XmlLocation;
 import org.banew.hdh.fxapp.layers.repo.xml.XmlLocationComponent;
 import org.banew.hdh.fxapp.layers.repo.xml.XmlUserInfo;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
@@ -21,5 +22,6 @@ public interface XmlEntityMapper {
 
     ComponentEntity componentXmlToEntity(XmlLocationComponent xmlLocationComponent);
 
+    @Mapping(source = "ownerId", target = "ownerId")
     XmlLocation locationEntityToXml(LocationEntity location);
 }

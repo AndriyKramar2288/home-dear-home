@@ -14,5 +14,5 @@ public class LocationEntity {
     private String description;
     private List<ComponentEntity> components = new ArrayList<>();
     private List<ActionEntity> actions = new ArrayList<>();
-    private UserEntity owner;
+    private String ownerId;
 }

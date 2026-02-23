@@ -85,7 +85,7 @@ public class LocationServiceImpl implements LocationService {
         var location = new LocationEntity();
         location.setName(name);
         location.setDescription(desc);
-        location.setOwner(authorizationContext.getCurrentUser());
+        location.setOwnerId(authorizationContext.getCurrentUser().getId());
         locationRepository.save(location);
 
         return basicMapper.locationEntityToDto(location);

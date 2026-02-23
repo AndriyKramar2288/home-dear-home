@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 class LocationRepositoryImpl implements LocationRepository {
 
-    private final XmlDataContainer xmlDataContainer;
     private final XmlEntityMapper xmlEntityMapper;
     private final XmlDataContainer data;
 
@@ -30,8 +29,8 @@ class LocationRepositoryImpl implements LocationRepository {
 
         AtomicBoolean changed = new AtomicBoolean(false);
 
-        var actualUser = xmlDataContainer.getXmlStorage().getUsers().stream()
-                .filter(u -> u.getId().equals(location.getOwner().getId()))
+        var actualUser = data.getXmlStorage().getUsers().stream()
+                .filter(u -> u.getId().equals(location.getOwnerId()))
                 .findFirst().orElseThrow();
 
         actualUser.setLocations(actualUser.getLocations().stream()
